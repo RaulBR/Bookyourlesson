@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
@@ -64,6 +65,7 @@ private	boolean isFree = true;
 	}
 
 	public void save(Schedule schedule) {
+		
 		s.add(schedule);
 
 	}
@@ -71,6 +73,10 @@ private	boolean isFree = true;
 	public boolean getIsFree() {
 		return isFree;
 
+	}
+	public Collection<Schedule> getAll(){
+		return s;
+		
 	}
 
 }

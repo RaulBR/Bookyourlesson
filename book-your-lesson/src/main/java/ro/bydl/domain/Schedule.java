@@ -5,6 +5,7 @@ public class Schedule {
 	private String endHour;
 	private String date;
 	private int week;
+	private boolean isFree;
 	public int getWeek() {
 		return week;
 	}
@@ -72,6 +73,14 @@ public class Schedule {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public boolean isFree() {
+		return isFree;
+	}
+
+	public void setFree(boolean isFree) {
+		this.isFree = isFree;
 	}
 
 }

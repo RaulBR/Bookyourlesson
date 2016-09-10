@@ -24,8 +24,8 @@
   [#escape x as x?html]
   <body>
   <h1> Schedule leson</h1>
-  <h3> name utilizator </h3>
-  <h3> name Instructor </h3>
+  	<h3>    Untiliztor: ${name} </h3>
+  <h4> name Instructor </h4>
   <p></p>
   <table class="table">
   <thead>
@@ -57,14 +57,12 @@
 	  	<td align="center"><strong>${hour} - ${endHour}</strong></td>
 	  	[#list dayList as day]
 	  		[#if cal.isFree == true]
+	  		
 	  			<td align="center"> <p><a href="/schedule/saveDate?starHour=${hour}&endHour=${endHour}&date=${day}&week=${cal.week?c}" class="btn btn-default" role="button">Book Lesson</a> </p></td>
+	  		
 	  		[#else]
 	  		<td align="center">event</td>
-	  			[#if hour == 12]
-	  				
-	  			[#else]
-	  				<td>event</td>
-	  			[/#if]
+	  		
 	  		[/#if]
 	  [/#list]
 	  </tr>
