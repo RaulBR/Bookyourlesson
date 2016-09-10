@@ -24,56 +24,78 @@
   [#escape x as x?html]
   <body>
   <h1> Schedule leson</h1>
-  	<h3>    Untiliztor: ${name} </h3>
-  <h4> name Instructor </h4>
-  <p></p>
+  	<h3>[#if name??]${name!''}[#else]Vizitator[/#if] </h3>
+  <h4> [#if instructorName??]${instructorName!''}[#else]No theacher[/#if] </h4>
+  <p>[#list schedules as a]
+  ${a.date}  ora: ${a.startHour} 
+ 
+  [/#list]</p>
   <table class="table">
   <thead>
      <tr align="center">
     <th >Hour
     <p> </p></th>
     <th>Monday
-    <p>${cal.monday}</p></th>
+    <p>${cal.monday!''}</p></th>
     <th>Tuesday
-    <p>${cal.tuesday}</p></th>
+    <p>${cal.tuesday!''}</p></th>
     <th>Wednesday
-    <p>${cal.wednesday}</p></th>
+    <p>${cal.wednesday!''}</p></th>
     <th>Thursday
-    <p>${cal.thursday}</p></th>
+    <p>${cal.thursday!''}</p></th>
     <th>Friday
-    <p>${cal.friday}</p></th>
+    <p>${cal.friday!''}</p></th>
     <th>Saturday
-    <p>${cal.saturday}</p></th>
+    <p>${cal.saturday!''}</p></th>
     <th>Sunday
-    <p>${cal.sunday}</p></th>
+    <p>${cal.sunday!''}</p></th>
     
   </tr>
   
+
+  
   [#assign hourList = [8, 10, 12, 14, 16, 18]]
+  
   [#assign dayList = [cal.monday, cal.tuesday, cal.wednesday,cal.thursday, cal.friday, cal.saturday, cal.sunday]]
   [#list hourList as hour]
 	  [#assign endHour = hour + 2]
   	  <tr>
 	  	<td align="center"><strong>${hour} - ${endHour}</strong></td>
+	  	
 	  	[#list dayList as day]
-	  		[#if cal.isFree == true]
+	  	[#assign notFree = false]
+	  		[#if schedules??]
+	  			[#list schedules as schedule]
+	  				[#if schedule.startHour == hour]
+	  				[#if schedule.date== day]
+	  				[#assign notFree = true]
+	  				[#break]
+	  					[/#if]
+
+	  				[/#if]
+	  			[/#list]
+	  			[/#if]
+	  			[#if notFree== true]
+	  			
+	  			
+	  		<td align="center"> <p>event </p></td>
+	  		[#else] 
 	  		
-	  			<td align="center"> <p><a href="/schedule/saveDate?starHour=${hour}&endHour=${endHour}&date=${day}&week=${cal.week?c}" class="btn btn-default" role="button">Book Lesson</a> </p></td>
-	  		
-	  		[#else]
-	  		<td align="center">event</td>
-	  		
-	  		[/#if]
+	  		<td align="center"> <p><a href="/schedule/saveDate?startHour=${hour}&endHour=${endHour}&date=${day}&week=${cal.week?c}" class="btn btn-default" role="button">Book Lesson</a> </p></td>
+	  		[/#if]	
+	  	  		
+	  	  	  
 	  [/#list]
 	  </tr>
   [/#list]
   
   </tbody>
+
 </table>
 <nav aria-label="...">
   <ul class="pager">
     <li><a href="/schedule/previousWeek?week=${cal.week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
-    <li><a href="/schedule">This week</a></li>
+    <li><a href="/schedule/thisWeek">This week</a></li>
     <li><a href="/schedule/nextWeek?week=${cal.week?c}">Next week</a></li>
   </ul>
 </nav>

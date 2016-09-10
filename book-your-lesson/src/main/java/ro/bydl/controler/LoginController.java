@@ -21,14 +21,22 @@ import ro.bydl.domain.Vehicle;
 @SessionAttributes("name")
 public class LoginController {
 	
-
+	@RequestMapping(value="", method=RequestMethod.GET)
+    public ModelAndView mainPage(HttpSession session) {
+        ModelAndView mav = new ModelAndView("d");
+        String sid = session.getId();
+        session.setAttribute("name", new Person());
+        
+        mav.addObject("sid", sid);
+        return mav; 
+    }
 	@RequestMapping("/add")
 	public ModelAndView add(@Valid @ModelAttribute("person")Person p, 
 			BindingResult bindingResult,HttpSession session){
 		
 		session.setAttribute("name", p.getName());
 		ModelAndView modelandView =new ModelAndView("c");
-		modelandView.addObject("person",p);
+		modelandView.addObject("person",p.getName());
 		
 		return modelandView;
 		

@@ -3,7 +3,7 @@ package ro.bydl.service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class CalendarService {
+public class CalendarService implements CalendarInterface{
 
 	private String monday;
 	private String tuesday;
@@ -12,13 +12,7 @@ public class CalendarService {
 	private String friday;
 	private String saturday;
 	private String sunday;
-	private int week;
-
-	public int setWeek() {
-		week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
-		return week;
-
-	}
+	private int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
 	public int getWeek() {
 
@@ -26,13 +20,17 @@ public class CalendarService {
 
 	}
 
-	public void setWeek(int week2) {
-		week = week2 + 1;
+	public void setWeek(int week) {
+		this.week = week + 1;
 
 	}
 
-	public void setPreviousWeek(int week2) {
-		week = week2 - 1;
+	public void setPreviousWeek(int week) {
+		this.week = week - 1;
+
+	}
+	public void setThisWeek() {
+		this.week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
 	}
 
