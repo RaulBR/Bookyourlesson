@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -22,34 +23,16 @@ import ro.bydl.service.ScheduleService;
 public class ScheduleControler {
 	@Autowired
 	private ScheduleService scheduleService;
-private int cout=0;
+	
+
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
 		ModelAndView result = new ModelAndView("sc");
-		
-//		if(cout==0){
-//		Schedule schedule=new Schedule();
-//		
-//		schedule.setDate("05.09.2016");
-//		schedule.setStartHour("8");
-//		schedule.setFree(false);
-//		Schedule schedule1=new Schedule();
-//		schedule1.setDate("05.09.2016");
-//		schedule1.setStartHour("10");
-//		schedule1.setFree(false);
-//		Schedule schedule2=new Schedule();
-//		schedule2.setDate("06.09.2016");
-//		schedule2.setStartHour("12");
-//		schedule2.setFree(false);
-//		
-//		scheduleService.save(schedule);
-//		scheduleService.save(schedule1);
-//		scheduleService.save(schedule2);
-//		cout++;
-//		}
-		result.addObject("cal", scheduleService);
 
-		result.addObject("schedules", scheduleService.getAll());
+		result.addObject("cal", scheduleService);
+		result.addObject("weekDay", scheduleService.getAll());
+		result.addObject("schedules", scheduleService.getScheduels());
+		result.addObject("progress", scheduleService.countSchedules());
 		result.addObject("name", session.getAttribute("name"));
 
 		return result;
@@ -84,29 +67,30 @@ private int cout=0;
 		result.setView(new RedirectView(""));
 		return result;
 	}
-	// @RequestMapping("/setDate")
-	// public ModelAndView setdate(int starHour,int endHour,String date, int
-	// week) throws Exception {
-	// ScheduleService s=new ScheduleService();
-	//
-	// s.setWeek(week-1);
-	// ModelAndView result = new ModelAndView("sc");
-	//
-	// result.addObject("cal",s);
-	//
-	//
-	//
-	// return result;
-	// }
 
-	@RequestMapping("saveDate")
-	public ModelAndView save(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult) {
+	@RequestMapping(value = "saveDate", method = RequestMethod.POST)
+	public ModelAndView save(@Valid @ModelAttribute("schedules") Schedule schedule, BindingResult bindingResult,
+			HttpSession sessio) {
+		ModelAndView modelAndView = new ModelAndView("");
+		scheduleService.setWeek(schedule.getWeek() - 1);
+
+		scheduleService.save(schedule);
+
+		modelAndView.setView(new RedirectView(""));
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "removeDate", method = RequestMethod.POST)
+	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
+			HttpSession sessio) {
 		ModelAndView modelAndView = new ModelAndView();
 		scheduleService.setWeek(schedule.getWeek() - 1);
-		scheduleService.checkIfFree(schedule);
-		scheduleService.save(schedule);
+
+		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
-		// modelAndView.addObject("cal",scheduleService);;
+
 		return modelAndView;
+
 	}
 }

@@ -1,11 +1,35 @@
 package ro.bydl.domain;
 
-public class Schedule {
+public class Schedule extends AbstractModel {
+	@Override
+	public String toString() {
+		return "Schedule [startHour=" + startHour + ", endHour=" + endHour + ", date=" + date + ", week=" + week
+				+ ", isFree=" + isFree + ", studentName=" + studentName + ", teacherName=" + teacherName + "]";
+	}
+
 	private int startHour;
 	private int endHour;
 	private String date;
 	private int week;
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public String getTeacherName() {
+		return teacherName;
+	}
+
+	public void setTeacherName(String teacherName) {
+		this.teacherName = teacherName;
+	}
+
 	private boolean isFree;
+	private String studentName;
+	private String teacherName;
 	public int getWeek() {
 		return week;
 	}
@@ -54,6 +78,8 @@ public class Schedule {
 		result = prime * result + endHour;
 		result = prime * result + (isFree ? 1231 : 1237);
 		result = prime * result + startHour;
+		result = prime * result + ((studentName == null) ? 0 : studentName.hashCode());
+		result = prime * result + ((teacherName == null) ? 0 : teacherName.hashCode());
 		result = prime * result + week;
 		return result;
 	}
@@ -78,10 +104,24 @@ public class Schedule {
 			return false;
 		if (startHour != other.startHour)
 			return false;
+		if (studentName == null) {
+			if (other.studentName != null)
+				return false;
+		} else if (!studentName.equals(other.studentName))
+			return false;
+		if (teacherName == null) {
+			if (other.teacherName != null)
+				return false;
+		} else if (!teacherName.equals(other.teacherName))
+			return false;
 		if (week != other.week)
 			return false;
 		return true;
 	}
+
+	
+
+	
 
 	
 

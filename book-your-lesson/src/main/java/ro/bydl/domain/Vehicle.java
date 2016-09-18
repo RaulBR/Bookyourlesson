@@ -1,11 +1,11 @@
 package ro.bydl.domain;
 
-public abstract class Vehicle {
+public class Vehicle extends AbstractModel{
 	private String brand;
 	private String _type;
 	private String fuel;
 	private String chassis;
-	private String engine;
+	private int engine;
 	private String licensePlate;
 	private boolean vignettes;
 	private boolean insurance;
@@ -36,10 +36,10 @@ public abstract class Vehicle {
 	public void setChassis(String chassis) {
 		this.chassis = chassis;
 	}
-	public String getEngine() {
+	public int getEngine() {
 		return engine;
 	}
-	public void setEngine(String engine) {
+	public void setEngine(int engine) {
 		this.engine = engine;
 	}
 	public String getLicensePlate() {

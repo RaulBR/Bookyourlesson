@@ -1,17 +1,11 @@
 package ro.bydl.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CalendarService implements CalendarInterface{
+public class CalendarService implements CalendarInterface {
 
-	private String monday;
-	private String tuesday;
-	private String wednesday;
-	private String thursday;
-	private String friday;
-	private String saturday;
-	private String sunday;
 	private int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
 	public int getWeek() {
@@ -29,6 +23,7 @@ public class CalendarService implements CalendarInterface{
 		this.week = week - 1;
 
 	}
+
 	public void setThisWeek() {
 		this.week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
@@ -39,8 +34,8 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, week);
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		monday = (sdf.format(cal.getTime()));
-		return monday;
+
+		return (sdf.format(cal.getTime()));
 	}
 
 	public String getTuesday() {
@@ -48,8 +43,8 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, getWeek());
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-		tuesday = (sdf.format(cal.getTime()));
-		return tuesday;
+
+		return (sdf.format(cal.getTime()));
 	}
 
 	public String getWednesday() {
@@ -57,8 +52,8 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, getWeek());
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-		wednesday = (sdf.format(cal.getTime()));
-		return wednesday;
+
+		return (sdf.format(cal.getTime()));
 	}
 
 	public String getThursday() {
@@ -66,8 +61,8 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, getWeek());
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-		thursday = (sdf.format(cal.getTime()));
-		return thursday;
+
+		return (sdf.format(cal.getTime()));
 	}
 
 	public String getFriday() {
@@ -75,8 +70,8 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, getWeek());
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-		friday = (sdf.format(cal.getTime()));
-		return friday;
+
+		return (sdf.format(cal.getTime()));
 	}
 
 	public String getSaturday() {
@@ -84,8 +79,8 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, getWeek());
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-		saturday = (sdf.format(cal.getTime()));
-		return saturday;
+
+		return (sdf.format(cal.getTime()));
 	}
 
 	public String getSunday() {
@@ -93,8 +88,22 @@ public class CalendarService implements CalendarInterface{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.WEEK_OF_YEAR, getWeek() + 1);
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		sunday = (sdf.format(cal.getTime()));
-		return sunday;
+
+		return (sdf.format(cal.getTime()));
+	}
+
+	public ArrayList<String> getAll() {
+		ArrayList<String> s = new ArrayList<>();
+		s.add(getMonday());
+		s.add(getTuesday());
+		s.add(getWednesday());
+		s.add(getThursday());
+		s.add(getFriday());
+		s.add(getSaturday());
+		s.add(getSunday());
+
+		return s;
+
 	}
 
 }

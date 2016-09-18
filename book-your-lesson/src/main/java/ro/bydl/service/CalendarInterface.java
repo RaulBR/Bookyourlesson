@@ -5,8 +5,7 @@ public interface CalendarInterface {
 
 		public void setWeek(int week);
 
-		public void setPreviousWeek(int week) ;
-		public void setThisWeek() ;
+	
 
 		public String getMonday() ;
 

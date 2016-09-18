@@ -3,43 +3,31 @@ package ro.bydl.service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ro.bydl.dao.ScheduleDao;
 import ro.bydl.domain.Schedule;
 
 @Service
 public class ScheduleService extends CalendarService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleService.class);
+	
 
-private	boolean isFree = true;
+	@Autowired
+	private ScheduleDao dao;
 
-	ArrayList<Schedule> s = new ArrayList<>();
 
-	public boolean checkIfFree(Schedule toBeCHecked) {
-
-		ArrayList<Schedule> sq = new ArrayList<>();
-		// TODO change getSchedule() to get form db!
-
-		sq = s;
-
-		for (Schedule s : sq) {
-
-			if (s.equals(toBeCHecked)) {
-
-				isFree = false;
-
-			}
-		}
-
-		return isFree;
-
-	}
-
+	
 	public int validate(Schedule schedule) throws ValidationException {
 
 		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
@@ -59,24 +47,30 @@ private	boolean isFree = true;
 
 	}
 
-	private ArrayList<Schedule> getScheduels() {
+	public Collection<Schedule> getScheduels() {
 
-		return s;
+		return dao.getAll();
 	}
 
 	public void save(Schedule schedule) {
+
+		LOGGER.debug("Saving: " + schedule);
+		dao.update(schedule);
+
+	}
+
+	public void delete(Schedule schedule) {
+		LOGGER.debug("Deleting: " + schedule);
+		dao.delete(schedule);
+
+	}
+	public int countSchedules(){
+		System.out.println(dao.getAll().size()*100/3);
+		return (dao.getAll().size()*100/30);
 		
-		s.add(schedule);
-
 	}
 
-	public boolean getIsFree() {
-		return isFree;
-
-	}
-	public Collection<Schedule> getAll(){
-		return s;
-		
-	}
+	
+	
 
 }
