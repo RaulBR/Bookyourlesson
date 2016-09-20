@@ -1,41 +1,76 @@
 package ro.bydl.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ro.bydl.dao.ScheduleDao;
 import ro.bydl.domain.Schedule;
 
-public class ScheduleService {
+@Service
+public class ScheduleService extends CalendarService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleService.class);
+	
 
-	boolean isFree = true;
-	ArrayList<Schedule> s = new ArrayList<>();
+	@Autowired
+	private ScheduleDao dao;
 
-	public boolean checkIfFree(Schedule toBeCHecked) {
 
-		ArrayList<Schedule> sq = new ArrayList<>();
-		// TODO change getSchedule() to get form db!
+	
+	public int validate(Schedule schedule) throws ValidationException {
 
-		sq = getScheduels();
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		Calendar cal = Calendar.getInstance();
 
-		for (Schedule s : sq) {
+		try {
+			cal.setTime(df.parse(schedule.getDate()));
+		} catch (ParseException e) {
 
-			if (s.equals(toBeCHecked)) {
-				isFree = false;
-
-			}
+			e.printStackTrace();
+		}
+		if (cal.get(Calendar.YEAR) > Calendar.getInstance().get(Calendar.YEAR) + 1) {
+			System.out.println("error");
 		}
 
-		return isFree;
+		return Calendar.getInstance().get(Calendar.YEAR);
 
 	}
 
-	void setScheduels(ArrayList<Schedule> s) {
+	public Collection<Schedule> getScheduels() {
 
-		this.s = s;
+		return dao.getAll();
 	}
 
-	private ArrayList<Schedule> getScheduels() {
+	public void save(Schedule schedule) {
 
-		return s;
+		LOGGER.debug("Saving: " + schedule);
+		dao.update(schedule);
+
 	}
+
+	public void delete(Schedule schedule) {
+		LOGGER.debug("Deleting: " + schedule);
+		dao.delete(schedule);
+
+	}
+	public int countSchedules(){
+		System.out.println(dao.getAll().size()*100/3);
+		return (dao.getAll().size()*100/30);
+		
+	}
+
+	
+	
 
 }

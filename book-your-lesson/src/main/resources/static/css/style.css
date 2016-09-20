@@ -1,15 +1,14 @@
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+.table th {
+   text-align: center;   
 }
-
-tr:nth-child(even) {
-    background-color: #dddddd;
+.table td {
+   text-align: center;   
+}
+element.style {
+}
+.form-group {
+    
+    width: 70%;
+     margin-left: 30px;
 }
