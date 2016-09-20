@@ -98,10 +98,16 @@ public class JdbcTemplateScheduleeDao implements ScheduleDao {
 			schedule.setEndHour(rs.getInt("end_hour"));
 			schedule.setStudentName(rs.getString("stundent_name"));
 			schedule.setTeacherName(rs.getString("teacher_name"));
+			schedule.setStatus(rs.getString("status"));
 					
 			return schedule;
 		}
 
+	}
+	@Override
+	public int edit(Schedule model) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

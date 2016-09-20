@@ -1,8 +1,9 @@
 package ro.bydl.domain;
 
 public class Vehicle extends AbstractModel{
+	
 	private String brand;
-	private String _type;
+	private String carType;
 	private String fuel;
 	private String chassis;
 	private int engine;
@@ -18,11 +19,11 @@ public class Vehicle extends AbstractModel{
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	public String get_type() {
-		return _type;
+	public String getCarType() {
+		return carType;
 	}
-	public void set_type(String _type) {
-		this._type = _type;
+	public void setCarType(String _type) {
+		this.carType = _type;
 	}
 	public String getFuel() {
 		return fuel;
@@ -100,7 +101,7 @@ public class Vehicle extends AbstractModel{
 	
 	@Override
 	public String toString() {
-		return "Vehicle [brand=" + brand + ", _type=" + _type + ", fuel=" + fuel + ", chassis=" + chassis + ", engine=" + engine + ", licensePlate="
+		return "Vehicle [brand=" + brand + ", _type=" + carType + ", fuel=" + fuel + ", chassis=" + chassis + ", engine=" + engine + ", licensePlate="
 				+ licensePlate + ", vignettes=" + vignettes + ", insurance=" + insurance + ", ITP=" + ITP + "]";
 	}
 	

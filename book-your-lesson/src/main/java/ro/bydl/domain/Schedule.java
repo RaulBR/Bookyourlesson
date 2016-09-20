@@ -11,6 +11,19 @@ public class Schedule extends AbstractModel {
 	private int endHour;
 	private String date;
 	private int week;
+	private boolean isFree;
+	private String studentName;
+	private String teacherName;
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getStudentName() {
 		return studentName;
 	}
@@ -27,9 +40,6 @@ public class Schedule extends AbstractModel {
 		this.teacherName = teacherName;
 	}
 
-	private boolean isFree;
-	private String studentName;
-	private String teacherName;
 	public int getWeek() {
 		return week;
 	}
@@ -118,11 +128,5 @@ public class Schedule extends AbstractModel {
 			return false;
 		return true;
 	}
-
-	
-
-	
-
-	
 
 }

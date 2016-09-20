@@ -4,6 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+@Component
+@Scope(value="session")
 public class CalendarService implements CalendarInterface {
 
 	private int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);

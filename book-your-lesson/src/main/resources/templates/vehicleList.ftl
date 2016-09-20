@@ -2,6 +2,8 @@
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
 <html lang="en">
+ <!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,8 +12,7 @@
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="/js/sch.js" rel="sch">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,8 +20,6 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <base href="/apx/" />
-    
   </head>
   [#escape x as x?html]
   <body>
@@ -29,40 +28,83 @@
   <table class="table">
   <thead>
      <tr >
-    <th >Brand</th>
+  
+  
+    <th>Number</th>
+    <th>Brand</th>
     <th>Model</th>
     <th>Fuel</th>
-    <th>chassis</th>
+    <th>Chassis</th>
     <th>Engine</th>
-    <th>license Plate</p></th>
-    <th>vignettes</p></th>
-    <th>insurance</p></th>
-    <th>ITP</p></th>
-  </tr>
+    <th>LicensePlate</th>
+   	<th> Vignettes</th>
+  	<th> Insurance</th>
+   	<th> ITP</th>
+  	<th>Edit</th>
+   	<th> Delete</th>
+ 
    
-  	  <tr>
-	  	<td ></td>
-	  	
-	  	
-	  
+  
+ 
+  	
+	 	  	 [#assign nr = 0]
 	  		[#if vehicles??]
-	  			[#list vehicles as vehicles]
-	  				<td>${vehicles.brand} </td>
-	  				<td> ${vehicles.brand}</td>
-	  				<td> </td>
-	  				<td> </td>
-	  				<td> </td>
-	  				<td> </td>
-	  				<td> </td>
-	  				<td> </td>
-	  				<td> </td>
-	  				
-  [/#list]
+	  		[#list vehicles as vehicle]
+	  			 [#assign nr = nr +1 ]	
+	  		  <tr>		
+	  				<td > ${nr}  </td>		
+	  		<td > 		${vehicle.brand}  </td>
+	  		<td >	 ${vehicle.carType} </td>
+	  		<td >	 ${vehicle.fuel} </td>
+	  		<td >	 ${vehicle.chassis} </td>		
+	  		<td >	 ${vehicle.engine} </td>	
+	  		<td >	 ${vehicle.licensePlate} </td>
+	  		<td >	 ${vehicle.vignettes?c} </td>
+	  		<td >	 ${vehicle.insurance?c} </td>
+	  		<td >	 ${vehicle.ITP?c} </td>
+	  		
+	  		
+	  		 <form name="form1" action="edit">
+	  				 <input type="hidden" class="form-control"  name="brand" value="${vehicle.brand}">
+					<input type="hidden" class="form-control"  name="carType" value= ${vehicle.carType}"> 
+					<input type="hidden" class="form-control"  name="fuel" value="${vehicle.fuel}">
+					<input type="hidden" class="form-control"  name="chassis" value=" ${vehicle.chassis}">
+					<input type="hidden" class="form-control" name="licensePlate" value=" ${vehicle.licensePlate}">
+					<input type="hidden" class="form-control" name="engine" value=" ${vehicle.engine}">
+					<input type="hidden" class="form-control" name="vignettes" value="${vehicle.vignettes?c}">
+					<input type="hidden" class="form-control" name="insurance" value=" ${vehicle.insurance?c}">
+					<input type="hidden" class="form-control" name="ITP" value="${vehicle.ITP?c}">
+	  				 <input type="hidden" name="id" value="${vehicle.id}">
+	  		<td >	<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button></td>
+	  		</form>
+	  		 <form name="form1" action="delete">
+	  				 <input type="hidden" class="form-control"  name="brand" value="${vehicle.brand}">
+					<input type="hidden" class="form-control"  name="carType" value= ${vehicle.carType}"> 
+					<input type="hidden" class="form-control"  name="fuel" value="${vehicle.fuel}">
+					<input type="hidden" class="form-control"  name="chassis" value=" ${vehicle.chassis}">
+					<input type="hidden" class="form-control" name="licensePlate" value=" ${vehicle.licensePlate}">
+					<input type="hidden" class="form-control" name="engine" value=" ${vehicle.engine}">
+					<input type="hidden" class="form-control" name="vignettes" value="${vehicle.vignettes?c}">
+					<input type="hidden" class="form-control" name="insurance" value=" ${vehicle.insurance?c}">
+					<input type="hidden" class="form-control" name="ITP" value="${vehicle.ITP?c}">
+	  				 <input type="hidden" name="id" value="${vehicle.id}">
+	  		<td >	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button></td>
+	  		</form>
+	  			[/#list]
+	  			[/#if]
+	  			
+	  			
+	  	
+	  		
+	  	  		
+	  	  	  
+	
+	  </tr>
+ 
   
   </tbody>
 
 </table>
-
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

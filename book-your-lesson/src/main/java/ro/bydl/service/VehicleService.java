@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import ro.bydl.dao.VehicleDAO;
 import ro.bydl.domain.Vehicle;
 
-
+@Service
 public class VehicleService {
 
 	@Autowired
@@ -24,8 +24,14 @@ public class VehicleService {
 		return dao.getAll();
 
 	}
-	public int delete(Vehicle vehicle) {
-		return dao.delete(vehicle);
+	public void delete(Vehicle vehicle) {
+		dao.delete(vehicle);
+		
 
+	}
+
+	public void edit(Vehicle vehicle) {
+		dao.update(vehicle);
+		
 	}
 }

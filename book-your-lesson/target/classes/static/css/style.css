@@ -5,3 +5,10 @@
 .table td {
    text-align: center;   
 }
+element.style {
+}
+.form-group {
+    
+    width: 70%;
+     margin-left: 30px;
+}

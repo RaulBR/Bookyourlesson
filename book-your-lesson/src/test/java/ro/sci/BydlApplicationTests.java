@@ -11,7 +11,7 @@ import ro.bydl.bydlApplication;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = bydlApplication.class)
 @WebAppConfiguration
-public class WebDemoApplicationTests {
+public class BydlApplicationTests {
 
 	@Test
 	public void contextLoads() {

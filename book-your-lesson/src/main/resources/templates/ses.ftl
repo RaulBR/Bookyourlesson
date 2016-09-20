@@ -22,6 +22,6 @@
   </head>
 <body>
 <a href="/schedule">Sign in</a>
-<h2>${sid}</h2>
+<h2>ttttttt</h2>
 </body>
 
