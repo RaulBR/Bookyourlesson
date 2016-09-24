@@ -23,6 +23,12 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	}
 
 	@Override
+	public Collection<Vehicle> getByLicence() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Vehicle findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -30,30 +36,29 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 
 	@Override
 	public int update(Vehicle model) {
-System.out.println(model.getCarType());
-		return jdbcTeamplate.update(
-				"INSERT INTO public.vehicle("+
-             " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp) "+
-            
-    "VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?)",
-				model.getBrand(), model.getCarType(), model.getFuel(), model.getChassis(), model.getEngine(),
-				model.getLicensePlate(), model.isVignettes(), model.isInsurance(), model.isITP());
+		System.out.println(model.getCarType());
+		return jdbcTeamplate.update("INSERT INTO public.vehicle("
+				+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp) " +
+
+				"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?)", model.getBrand(), model.getCarType(), model.getFuel(),
+				model.getChassis(), model.getEngine(), model.getLicensePlate(), model.isVignettes(),
+				model.isInsurance(), model.isITP());
 
 	}
 
 	@Override
 	public int delete(Vehicle model) {
-		
-		return jdbcTeamplate.update("DELETE FROM public.vehicle "+
-				 "WHERE id=?;",model.getId());
+
+		return jdbcTeamplate.update("DELETE FROM public.vehicle " + "WHERE id=?;", model.getId());
 	}
+
 	@Override
 	public int edit(Vehicle model) {
-		
-		return jdbcTeamplate.update("UPDATE public.vehicle "+
-   "SET id=?, brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "+
-       " vignettes=?, insurance=?, itp=?"+
-" WHERE id=?;",model.getId());
+
+		return jdbcTeamplate.update(
+				"UPDATE public.vehicle " + "SET id=?, brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "
+						+ " vignettes=?, insurance=?, itp=?" + " WHERE id=?;",
+				model.getId());
 	}
 
 	private static class ScheduleMapper implements RowMapper<Vehicle> {
@@ -75,9 +80,4 @@ System.out.println(model.getCarType());
 		}
 	}
 
-	@Override
-	public Collection<Vehicle> getByLicence() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

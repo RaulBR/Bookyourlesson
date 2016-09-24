@@ -28,10 +28,7 @@
   
   	<h3>[#if name??]${name!''}[#else]Vizitator[/#if] </h3>
   <h4> [#if instructorName??]${instructorName!''}[#else]No theacher[/#if] </h4>
-  <p>[#list weekDay as a]
  
- 
-  [/#list]</p>
   <table class="table">
   <thead>
      <tr >
@@ -65,46 +62,67 @@
 	  	<td ><strong>${hour} - ${endHour}</strong></td>
 	  	
 	  	[#list weekDay as day]
-	  	[#assign notFree = false]
+	  	
 	  	[#assign curentSchedule= 0]
+	  	[#assign statut = 'free']
+	  	[#assign student= 1]
+	  	[#assign teacher= 2]
 	  		[#if schedules??]
 	  			[#list schedules as schedule]
 	  				[#if schedule.startHour == hour]
 	  				[#if schedule.date== day]
-	  				[#assign notFree = true]
+		  				  				
+	  				[#assign statut = schedule.status]
 	  				[#assign curentSchedule= schedule.id]
+	  				[#assign student= schedule.studentId]
+	  				[#assign teacher= schedule.teacherId]
 	  				[#break]
 	  					[/#if]
-
 	  				[/#if]
 	  			[/#list]
 	  			[/#if]
-	  			[#if notFree== true]
 	  			
+	  			[#switch statut]
+	  			[#case 'pending']
 	  			
 	  		<td >  <form name="form1" action="/schedule/removeDate" method="POST">
-						<input type="hidden" name="startHour" value="${hour}">
-						<input type="hidden" name="endHour" value="${endHour}">
-						<input type="hidden" name="date" value="${day}">
-						<input type="hidden" name="week" value="${cal.week?c}">
-						<input type="hidden" name="id" value="${curentSchedule}">
-				<p><input class="btn btn-primary" role="button" type="submit" value="Booked" ></p>
-					</form>  
-			 </td>
-	  		[#else] 
-	  	<td >	
-	  				<form name="form1" action="/schedule/saveDate" method="POST">
-						<input type="hidden" name="startHour" value="${hour}">
-						<input type="hidden" name="endHour" value="${endHour}">
-						<input type="hidden" name="date" value="${day}">
-						<input type="hidden" name="week" value="${cal.week?c}">
+					<input type="hidden" name="startHour" value="${hour}">
+					<input type="hidden" name="endHour" value="${endHour}">
+					<input type="hidden" name="date" value="${day}">
+					<input type="hidden" name="week" value="${cal.week?c}">
+					<input type="hidden" name="id" value="${curentSchedule}">
+					<input type="hidden" name="student_id" value="${student}">
+					<input type="hidden" name="teacher_id" value="${teacher}">
 					
-				<p><input class="btn btn-default" role="button" type="submit" value="Book Lesson" ></p>
-					</form> 
-		</td>
-	  		[/#if]	
-	  	  		
-	  	  	  
+					<p><input class="btn btn-warning" role="button" type="submit" value="PENDING" ></p>
+					 </p></form>  </td>
+					 [#break]
+	  		[#case 'free']
+	  	<td >	<form name="form1" action="/schedule/saveDate" method="POST">
+					<input type="hidden" name="startHour" value="${hour}">
+					<input type="hidden" name="endHour" value="${endHour}">
+					<input type="hidden" name="date" value="${day}">
+					<input type="hidden" name="week" value="${cal.week?c}">
+					<input type="hidden" name="student_id" value="${student}">
+					<input type="hidden" name="teacher_id" value="${teacher}">
+					<input type="hidden" name="status" value="pending">
+					
+			<p><input class="btn btn-default" role="button" type="submit" value="Book Lesson" ></p>
+</form>  </td>
+			[#break]
+	  		[#case 'absent']	
+	  	<td>	<p><p><input class="btn btn-danger" role="button"  value="ABSENT" ></p></p></td>
+	  	  	[#break]
+	  	  		 
+	  	  	[#case 'notFree']	
+	  		<td><p><p><input class="btn" role="text"  value="NOT FREE" readonly></p></p></td>
+	  	  	[#break]
+	  	  		[#case 'done']	
+	  		<td><p>done</p></td>
+	  	  	[#break]
+	  	  		[#case 'booked']	
+	  		<td><p><inputclass="btn btn-success" role="button" type="submit" value="Booked" ></p></td>
+	  	  	  [/#switch]
 	  [/#list]
 	  </tr>
   [/#list]

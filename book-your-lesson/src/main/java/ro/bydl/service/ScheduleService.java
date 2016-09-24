@@ -65,8 +65,14 @@ public class ScheduleService extends CalendarService {
 
 	}
 	public int countSchedules(){
-		System.out.println(dao.getAll().size()*100/3);
+		
 		return (dao.getAll().size()*100/30);
+		
+	}
+
+	public int edit(Schedule schedule) {
+		
+		return (dao.edit(schedule));
 		
 	}
 

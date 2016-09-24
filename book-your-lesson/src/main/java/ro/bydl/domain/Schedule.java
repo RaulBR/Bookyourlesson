@@ -1,20 +1,31 @@
 package ro.bydl.domain;
 
 public class Schedule extends AbstractModel {
-	@Override
-	public String toString() {
-		return "Schedule [startHour=" + startHour + ", endHour=" + endHour + ", date=" + date + ", week=" + week
-				+ ", isFree=" + isFree + ", studentName=" + studentName + ", teacherName=" + teacherName + "]";
-	}
 
 	private int startHour;
 	private int endHour;
 	private String date;
 	private int week;
 	private boolean isFree;
-	private String studentName;
-	private String teacherName;
+	private int studentId;
+	private int teacherId;
 	private String status;
+	
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public int getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(int teacherId) {
+		this.teacherId = teacherId;
+	}
 
 	public String getStatus() {
 		return status;
@@ -22,22 +33,6 @@ public class Schedule extends AbstractModel {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getStudentName() {
-		return studentName;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-
-	public String getTeacherName() {
-		return teacherName;
-	}
-
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
 	}
 
 	public int getWeek() {
@@ -79,6 +74,13 @@ public class Schedule extends AbstractModel {
 	public void setFree(boolean isFree) {
 		this.isFree = isFree;
 	}
+	
+	@Override
+	public String toString() {
+		return "Schedule [startHour=" + startHour + ", endHour=" + endHour + ", date=" + date + ", week=" + week
+				+ ", isFree=" + isFree + ", studentId=" + studentId + ", teacherId=" + teacherId + ", status=" + status
+				+ "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -88,8 +90,9 @@ public class Schedule extends AbstractModel {
 		result = prime * result + endHour;
 		result = prime * result + (isFree ? 1231 : 1237);
 		result = prime * result + startHour;
-		result = prime * result + ((studentName == null) ? 0 : studentName.hashCode());
-		result = prime * result + ((teacherName == null) ? 0 : teacherName.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + studentId;
+		result = prime * result + teacherId;
 		result = prime * result + week;
 		return result;
 	}
@@ -114,19 +117,19 @@ public class Schedule extends AbstractModel {
 			return false;
 		if (startHour != other.startHour)
 			return false;
-		if (studentName == null) {
-			if (other.studentName != null)
+		if (status == null) {
+			if (other.status != null)
 				return false;
-		} else if (!studentName.equals(other.studentName))
+		} else if (!status.equals(other.status))
 			return false;
-		if (teacherName == null) {
-			if (other.teacherName != null)
-				return false;
-		} else if (!teacherName.equals(other.teacherName))
+		if (studentId != other.studentId)
+			return false;
+		if (teacherId != other.teacherId)
 			return false;
 		if (week != other.week)
 			return false;
 		return true;
 	}
+
 
 }

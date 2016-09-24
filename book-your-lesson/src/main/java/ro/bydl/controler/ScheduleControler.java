@@ -27,9 +27,10 @@ public class ScheduleControler {
 
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
-		ModelAndView result = new ModelAndView("sc");
+		ModelAndView result = new ModelAndView("scheduleTeacher");
 
 		result.addObject("cal", scheduleService);
+		//result.addAllObjects("students", PersonService.getStudents())
 		result.addObject("weekDay", scheduleService.getAll());
 		result.addObject("schedules", scheduleService.getScheduels());
 		result.addObject("progress", scheduleService.countSchedules());
@@ -88,6 +89,18 @@ public class ScheduleControler {
 		scheduleService.setWeek(schedule.getWeek() - 1);
 
 		scheduleService.delete(schedule);
+		modelAndView.setView(new RedirectView(""));
+
+		return modelAndView;
+
+	}
+	@RequestMapping(value = "edit")
+	public ModelAndView edit(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
+			HttpSession sessio) {
+		ModelAndView modelAndView = new ModelAndView();
+		scheduleService.setWeek(schedule.getWeek() - 1);
+
+		scheduleService.edit(schedule);
 		modelAndView.setView(new RedirectView(""));
 
 		return modelAndView;

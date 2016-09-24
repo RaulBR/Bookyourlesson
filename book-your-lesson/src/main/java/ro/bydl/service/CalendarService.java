@@ -7,7 +7,7 @@ import java.util.Calendar;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-@Component
+@Service
 @Scope(value="session")
 public class CalendarService implements CalendarInterface {
 
@@ -37,7 +37,7 @@ public class CalendarService implements CalendarInterface {
 	public String getMonday() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.WEEK_OF_YEAR, week);
+		cal.set(Calendar.WEEK_OF_YEAR,getWeek());
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
 		return (sdf.format(cal.getTime()));
