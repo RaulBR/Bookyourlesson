@@ -3,20 +3,29 @@ package ro.bydl.dao.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import ro.bydl.dao.PersonDAO;
-import ro.bydl.domain.Student;
-;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
-public class JdbcTemplateStudent implements PersonDAO {
+import ro.bydl.dao.StudnetDAO;
+import ro.bydl.domain.Student;
+import ro.bydl.domain.Teacher;
+
+@Component
+public class JdbcTemplateStudentDao implements StudnetDAO {
+
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Collection<Student> getAll() {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id "+
-				 "FROM public.students;", new StudentMapper() );
+		return jdbcTemplate
+				.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id, med_paper, phone, email, birth_day "
+						+ " FROM public.students", new StudentMapper());
 	}
 
 	@Override
@@ -26,15 +35,23 @@ public class JdbcTemplateStudent implements PersonDAO {
 	}
 
 	@Override
-	public int update(Student model) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Student update(Student student) {
+		
+
+		return jdbcTemplate.queryForObject(
+				"INSERT INTO public.students(name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email) "+
+    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+				new Object[] { student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
+						student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
+						student.getEmail(),student.getBirthDay() },
+				new IDtMapper());
 	}
 
 	@Override
 	public int delete(Student model) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return jdbcTemplate.update("DELETE FROM public.students "+
+				 "WHERE id=?;",model.getId());
 	}
 
 	@Override
@@ -48,24 +65,35 @@ public class JdbcTemplateStudent implements PersonDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private static class StudentMapper implements RowMapper<Student> {
 
 		@Override
 		public Student mapRow(ResultSet rs, int arg1) throws SQLException {
 			Student student = new Student();
-			student.setId(rs.getInt("id"));
+			student.setId(rs.getLong("id"));
 			student.setName(rs.getString("name"));
 			student.setSirName(rs.getString("sir_name"));
 			student.setCnp(rs.getLong("cnp"));
-			student.setRegistrationDate(rs.getString("registration_date"));
-			student.setPsihoTest(rs.getBoolean("pshiho_test"));
+			//student.setRegistrationDate(rs.getString("registration_date"));
 			student.setMedPaper(rs.getBoolean("med_paper"));
-			student.setRecord(rs.getBoolean("record"));
 			student.setTeacherId(rs.getInt("teacher_id"));
 			student.setCategory(rs.getString("category"));
+			student.setEmail(rs.getString("email"));
+			student.setPhoneNumber(rs.getLong("phone"));
+			//student.setBirthDay(("birth_day"));
+			return student;
+		}
+
+	}
+
+	private static class IDtMapper implements RowMapper<Student> {
+
+		@Override
+		public Student mapRow(ResultSet rs, int arg1) throws SQLException {
+			Student student = new Student();
+			student.setId(rs.getLong("id"));
 			return student;
 		}
 	}
-
 }

@@ -4,37 +4,57 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Schedule;
 import ro.bydl.service.ScheduleService;
+import ro.bydl.service.StudentService;
+import ro.bydl.service.TeacherService;
 
 @Controller
 @RequestMapping("/schedule")
-@SessionAttributes("week")
-// @SessionAttributes("week")
+
+//@SessionAttributes("teacherId")
+@Scope("session")
 public class ScheduleControler {
+	
 	@Autowired
 	private ScheduleService scheduleService;
+	@Autowired
+	private StudentService studentService;
+	@Autowired
+	private TeacherService teacherService;
+
 	
+
 
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
+		
+		
+		
+		
+//		session.setAttribute("instructiorName", teacherService.getByid(
+//				Integer.parseInt(session.getAttribute("teacherId").toString())).getName());
 		ModelAndView result = new ModelAndView("scheduleTeacher");
-
-		result.addObject("cal", scheduleService);
-		//result.addAllObjects("students", PersonService.getStudents())
-		result.addObject("weekDay", scheduleService.getAll());
-		result.addObject("schedules", scheduleService.getScheduels());
-		result.addObject("progress", scheduleService.countSchedules());
-		result.addObject("name", session.getAttribute("name"));
+		result.addObject("teacher",teacherService.getByid(1));
+		
+		
+			result.addObject("cal", scheduleService);
+			result.addObject("students",studentService.getAll());
+			result.addObject("weekDay", scheduleService.getAll());
+			result.addObject("schedules", scheduleService.searchByTeacherId(2));
+			result.addObject("progress", scheduleService.countSchedules());
+			result.addObject("name", session.getAttribute("name"));
+		
+		
 
 		return result;
 	}
@@ -84,10 +104,10 @@ public class ScheduleControler {
 
 	@RequestMapping(value = "removeDate", method = RequestMethod.POST)
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
-			HttpSession sessio) {
+			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		scheduleService.setWeek(schedule.getWeek() - 1);
-
+		
 		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
 

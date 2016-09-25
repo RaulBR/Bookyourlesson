@@ -19,7 +19,7 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	public Collection<Vehicle> getAll() {
 		// TODO Auto-generated method stub
 		return jdbcTeamplate.query("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
-				+ "insurance, itp " + "FROM public.vehicle;", new ScheduleMapper());
+				+ "insurance, itp " + "FROM public.vehicle;", new VehicleMapper());
 	}
 
 	@Override
@@ -35,16 +35,17 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	}
 
 	@Override
-	public int update(Vehicle model) {
+	public Vehicle update(Vehicle model) {
 		System.out.println(model.getCarType());
-		return jdbcTeamplate.update("INSERT INTO public.vehicle("
-				+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp) " +
+	
+		  jdbcTeamplate.update("INSERT INTO public.vehicle("
+					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp) " +
 
-				"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?)", model.getBrand(), model.getCarType(), model.getFuel(),
-				model.getChassis(), model.getEngine(), model.getLicensePlate(), model.isVignettes(),
-				model.isInsurance(), model.isITP());
-
-	}
+					"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?) ;", model.getBrand(), model.getCarType(), model.getFuel(),
+					model.getChassis(), model.getEngine(), model.getLicensePlate(), model.isVignettes(),
+					model.isInsurance(), model.isITP());
+		  return model;
+		 }
 
 	@Override
 	public int delete(Vehicle model) {
@@ -61,7 +62,7 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 				model.getId());
 	}
 
-	private static class ScheduleMapper implements RowMapper<Vehicle> {
+	private static class VehicleMapper implements RowMapper<Vehicle> {
 
 		@Override
 		public Vehicle mapRow(ResultSet rs, int arg1) throws SQLException {

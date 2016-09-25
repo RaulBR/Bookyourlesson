@@ -25,9 +25,10 @@
   [#escape x as x?html]
   <body>
   <h1> Schedule leson</h1>
-  
-  	<h3>[#if name??]${name!''}[#else]Vizitator[/#if] </h3>
-  <h4> [#if instructorName??]${instructorName!''}[#else]No theacher[/#if] </h4>
+ 
+  	<h3>[#if name??]${name!''}[/#if] </h3>
+  <h4> [#if teacher??]${teacher.name} ${teacher.sirName} 
+  [#assign teacher= teacher.id][#else]No theacher[/#if] </h4>
  
   <table class="table">
   <thead>
@@ -73,12 +74,26 @@
 	  			[#list schedules as schedule]
 	  				[#if schedule.startHour == hour]
 	  				[#if schedule.date== day]
-		  					 [#assign name='vasi']
-	  						[#assign sirName='lica'] 				
+	  				[#if students??]
+				  		[#list students as student]
+				  		[#if student.id == schedule.studentId]
+				  		 [#assign name=student.name]
+	  						[#assign sirName=student.sirName]
+				  			
+				  			[#break]
+				  			[/#if]
+				  			[/#list]
+				  					  			
+				  			[/#if]
+		  					 
+	  						[#if schedule.status??]				
 	  				[#assign statut = schedule.status]
+	  				[#else]
+	  				[#assign statut = 'pending']
+	  				[/#if]
 	  				[#assign curentSchedule= schedule.id]
 	  				[#assign student= schedule.studentId]
-	  				[#assign teacher= schedule.teacherId]
+	  				
 	  				[#break]
 	  					[/#if]
 	  				[/#if]
@@ -92,49 +107,65 @@
 				  		
 				  			<p>${name} ${sirName}</p> 
 				  			[/#if]
-				  			<form action="/schedule/edit" method="GET">
+				  			<form action="/schedule/edit" method="POST">
 								<div align="center"">
  									<input type="hidden" name="week" value="${cal.week?c}">
  									<input type="hidden" name="startHour" value="${hour}">
 									<input type="hidden" name="endHour" value="${endHour}">
 									<input type="hidden" name="date" value="${day}">								
 									<input type="hidden" name="id" value="${curentSchedule}">
-									<input type="hidden" name="studentId" value="${student}">
 									<input type="hidden" name="teacherId" value="${teacher}">
-						[#switch statut]
-							[#case 'pending']
-									<p><input class="btn btn-default" role="button" value="pending" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
-								[#break]
-								
-								[#case 'free']
-									<p><input class="btn btn-default" role="button" value="free" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
-								[#break]
-								
-								[#case 'absent']	
-									<p><p><input class="btn btn-danger" role="button" value="absent" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p></p>
-								[#break]
-								
-								[#case 'notFree']
-									<p><input class="btn btn-default" role="button" value="notFree" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
-								[#break]
-								
-								[#case 'done']	
-									<p>done</p>
-								[#break]
-								
-								[#case 'booked']
-									<p><input class="btn btn-primary" role="button" value="booked" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
-								[#break]
-						[/#switch]
-								<select class="form-control sel-status" style="display: none" id="myselect"   name="status" onchange="this.form.submit();"  >
-				         			<option value="free" >Free</option>
-				        			<option value="notFree">Not free</option>
-				        			<option value="booked"  >Accept</option>
-				        			<option value="absent" >Absent</option>
-				        			<option value="pending" >Pending</option>
-				        			<option value="done">Done</option>
-			        			
-								</select>
+									<input type="hidden" name="studentId" value="${student}">
+									[#if statut == 'free']
+										<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)"></p>
+										
+										<select class="form-control sel-schedule-option" style="display: none" id="studentId"  name="studentId" onchange="this.form.submit();"  >
+											[#if students??]
+											
+											[#list students as student]
+											<option value="${student.id}" >${student.name} ${student.sirName}</option>
+											
+											[/#list]
+											
+											[/#if]
+										</select>
+									[#else]
+										<input type="hidden" name="studentId" value="${student}">
+										[#switch statut]
+											[#case 'pending']
+													<p><input class="btn btn-default" role="button" value="pending" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+												[#break]
+												
+												[#case 'free']
+													<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)"></p>
+												[#break]
+												
+												[#case 'absent']	
+													<p><p><input class="btn btn-danger" role="button" value="absent" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p></p>
+												[#break]
+												
+												[#case 'notFree']
+													<p><input class="btn btn-default" role="button" value="notFree" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+												[#break]
+												
+												[#case 'done']	
+													<p><input class="btn btn-success" role="button" value="done" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+												[#break]
+												
+												[#case 'booked']
+													<p><input class="btn btn-primary" role="button" value="booked" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+												[#break]
+										[/#switch]
+										<select class="form-control sel-schedule-option" style="display: none" id="myselect"   name="status" onchange="this.form.submit();"  >
+						         			<option value="free" >Free</option>
+						        			<option value="notFree">Not free</option>
+						        			<option value="booked"  >Accept</option>
+						        			<option value="absent" >Absent</option>
+						        			<option value="pending" >Pending</option>
+						        			<option value="done">Done</option>
+					        			
+										</select>
+									[/#if]
 						</form>
 						</td>
 		  	  		
@@ -146,17 +177,30 @@
   </tbody>
 
 </table>
-
-
+<nav aria-label="...">
+  <ul class="pager">
+    <li><a href="/schedule/previousWeek?week=${cal.week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
+    <li><a href="/schedule/thisWeek">This week</a></li>
+    <li><a href="/schedule/nextWeek?week=${cal.week?c}">Next week</a></li>
+  </ul>
+</nav>
+				         			
+				      			
+							
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.js"></script>
-    
     <script type="text/javascript">
     	function showAction(btnStatus)
     	{
-    		var selStatus = $(btnStatus).parents('form').find('select.sel-status');
+    		var currentForm = $(btnStatus).parents('form');
+    		if ($(btnStatus).val() == 'free') {
+    			$(currentForm).attr('action', '/schedule/saveDate');
+    		} else {
+    			$(currentForm).attr('action', '/schedule/edit');
+    		}
+    		var selStatus = $(currentForm).find('select.sel-schedule-option');
     		if ($(selStatus).is(':visible')) {
     			$(selStatus).hide();
     			$(btnStatus).attr('title', 'Afisati actiunile disponibile pt aceasta programare');
@@ -166,18 +210,6 @@
     			$(btnStatus).attr('title', 'Ascundeti actiunile disponibile pt aceasta programare');
     		}
     	}
-    	
-    	jQuery(document).ready(function(){
-    	//var test = "{$hourList}";
-    	// console.log(test);
-    		var date = new Date();
-    		var day = date.getDate(),
-    			month = date.getMonth(),
-    			year = date.getFullYear();
-    			
-    		var currDate = (day < 10 ? '0' : '') + day + '.' + (month < 10 ? '0' : '') + month + '.' + year;
-    		console.log(currDate);
-    	});
     </script>
   </body>
 </html>

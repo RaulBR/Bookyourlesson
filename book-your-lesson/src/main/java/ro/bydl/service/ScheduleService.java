@@ -15,7 +15,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.ScheduleDao;
+import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 
 @Service
@@ -24,7 +24,7 @@ public class ScheduleService extends CalendarService {
 	
 
 	@Autowired
-	private ScheduleDao dao;
+	private ScheduleDAO dao;
 
 
 	
@@ -74,6 +74,11 @@ public class ScheduleService extends CalendarService {
 		
 		return (dao.edit(schedule));
 		
+	}
+
+	public Collection<Schedule> searchByTeacherId(int id) {
+		
+		return dao.searchByTeacherId(id);
 	}
 
 	

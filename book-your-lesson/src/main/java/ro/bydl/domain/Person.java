@@ -1,39 +1,70 @@
 package ro.bydl.domain;
 
 public class Person extends AbstractModel {
-	
+
 	private String name;
 	private String sirName;
 	private long cnp;
 	private String category;
-	
-	
-	
-	public String  getCategory() {
+	private long phoneNumber;
+	private String email;
+	private String birthDay;
+
+	public String getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
+	}
+
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(String  category) {
+
+	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getSirName() {
 		return sirName;
 	}
+
 	public void setSirName(String sirName) {
 		this.sirName = sirName;
 	}
+
 	public long getCnp() {
 		return cnp;
 	}
+
 	public void setCnp(long cnp) {
 		this.cnp = cnp;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -42,6 +73,7 @@ public class Person extends AbstractModel {
 		result = prime * result + (int) (cnp ^ (cnp >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,6 +87,5 @@ public class Person extends AbstractModel {
 			return false;
 		return true;
 	}
-	
 
 }

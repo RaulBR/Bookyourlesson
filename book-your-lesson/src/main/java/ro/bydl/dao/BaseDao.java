@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import ro.bydl.domain.AbstractModel;
 import ro.bydl.domain.Schedule;
+import ro.bydl.domain.Student;
+import ro.bydl.domain.Teacher;
 import ro.bydl.domain.Vehicle;
 
 
@@ -14,7 +16,7 @@ public interface BaseDao<T extends AbstractModel> {
 	
 	T findById(Long id);
 	
-	int update(T model);
+	T update(T model);
 	
 	int delete(T model);
 

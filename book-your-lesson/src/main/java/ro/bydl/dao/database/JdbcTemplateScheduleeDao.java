@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import ro.bydl.dao.ScheduleDao;
+import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
-import ro.bydl.domain.Status;
+import ro.bydl.domain.Student;
+import ro.bydl.domain.User;
 
-public class JdbcTemplateScheduleeDao implements ScheduleDao {
+public class JdbcTemplateScheduleeDao implements ScheduleDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -24,13 +25,30 @@ public class JdbcTemplateScheduleeDao implements ScheduleDao {
 	}
 
 	@Override
-	public int update(Schedule schedule) {
+	public Schedule update(Schedule schedule) {
+		jdbcTemplate.update(
+				"INSERT INTO public.schedule( " + "week, start_hour, end_hour, date,  student_id, teacher_id, status) "
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?);",
+				new Object[] { schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), schedule.getDate(),
+						schedule.getStudentId(), schedule.getTeacherId(), schedule.getStatus() });
 
-		return jdbcTemplate.update(
-				"INSERT INTO public.schedule(" + " week, start_hour, end_hour, date, student_id, teacher_id, "
-						+ " status) " + "VALUES ( ?, ?, ?, ?, ?, ?, ?);",
-				schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), schedule.getDate(), 1, 1,
-				schedule.getStatus());
+		return schedule;
+
+	}
+
+	public Collection<Schedule> searchByTeacherId(long id) {
+
+		return jdbcTemplate.query(
+				"SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
+						+ "FROM public.schedule WHERE teacher_id=?;",
+				new Long[] { id }, new ScheduleMapper());
+	}
+	public Collection<Schedule> searchByStudentId(Schedule schedule) {
+
+		return jdbcTemplate.query(
+				"SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
+						+ "FROM public.schedule WHERE student_id=?;",
+				new Object[] { schedule.getStudentId() }, new ScheduleMapper());
 	}
 
 	@Override
@@ -46,14 +64,6 @@ public class JdbcTemplateScheduleeDao implements ScheduleDao {
 	}
 
 	@Override
-	public Collection<Schedule> searchStudentsSchedules(Schedule schedule, int studentID) {
-		return jdbcTemplate.query("select FROM schedule where week=?, student_id=?",
-				new Object[] { schedule.getWeek(), studentID },
-
-				new ScheduleMapper());
-	}
-
-	@Override
 	public Collection<Schedule> getAll() {
 
 		return jdbcTemplate.query("SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
@@ -63,23 +73,19 @@ public class JdbcTemplateScheduleeDao implements ScheduleDao {
 	@Override
 	public Collection<Schedule> searchByWeek(int week) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.query("select FROM schedule where week=?", new Integer[] { week }, new ScheduleMapper());
+		return jdbcTemplate.query("SELECT "
+				+ "week, start_hour, end_hour, date, id, student_id, teacher_id, "
+				+ "status  where week=?", new Integer[] { week }, new ScheduleMapper());
 	}
 
 	@Override
 	public int edit(Schedule schedule) {
-System.out.println(schedule.getStudentId());
-		return jdbcTemplate
-				.update("UPDATE public.schedule " + "  SET week=?, start_hour=?, end_hour=?, date=?,  student_id=?, "
-						+ " teacher_id=?, status=? " + "WHERE id=?;", schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), 
-																	schedule.getDate(), schedule.getStudentId(), schedule.getTeacherId(),
-																			schedule.getStatus(),schedule.getId());
-	}
-
-	@Override
-	public Collection<Schedule> searchTeachersSchedules(Schedule schedule) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(schedule.getStudentId());
+		return jdbcTemplate.update(
+				"UPDATE public.schedule " + "  SET week=?, start_hour=?, end_hour=?, date=?,  student_id=?, "
+						+ " teacher_id=?, status=? " + "WHERE id=?;",
+				schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), schedule.getDate(),
+				schedule.getStudentId(), schedule.getTeacherId(), schedule.getStatus(), schedule.getId());
 	}
 
 	private static class ScheduleMapper implements RowMapper<Schedule> {
