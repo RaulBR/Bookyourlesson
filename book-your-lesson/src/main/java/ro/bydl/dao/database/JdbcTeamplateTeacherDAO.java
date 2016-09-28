@@ -16,7 +16,7 @@ import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;;
 @Component
-public class jdbcTeamplateTeacherDAO implements TeacherDAO{
+public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 	@Autowired
 	JdbcTemplate jdbcTeamplate;
 

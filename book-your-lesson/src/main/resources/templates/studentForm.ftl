@@ -15,13 +15,14 @@
   </head>
   [#escape x as x?html]
   <body>
-  <h1> Register Student: </h1>
+  <h1> Register Student </h1>
   
-  <form action="/register/student/userSave" class="sexy-form" method="POST">
+  <form action="/register/student/userSave" class="sexy-form"  method="POST" >
   
 
-    <input type="hidden" class="form-control" name="name" value="student">
-    
+   
+
+
   </div>
     <div class="form-group">
     <label for="text">Name:</label>
@@ -44,6 +45,17 @@
     <label for="text">Phone Number</label>
     <input type="text" class="form-control" name="phoneNumber">
   </div>
+     [#if teachers??]
+        <div class="form-group">
+    <label for="text">Teacher</label> 
+    <select name="teacherId"  class="form-control">
+  [#list teachers as teacher]
+    <option value="${teacher.id!''}">${teacher.sirName!''} ${teacher.name!''}</option>
+  
+      [/#list]
+  </select>
+     </div>
+        [/#if]
   
    <div class="form-group">
     <label for="text">category</label>
@@ -57,7 +69,7 @@
   </div>
   
    <div class="form-group">
-    <label for="text">Papers</label>  
+    <label for="text">Medical Papers</label>  
     <select name="medPaper"  class="form-control">
     <option value="true"> <b>Yes</b></option>
     <option value="false"> <b>No</b></option>
@@ -94,3 +106,5 @@
   </body>
 </html>
 [/#escape]
+
+

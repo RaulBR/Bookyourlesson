@@ -17,7 +17,7 @@ import ro.bydl.domain.Vehicle;
 import ro.bydl.service.VehicleService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/vehicle")
 public class VehicleControler {
 	
 	@Autowired

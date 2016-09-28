@@ -21,7 +21,7 @@
   
 
    
-    <input type="hidden" class="form-control" name="name" value="teacher">
+
 
   </div>
     <div class="form-group">

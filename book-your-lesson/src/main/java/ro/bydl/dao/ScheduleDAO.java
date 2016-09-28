@@ -10,7 +10,7 @@ public interface ScheduleDAO extends BaseDao<Schedule> {
 
 	Collection<Schedule> searchSchedules(int startHour, int endHour, String date);
 
-	Collection<Schedule> searchByStudentId(Schedule schedule);
+	Collection<Schedule> searchByStudentId(long id);
 
 	Collection<Schedule> searchByTeacherId(long id);
 

@@ -29,45 +29,38 @@
   	<h3>[#if name??]${name!''}[/#if] </h3>
   <h4> [#if teacher??]${teacher.name} ${teacher.sirName} 
   [#assign teacher= teacher.id][#else]No theacher[/#if] </h4>
- 
+  
+  
+ [#assign dayName= ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
+ [#assign hourList = [8, 10, 12, 14, 16, 18]]
+
   <table class="table">
   <thead>
+  
      <tr >
     <th >Hour
-    <p> </p></th>
-    <th>Monday
-    <p>${cal.monday!''}</p></th>
-    <th>Tuesday
-    <p>${cal.tuesday!''}</p></th>
-    <th>Wednesday
-    <p>${cal.wednesday!''}</p></th>
-    <th>Thursday
-    <p>${cal.thursday!''}</p></th>
-    <th>Friday
-    <p>${cal.friday!''}</p></th>
-    <th>Saturday
-    <p>${cal.saturday!''}</p></th>
-    <th>Sunday
-    <p>${cal.sunday!''}</p></th>
-    
+    <p> </p>
+    </th>
+    [#assign a=0]
+ [#list weekDays as  day]
+ [#assign dayn=dayName[a]]
+ <th>${dayn}  <p>${day}</p></th>
+	[#assign a++]
+ [/#list]
+  
   </tr>
   
-
-  
-  [#assign hourList = [8, 10, 12, 14, 16, 18]]
-  
-  
+ 
   [#list hourList as hour]
-	  [#assign endHour = hour + 2]
+	[#assign endHour = hour + 2]
   	  <tr>
 	  	<td ><strong>${hour} - ${endHour}</strong></td>
 	  	
-	  	[#list weekDay as day]
+	  	[#list weekDays as day]
 	  	
 	  	[#assign curentSchedule= 0]
 	  	[#assign statut = 'free']
-	  	[#assign student= 1]
-	  	[#assign teacher= 2]
+	  	
 	  	[#assign name='']
 	  	[#assign sirName='']
 	  		[#if schedules??]
@@ -79,7 +72,7 @@
 				  		[#if student.id == schedule.studentId]
 				  		 [#assign name=student.name]
 	  						[#assign sirName=student.sirName]
-				  			
+				  			[#assign existingStudentId=student.id]
 				  			[#break]
 				  			[/#if]
 				  			[/#list]
@@ -109,62 +102,71 @@
 				  			[/#if]
 				  			<form action="/schedule/edit" method="POST">
 								<div align="center"">
- 									<input type="hidden" name="week" value="${cal.week?c}">
+ 									<input type="hidden" name="week" value="${week}">
  									<input type="hidden" name="startHour" value="${hour}">
 									<input type="hidden" name="endHour" value="${endHour}">
 									<input type="hidden" name="date" value="${day}">								
 									<input type="hidden" name="id" value="${curentSchedule}">
-									<input type="hidden" name="teacherId" value="${teacher}">
-									<input type="hidden" name="studentId" value="${student}">
+									<input type="hidden" name="teacherId" value="${teacherId}">
+									
 									[#if statut == 'free']
 										<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)"></p>
+										<div class="wrap-schedule-option" style="display: none">
+											<select class="form-control sel-schedule-option" id="studentId"  name="studentId">
+												[#if students??]
+											
+													[#list students as student]
+														<option value="${student.id}" >${student.name} ${student.sirName} </option>
+											
+													[/#list]
+											
+													[/#if]
+											</select>
+											<br/>
+											<button type="button" class="btn btn-default" onclick="statusCancel(this)">Cancel</button>
+											<button class="btn btn-primary" onclick="statusSave(this); return false">Save</button>
+										</div>
 										
-										<select class="form-control sel-schedule-option" style="display: none" id="studentId"  name="studentId" onchange="this.form.submit();"  >
-											[#if students??]
-											
-											[#list students as student]
-											<option value="${student.id}" >${student.name} ${student.sirName}</option>
-											
-											[/#list]
-											
-											[/#if]
-										</select>
 									[#else]
-										<input type="hidden" name="studentId" value="${student}">
+										<input type="hidden" name="studentId" value="${existingStudentId}">
 										[#switch statut]
 											[#case 'pending']
-													<p><input class="btn btn-default" role="button" value="pending" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+													<p><input class="btn btn-default" role="button" value="pending" title="Show appointment actions" onclick="showAction(this)"></p>
 												[#break]
 												
 												[#case 'free']
-													<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)"></p>
+													<p><input class="btn btn-default" role="button" value="free" title="Show appointment actions" onclick="showAction(this)"></p>
 												[#break]
 												
 												[#case 'absent']	
-													<p><p><input class="btn btn-danger" role="button" value="absent" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p></p>
+													<p><p><input class="btn btn-danger" role="button" value="absent" title="Show appointment actions" onclick="showAction(this)"></p></p>
 												[#break]
 												
 												[#case 'notFree']
-													<p><input class="btn btn-default" role="button" value="notFree" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+													<p><input class="btn btn-default" role="button" value="notFree" title="Show appointment actions" onclick="showAction(this)"></p>
 												[#break]
 												
 												[#case 'done']	
-													<p><input class="btn btn-success" role="button" value="done" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+													<p><input class="btn btn-success" role="button" value="done" title="Show appointment actions" onclick="showAction(this)"></p>
 												[#break]
 												
 												[#case 'booked']
-													<p><input class="btn btn-primary" role="button" value="booked" title="Afisati actiunile disponibile pt aceasta programare" onclick="showAction(this)"></p>
+													<p><input class="btn btn-primary" role="button" value="booked" title="Show appointment actions" onclick="showAction(this)"></p>
 												[#break]
 										[/#switch]
-										<select class="form-control sel-schedule-option" style="display: none" id="myselect"   name="status" onchange="this.form.submit();"  >
-						         			<option value="free" >Free</option>
-						        			<option value="notFree">Not free</option>
-						        			<option value="booked"  >Accept</option>
-						        			<option value="absent" >Absent</option>
-						        			<option value="pending" >Pending</option>
-						        			<option value="done">Done</option>
-					        			
-										</select>
+										<div class="wrap-schedule-option" style="display: none">
+											<select class="form-control sel-schedule-option" name="status">
+							         			<option value="free" >Free</option>
+							        			<option value="notFree">Not free</option>
+							        			<option value="booked"  >Accept</option>
+							        			<option value="absent" >Absent</option>
+							        			<option value="pending" >Pending</option>
+							        			<option value="done">Done</option>
+											</select>
+											<br/>
+											<button type="button" class="btn btn-default" onclick="statusCancel(this)">Cancel</button>
+											<button class="btn btn-primary" onclick="statusSave(this); return false">Save</button>
+										</div>
 									[/#if]
 						</form>
 						</td>
@@ -179,9 +181,9 @@
 </table>
 <nav aria-label="...">
   <ul class="pager">
-    <li><a href="/schedule/previousWeek?week=${cal.week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
+    <li><a href="/schedule/previousWeek?week=${week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
     <li><a href="/schedule/thisWeek">This week</a></li>
-    <li><a href="/schedule/nextWeek?week=${cal.week?c}">Next week</a></li>
+    <li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
   </ul>
 </nav>
 				         			
@@ -195,20 +197,49 @@
     	function showAction(btnStatus)
     	{
     		var currentForm = $(btnStatus).parents('form');
+    		var editAction = $(currentForm).find('div.wrap-schedule-option');
+    		var selStatus = $(currentForm).find('select.sel-schedule-option');
+    		
+    		if ($(editAction).is(':visible')) {
+    			$(editAction).hide();
+    			$(btnStatus).attr('title', 'Show appointment actions');
+    		} else {
+    			$(editAction).show();
+    			$(selStatus).val($(btnStatus).val());
+    			$(btnStatus).attr('title', 'Hide appointment actions');
+    		}
+    	}
+    	function statusSave(btnSave)
+    	{
+    		var currentForm = $(btnSave).parents('form');
+    		var btnStatus = $(currentForm).find('input.btn');
+    		var selStatus = $(currentForm).find('select.sel-schedule-option');
+    		
+    		if ($(btnStatus).val() == $(selStatus).val()) {
+    			alert('No status changes were made to the appointment.');
+    			return false;
+    		}
+    		
     		if ($(btnStatus).val() == 'free') {
+    			// if current status is "Free" any change should go to inserting a schedule
     			$(currentForm).attr('action', '/schedule/saveDate');
     		} else {
-    			$(currentForm).attr('action', '/schedule/edit');
+	    		if ($(selStatus).val() == 'free') {
+	    			// if we are freeing a schedule, it means we are deleting it
+	    			if (confirm('Are you sure you want to delete the current appointment?')) {
+	    				$(currentForm).attr('action', '/schedule/removeDate');
+	    				// $(currentForm).submit();
+	    			}
+	    		} else {
+	    			// any other status change is an edit
+    				$(currentForm).attr('action', '/schedule/edit');
+    			}
     		}
-    		var selStatus = $(currentForm).find('select.sel-schedule-option');
-    		if ($(selStatus).is(':visible')) {
-    			$(selStatus).hide();
-    			$(btnStatus).attr('title', 'Afisati actiunile disponibile pt aceasta programare');
-    		} else {
-    			$(selStatus).show();
-    			$(selStatus).val($(btnStatus).val());
-    			$(btnStatus).attr('title', 'Ascundeti actiunile disponibile pt aceasta programare');
-    		}
+			$(currentForm).submit();
+    	}
+    	function statusCancel(btnCancel)
+    	{
+    		$(btnCancel).parents('div.wrap-schedule-option').hide();
     	}
     </script>
   </body>

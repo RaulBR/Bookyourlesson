@@ -28,7 +28,6 @@ public class RegisterControler {
 	@Autowired
 	RegisterService registerService;
 
-	// StudentService studentService;
 
 	@RequestMapping("")
 	public ModelAndView register(HttpSession session) throws Exception {
@@ -40,6 +39,7 @@ public class RegisterControler {
 	@RequestMapping("student")
 	public ModelAndView student(HttpSession session) throws Exception {
 		ModelAndView result = new ModelAndView("studentForm");
+		result.addObject("teachers",teacherService.getAll());
 		return result;
 	}
 
@@ -49,27 +49,36 @@ public class RegisterControler {
 		return result;
 	}
 
-	@RequestMapping(value = "/student/userSave", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute("user") User user, Student student, String pass2,
+	@RequestMapping(value = "/student/userSave" , method = RequestMethod.POST)
+	public ModelAndView save(@Valid @ModelAttribute("user2") User user, Student student, String pass2,
 			BindingResult bindingResult, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("studentForm");
+		System.out.println("before");
+		System.out.println(registerService.checkUserUnique(user));
+		System.out.println(registerService.checkPass(user.getPass(), pass2));
 		
-		
-		registerService.addUser(user);
-		user.setStudentId(studentService.addStudent(student).getId());
-		student.setBirthDay(studentService.byrthDay(student.getCnp()));
-	;
 		if (registerService.checkUserUnique(user) == true) {
-
+			
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
-				if (user.getTeacherId() == 0) {
-					// user.setTeacherId(teacherId);
-				}
+				
+					student.setBirthDay(studentService.byrthDay(student.getCnp()));
+					user.setStudentId(studentService.addStudent(student).getId());
+					user.setPermision("student");
+					user.setTeacherId(0);
+					registerService.addUser(user);
+				
 
+			}else {
+				modelAndView.addObject("error2",new String("passwoard dont mach"));
 			}
 			
+		} else{
+			modelAndView.addObject("error",new String("id exists"));
+		
 		}
-
+		
+		
+		
 		return modelAndView;
 	}
 	@RequestMapping(value = "/teacher/userSave", method = RequestMethod.POST)
@@ -78,19 +87,26 @@ public class RegisterControler {
 		ModelAndView modelAndView = new ModelAndView("studentForm");
 		
 		
-		registerService.addUser(user);
-		user.setStudentId(teacherService.addTeacher(teacher).getId());
-		teacher.setBirthDay(teacherService.byrthDay(teacher.getCnp()));
+	
+		
 	;
 		if (registerService.checkUserUnique(user) == true) {
 
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
-				if (user.getTeacherId() == 0) {
-					// user.setTeacherId(teacherId);
-				}
+				teacher.setBirthDay(teacherService.byrthDay(teacher.getCnp()));
+				user.setTeacherId((teacherService.addTeacher(teacher).getId()));
+				user.setPermision("teacher");
+				System.out.println(user.getPermision());
+				System.out.println(user.getTeacherId());
+				registerService.addUser(user);
 
+			}else {
+				modelAndView.addObject("error2",new String("passwoard dont mach"));
 			}
 			
+		}else{
+			modelAndView.addObject("error",new String("id exists"));
+		
 		}
 
 		return modelAndView;

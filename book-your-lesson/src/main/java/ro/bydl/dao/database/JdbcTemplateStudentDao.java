@@ -24,14 +24,15 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 	public Collection<Student> getAll() {
 		// TODO Auto-generated method stub
 		return jdbcTemplate
-				.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id, med_paper, phone, email, birth_day "
-						+ " FROM public.students", new StudentMapper());
+				.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email, birth_day "+ 
+  "FROM public.students;", new StudentMapper());
 	}
 
 	@Override
 	public Student findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return jdbcTemplate.queryForObject("SELECT id, name, sir_name, cnp, register_date, category, teacher_id, "+
+       "med_paper, phone, email, birth_day  FROM public.students WHERE id=?;",new Long[] {id},new StudentMapper());
 	}
 
 	@Override
@@ -39,8 +40,9 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 		
 
 		return jdbcTemplate.queryForObject(
-				"INSERT INTO public.students(name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email) "+
-    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+				"INSERT INTO public.students(name, sir_name, cnp, register_date, category, teacher_id, " +
+				"med_paper, phone, email, birth_day) "+
+    "VALUES ( ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?) RETURNING id;",
 				new Object[] { student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
 						student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
 						student.getEmail(),student.getBirthDay() },
@@ -61,9 +63,10 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 	}
 
 	@Override
-	public Collection<Student> getByTeacher(int theacherId) {
+	public Collection<Student> getByTeacher(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email, birth_day "+ 
+  "FROM public.students where teacher_id=? ;", new Long[] {id}, new StudentMapper());
 	}
 
 	private static class StudentMapper implements RowMapper<Student> {
@@ -75,13 +78,13 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 			student.setName(rs.getString("name"));
 			student.setSirName(rs.getString("sir_name"));
 			student.setCnp(rs.getLong("cnp"));
-			//student.setRegistrationDate(rs.getString("registration_date"));
+			student.setRegistrationDate(rs.getString("register_date"));
 			student.setMedPaper(rs.getBoolean("med_paper"));
 			student.setTeacherId(rs.getInt("teacher_id"));
 			student.setCategory(rs.getString("category"));
 			student.setEmail(rs.getString("email"));
 			student.setPhoneNumber(rs.getLong("phone"));
-			//student.setBirthDay(("birth_day"));
+			student.setBirthDay(("birth_day"));
 			return student;
 		}
 

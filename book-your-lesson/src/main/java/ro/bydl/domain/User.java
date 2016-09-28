@@ -1,19 +1,18 @@
 package ro.bydl.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+@Component
+@Scope("session")
 public class User extends AbstractModel{
 
 	private String user;
 	private String pass;
-	
 	private long studentId;
-	private int teacherId;
+	private long teacherId;
 	private String permision;
 	
-	@Override
-	public String toString() {
-		return "User [user=" + user + ", pass=" + pass + ", studentId=" + studentId
-				+ ", teacherId=" + teacherId + ", permision=" + permision + "]";
-	}
+	
 	public String getUser() {
 		return user;
 	}
@@ -35,11 +34,11 @@ public class User extends AbstractModel{
 		this.studentId = studentId;
 	}
 	
-	public int getTeacherId() {
+	public long getTeacherId() {
 		return teacherId;
 	}
-	public void setTeacherId(int teacherId) {
-		this.teacherId = teacherId;
+	public void setTeacherId(long theacher) {
+		this.teacherId = theacher;
 	}
 	public String getPermision() {
 		return permision;
@@ -47,10 +46,12 @@ public class User extends AbstractModel{
 	public void setPermision(String permision) {
 		this.permision = permision;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((pass == null) ? 0 : pass.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -63,6 +64,11 @@ public class User extends AbstractModel{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (pass == null) {
+			if (other.pass != null)
+				return false;
+		} else if (!pass.equals(other.pass))
+			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
@@ -70,5 +76,8 @@ public class User extends AbstractModel{
 			return false;
 		return true;
 	}
-	
+	@Override
+	public String toString() {
+		return "User [user=" + user + "]";
+	}
 }

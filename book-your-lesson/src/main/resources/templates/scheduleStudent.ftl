@@ -26,34 +26,31 @@
   <body>
   <h1> Schedule leson</h1>
   
-  	<h3>[#if name??]${name!''}[#else]Vizitator[/#if] </h3>
-  <h4> [#if instructorName??]${instructorName!''}[#else]No theacher[/#if] </h4>
+  	<h3>[#if studentOBJ??]${studentOBJ.name!''} ${studentOBJ.sirName!''}[#else]Vizitator[/#if] </h3>
+  <h4> [#if instructor??]Instructor:  ${instructor.name!''} ${instructor.sirName!''}[#else]No theacher[/#if] </h4>
  
+
+[#assign dayName= ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
+ [#assign hourList = [8, 10, 12, 14, 16, 18]]
   <table class="table">
   <thead>
      <tr >
     <th >Hour
-    <p> </p></th>
-    <th>Monday
-    <p>${cal.monday!''}</p></th>
-    <th>Tuesday
-    <p>${cal.tuesday!''}</p></th>
-    <th>Wednesday
-    <p>${cal.wednesday!''}</p></th>
-    <th>Thursday
-    <p>${cal.thursday!''}</p></th>
-    <th>Friday
-    <p>${cal.friday!''}</p></th>
-    <th>Saturday
-    <p>${cal.saturday!''}</p></th>
-    <th>Sunday
-    <p>${cal.sunday!''}</p></th>
+    <p> </p>
     
-  </tr>
+    </th>
+    [#assign a=0]
+ 		[#list weekDays as  day]
+ 			[#assign dayn=dayName[a]]
+			 <th>${dayn}  <p>${day}</p></th>
+			[#assign a++]
+		 [/#list]
+  
+  	</tr>
   
 
   
-  [#assign hourList = [8, 10, 12, 14, 16, 18]]
+ 
   
   
   [#list hourList as hour]
@@ -61,12 +58,12 @@
   	  <tr>
 	  	<td ><strong>${hour} - ${endHour}</strong></td>
 	  	
-	  	[#list weekDay as day]
+	  	[#list weekDays as day]
 	  	
 	  	[#assign curentSchedule= 0]
 	  	[#assign statut = 'free']
-	  	[#assign student= 1]
-	  	[#assign teacher= 2]
+	  	[#assign student= 0]
+	  	[#assign teacher= 0]
 	  		[#if schedules??]
 	  			[#list schedules as schedule]
 	  				[#if schedule.startHour == hour]
@@ -82,6 +79,11 @@
 	  			[/#list]
 	  			[/#if]
 	  			
+	  			[#if curentSchedule > 0]
+	  				[#if student != studentOBJ.id]
+	  					[#assign statut = 'notFree']
+	  				[/#if]
+	  			[/#if]
 	  			[#switch statut]
 	  			[#case 'pending']
 	  			
@@ -89,10 +91,10 @@
 					<input type="hidden" name="startHour" value="${hour}">
 					<input type="hidden" name="endHour" value="${endHour}">
 					<input type="hidden" name="date" value="${day}">
-					<input type="hidden" name="week" value="${cal.week?c}">
+					<input type="hidden" name="week" value="${week?c}">
 					<input type="hidden" name="id" value="${curentSchedule}">
-					<input type="hidden" name="student_id" value="${student}">
-					<input type="hidden" name="teacher_id" value="${teacher}">
+					<input type="hidden" name="studentId" value="${studentOBJ.id}">
+					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
 					
 					<p><input class="btn btn-warning" role="button" type="submit" value="PENDING" ></p>
 					 </p></form>  </td>
@@ -102,9 +104,9 @@
 					<input type="hidden" name="startHour" value="${hour}">
 					<input type="hidden" name="endHour" value="${endHour}">
 					<input type="hidden" name="date" value="${day}">
-					<input type="hidden" name="week" value="${cal.week?c}">
-					<input type="hidden" name="student_id" value="${student}">
-					<input type="hidden" name="teacher_id" value="${teacher}">
+					<input type="hidden" name="week" value="${week?c}">
+					<input type="hidden" name="studentId" value="${studentOBJ.id}">
+					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
 					<input type="hidden" name="status" value="pending">
 					
 			<p><input class="btn btn-default" role="button" type="submit" value="Book Lesson" ></p>
@@ -121,7 +123,8 @@
 	  		<td><p>done</p></td>
 	  	  	[#break]
 	  	  		[#case 'booked']	
-	  		<td><p><inputclass="btn btn-success" role="button" type="submit" value="Booked" ></p></td>
+	  		<td><p><input class="btn btn-success" role="button" type="submit" value="Booked" ></p></td>
+	  		[#break]
 	  	  	  [/#switch]
 	  [/#list]
 	  </tr>
@@ -132,19 +135,39 @@
 </table>
 <nav aria-label="...">
   <ul class="pager">
-    <li><a href="/schedule/previousWeek?week=${cal.week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
+    <li><a href="/schedule/previousWeek?week=${week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
     <li><a href="/schedule/thisWeek">This week</a></li>
-    <li><a href="/schedule/nextWeek?week=${cal.week?c}">Next week</a></li>
+    <li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
   </ul>
 </nav>
 <p>Progress: </p>
-${progress?c}
+
+
+
+
 <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="width: ${progress}%">
-    <span class="sr-only">40% Complete (success)</span>
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${done}" aria-valuemin="0" aria-valuemax="100" style="width: ${done}%">
+    <span class="sr-only">${done}/30(success)</span>
+   ${done}/30(success)
   </div>
 </div>
 
+<div class="progress">
+
+  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: ${progress}%">
+    <span class="sr-only"> pending: ${progress}</span>
+ 
+    ${progress}
+  </div>
+
+ </div>
+<div class="progress">
+  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="${absent}" aria-valuemin="0" aria-valuemax="100" style="width: ${absent}%">
+    <span class="sr-only">${absent} Absent (danger)</span>
+    Absent: ${absent};
+    
+  </div>
+</div>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

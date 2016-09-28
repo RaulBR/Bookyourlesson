@@ -11,15 +11,16 @@ import org.springframework.stereotype.Component;
 import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
 @Component
-public class jdbcTemplateUserDao implements UserDAO{
+public class JdbcTemplateUserDao implements UserDAO{
 	
 @Autowired	
 JdbcTemplate jdbcTeamplate;
 
 	@Override
 	public Collection<User> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return jdbcTeamplate.query("SELECT users, pass, permision, student_id, teacher_id, id "+
+				  "FROM public.users;",new UserMapper());
 	}
 
 	@Override

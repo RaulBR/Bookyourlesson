@@ -3,21 +3,22 @@ package ro.bydl.service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.jdbcTeamplateTeacherDAO;
+import ro.bydl.dao.database.JdbcTeamplateTeacherDAO;
 import ro.bydl.domain.Teacher;
 @Service
 public class TeacherService extends PersonService {
 
 	@Autowired
-	jdbcTeamplateTeacherDAO dao;
+	JdbcTeamplateTeacherDAO dao;
 	
-	public Teacher getByid(int id) {
+	public Teacher findById(long id) {
 		
-		return dao.findById((long) id);
+		return dao.findById(id);
 	}
 	public Teacher addTeacher(Teacher teacher) {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -25,6 +26,10 @@ public class TeacherService extends PersonService {
 		
 		teacher.setHireDate(dateFormat.format(cal.getTime()));
 		return dao.update(teacher);
+	}
+	public Collection <Teacher> getAll() {
+		
+		return dao.getAll();
 	}
 
 }

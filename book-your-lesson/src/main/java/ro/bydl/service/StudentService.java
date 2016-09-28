@@ -31,6 +31,7 @@ JdbcTemplateStudentDao dao;
 		
 		
 	}
+	
 	public Collection<Student> getAll(){
 
 				return dao.getAll();
@@ -38,6 +39,18 @@ JdbcTemplateStudentDao dao;
 		
 	}
 	
+	public Collection<Student> getByTeacherId(long id){
+
+		return dao.getByTeacher( id);
+
+
+}
+
+	public Student findById(long id) {
+		return dao.findById(id);
+		
+		
+	}
 	
 
 }

@@ -16,17 +16,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.ScheduleDAO;
+import ro.bydl.dao.database.JdbcTemplateScheduleeDao;
 import ro.bydl.domain.Schedule;
 
 @Service
-public class ScheduleService extends CalendarService {
+public class ScheduleService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleService.class);
 	
 
 	@Autowired
-	private ScheduleDAO dao;
-
-
+	private JdbcTemplateScheduleeDao dao;
+	
+	
 	
 	public int validate(Schedule schedule) throws ValidationException {
 
@@ -64,11 +65,12 @@ public class ScheduleService extends CalendarService {
 		dao.delete(schedule);
 
 	}
-	public int countSchedules(){
+	public int countSchedules(long id){
 		
-		return (dao.getAll().size()*100/30);
+		return (dao.searchByStudentId(id).size()*100/30);
 		
 	}
+	
 
 	public int edit(Schedule schedule) {
 		
@@ -82,6 +84,46 @@ public class ScheduleService extends CalendarService {
 	}
 
 	
-	
+
+	public Collection<Schedule>  searchByStudentId(int id) {
+		
+		return dao.searchByStudentId(id);
+	}
+
+	public int pending(long id){
+		int nr=0;
+		for (Schedule s:dao.searchByStudentId(id)){
+			if(s.getStatus().equals("pending")||s.getStatus().equals("booked")){
+				nr++;
+			}
+			
+		}
+		return nr;
+	}
+	public int absent(long id){
+		int nr=0;
+		for (Schedule s:dao.searchByStudentId(id)){
+			if(s.getStatus().equals("absent")){
+				nr++;
+			}
+			
+		}
+		return nr;
+	}
+	public int done(long id){
+		int nr=0;
+		for (Schedule s:dao.searchByStudentId(id)){
+			if(s.getStatus().equals("done")){
+				nr++;
+			}
+			
+		}
+		return nr;
+	}
+
+	public Collection<Schedule>  searchByStudentId(int id, int teacherId) {
+		
+		return dao.searchByStudentId(id, teacherId);
+	}
 
 }

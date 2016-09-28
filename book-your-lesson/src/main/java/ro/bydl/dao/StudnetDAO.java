@@ -9,8 +9,7 @@ import ro.bydl.domain.Student;
 
 public interface StudnetDAO extends BaseDao <Student>  {
 
-	Collection<Student> getByTeacher(int theacherId);
-	
+	Collection<Student> getByTeacher(long id);
 
 	
 

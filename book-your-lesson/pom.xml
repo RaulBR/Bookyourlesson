@@ -53,7 +53,9 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		
+	
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -70,5 +72,13 @@
 		</plugins>
 	</build>
 
-
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+    <property name="scopes">
+        <map>
+            <entry key="session">
+                <bean class="org.springframework.context.support.SimpleThreadScope"/>
+            </entry>
+        </map>
+    </property>
+</bean>
 </project>
