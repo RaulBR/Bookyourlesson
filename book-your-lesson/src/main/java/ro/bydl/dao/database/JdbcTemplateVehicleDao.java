@@ -17,7 +17,7 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	JdbcTemplate jdbcTeamplate;
 
 	public Collection<Vehicle> getAll() {
-		// TODO Auto-generated method stub
+		
 		return jdbcTeamplate.query("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
 				+ "insurance, itp " + "FROM public.vehicle;", new VehicleMapper());
 	}

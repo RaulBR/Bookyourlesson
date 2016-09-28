@@ -15,18 +15,21 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;
-
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.service.CalendarService;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
-
+/**
+ * this class handles the MVC for the schedule.
+ * It retrives schedules based on permission and specific users.
+ * @author Raul Ranete
+ *
+ */
 @Controller
 @RequestMapping("/schedule")
-@SessionAttributes({ "studentLogedId", "permision", "theacherLogId","weeks"})
+@SessionAttributes({ "studentLogedId", "permision", "theacherLogId", "weeks" })
 // @SessionAttributes("teacherId")
 
 public class ScheduleControler {
@@ -39,100 +42,128 @@ public class ScheduleControler {
 	private TeacherService teacherService;
 	@Autowired
 	private CalendarService calendarService;
-
+/**
+ * returns a MV based on permission.
+ * @param session
+ * @return
+ * @throws Exception
+ */
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
 		String permison = session.getAttribute("permision").toString();
 		System.err.println(permison);
-		
-		
+
 		int week = Integer.parseInt(session.getAttribute("weeks").toString());
 		ModelAndView result = new ModelAndView();
-		
-if(permison.equals("teacher")){
-	
-	int teacherId=Integer.parseInt(session.getAttribute("theacherLogId").toString());
-	System.err.println("teacher id "+ teacherId);
-		result = new ModelAndView("scheduleTeacher");
-		
-		result.addObject("week", week);
-		result.addObject("teacherOBJ",session.getAttribute("teacherOBJ"));
-		result.addObject("teacherId", session.getAttribute("theacherLogId"));
-		result.addObject("students",studentService.getByTeacherId(teacherId));
-		result.addObject("schedules",
-				scheduleService.searchByTeacherId(teacherId));
+
+		if (permison.equals("teacher")) {
+
+			int teacherId = Integer.parseInt(session.getAttribute("theacherLogId").toString());
+			System.err.println("teacher id " + teacherId);
+			result = new ModelAndView("scheduleTeacher");
+
+			result.addObject("week", week);
+			result.addObject("teacherOBJ", session.getAttribute("teacherOBJ"));
+			result.addObject("teacherId", session.getAttribute("theacherLogId"));
+			result.addObject("students", studentService.getByTeacherId(teacherId));
+			result.addObject("schedules", scheduleService.searchByTeacherId(teacherId));
 		}
 
-if(permison.equals("student")){
-	
-	int iD=Integer.parseInt(session.getAttribute("studentLogedId").toString());
+		if (permison.equals("student")) {
+
+			int iD = Integer.parseInt(session.getAttribute("studentLogedId").toString());
 			Student currentStudent = (Student) session.getAttribute("studentOBJ");
 			result = new ModelAndView("scheduleStudent");
-			result.addObject("studentOBJ",session.getAttribute("studentOBJ"));
+			result.addObject("studentOBJ", session.getAttribute("studentOBJ"));
 			result.addObject("studentId", session.getAttribute("studentLogedId"));
-			result.addObject("schedules",scheduleService.searchByStudentId(iD, currentStudent.getTeacherId()));
-			result.addObject("instructor",teacherService.findById(currentStudent.getTeacherId()));
-			result.addObject("progress",scheduleService.pending(iD));
-			
-			result.addObject("absent",scheduleService.absent(iD));
-			result.addObject("done",scheduleService.done(iD));
-			}
+			result.addObject("schedules", scheduleService.searchByStudentId(iD, currentStudent.getTeacherId()));
+			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
+			result.addObject("progress", scheduleService.pending(iD));
 
+			result.addObject("absent", scheduleService.absent(iD));
+			result.addObject("done", scheduleService.done(iD));
+		}
 
-				result.addObject("week", week);
-				result.addObject("weekDays", calendarService.getDays(week));
+		result.addObject("week", week);
+		result.addObject("weekDays", calendarService.getDays(week));
 		return result;
 	}
-
-	
-	
-	
+/**
+ * setts the next week numer.
+ * @param session
+ * @param week
+ * @return
+ * @throws Exception
+ */
 	@RequestMapping("/nextWeek")
-	public ModelAndView nextWeek(HttpSession session,int week) throws Exception {
-	
+	public ModelAndView nextWeek(HttpSession session, int week) throws Exception {
+
 		session.removeAttribute("weeks");
-		session.setAttribute("weeks", week+1);
-		
+		session.setAttribute("weeks", week + 1);
+
 		ModelAndView result = new ModelAndView();
 
 		result.setView(new RedirectView(""));
 		return result;
 	}
-
+/**
+ * sets the wee to this week
+ * @param session
+ * @return
+ * @throws Exception
+ */
 	@RequestMapping("/thisWeek")
 	public ModelAndView thisWeek(HttpSession session) throws Exception {
 
 		ModelAndView result = new ModelAndView("");
 		session.removeAttribute("weeks");
-		session.setAttribute("weeks",Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+		session.setAttribute("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 		result.setView(new RedirectView(""));
 
 		return result;
 	}
-
+/**
+ * seets to previous week
+ * @param session
+ * @param week
+ * @return
+ * @throws Exception
+ */
 	@RequestMapping("/previousWeek")
-	public ModelAndView previous(HttpSession session,int week) throws Exception {
+	public ModelAndView previous(HttpSession session, int week) throws Exception {
 
 		ModelAndView result = new ModelAndView();
 		session.removeAttribute("weeks");
-		session.setAttribute("weeks", week-1);
+		session.setAttribute("weeks", week - 1);
 		result.setView(new RedirectView(""));
 		return result;
 	}
-
+/**
+ * Retrieves a Schedule from the client and saves it to the DB
+ * @param schedule
+ * @param bindingResult
+ * @param sessio
+ * @return
+ */
 	@RequestMapping(value = "saveDate", method = RequestMethod.POST)
 	public ModelAndView save(@Valid @ModelAttribute("schedules") Schedule schedule, BindingResult bindingResult,
 			HttpSession sessio) {
 		ModelAndView modelAndView = new ModelAndView("");
 		System.out.println(schedule.getStudentId());
-	System.out.println(schedule.getDate());
+		System.out.println(schedule.getDate());
 		scheduleService.save(schedule);
 
 		modelAndView.setView(new RedirectView(""));
 
 		return modelAndView;
 	}
-
+/**
+ * Deletes schedule form DB.
+ * @param schedule
+ * @param bindingResult
+ * @param session
+ * @return
+ */
 	@RequestMapping(value = "removeDate", method = RequestMethod.POST)
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession session) {
@@ -144,8 +175,14 @@ if(permison.equals("student")){
 		return modelAndView;
 
 	}
-
-	@RequestMapping(value = "edit")
+/**
+ * Edits a retrieved Schedule
+ * @param schedule
+ * @param bindingResult
+ * @param sessio
+ * @return
+ */
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	public ModelAndView edit(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession sessio) {
 		ModelAndView modelAndView = new ModelAndView();

@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
-import ro.bydl.domain.Student;
-import ro.bydl.domain.User;
+
 @Component
 public class JdbcTemplateScheduleeDao implements ScheduleDAO {
 
@@ -39,17 +38,14 @@ public class JdbcTemplateScheduleeDao implements ScheduleDAO {
 
 	public Collection<Schedule> searchByTeacherId(long id) {
 
-		return jdbcTemplate.query(
-				"SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
-						+ "FROM public.schedule WHERE teacher_id=?;",
-				new Long[] { id }, new ScheduleMapper());
+		return jdbcTemplate.query("SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
+				+ "FROM public.schedule WHERE teacher_id=?;", new Long[] { id }, new ScheduleMapper());
 	}
+
 	public Collection<Schedule> searchByStudentId(long id) {
 
-		return jdbcTemplate.query(
-				"SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
-						+ "FROM public.schedule WHERE student_id=?;",
-				new Long[] { id}, new ScheduleMapper());
+		return jdbcTemplate.query("SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
+				+ "FROM public.schedule WHERE student_id=?;", new Long[] { id }, new ScheduleMapper());
 	}
 
 	@Override
@@ -73,9 +69,9 @@ public class JdbcTemplateScheduleeDao implements ScheduleDAO {
 	@Override
 	public Collection<Schedule> searchByWeek(int week) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.query("SELECT "
-				+ "week, start_hour, end_hour, date, id, student_id, teacher_id, "
-				+ "status  where week=?", new Integer[] { week }, new ScheduleMapper());
+		return jdbcTemplate.query(
+				"SELECT " + "week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status  where week=?",
+				new Integer[] { week }, new ScheduleMapper());
 	}
 
 	@Override
@@ -86,6 +82,16 @@ public class JdbcTemplateScheduleeDao implements ScheduleDAO {
 						+ " teacher_id=?, status=? " + "WHERE id=?;",
 				schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), schedule.getDate(),
 				schedule.getStudentId(), schedule.getTeacherId(), schedule.getStatus(), schedule.getId());
+	}
+
+	
+	
+	public Collection<Schedule> searchByStudentId(long id, long teacherId) {
+
+		return jdbcTemplate.query(
+				"SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
+						+ "FROM public.schedule WHERE student_id=? OR teacher_id = ?;",
+				new Long[] { id, teacherId }, new ScheduleMapper());
 	}
 
 	private static class ScheduleMapper implements RowMapper<Schedule> {
@@ -105,14 +111,6 @@ public class JdbcTemplateScheduleeDao implements ScheduleDAO {
 			return schedule;
 		}
 
-	}
-	
-	public Collection<Schedule> searchByStudentId(long id, long teacherId) {
-
-		return jdbcTemplate.query(
-				"SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
-						+ "FROM public.schedule WHERE student_id=? OR teacher_id = ?;",
-				new Long[] { id, teacherId}, new ScheduleMapper());
 	}
 
 }

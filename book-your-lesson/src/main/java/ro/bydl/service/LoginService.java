@@ -7,20 +7,24 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.database.JdbcTemplateUserDao;
 import ro.bydl.domain.User;
-
+/**
+ * This class checks the validity of users and passeords
+ * @author Raul
+ *
+ */
 
 @Service
-public class LoginService {
+public final class LoginService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 	@Autowired
 	JdbcTemplateUserDao dao;
 
-	public boolean hasPermision(User user) {
-	
-		return false;
-	}
-
-	public User Permision(User user) {
+/**
+ * This method checks the validity of the User and returns the user.
+ * @param user
+ * @return User
+ */
+	public final User Permision(User user) {
 	
 		for(User userFromDAO:dao.getAll()){
 			if(userFromDAO.equals(user)){
@@ -34,6 +38,8 @@ public class LoginService {
 			}
 		return user;
 	}
+
+	
 	
 	
 

@@ -3,16 +3,14 @@ package ro.bydl.dao.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.StudnetDAO;
 import ro.bydl.domain.Student;
-import ro.bydl.domain.Teacher;
 
 @Component
 public class JdbcTemplateStudentDao implements StudnetDAO {
@@ -22,7 +20,7 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 
 	@Override
 	public Collection<Student> getAll() {
-		// TODO Auto-generated method stub
+		
 		return jdbcTemplate
 				.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email, birth_day "+ 
   "FROM public.students;", new StudentMapper());
@@ -57,14 +55,19 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 	}
 
 	@Override
-	public int edit(Student model) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int edit(Student student) {
+		
+		return jdbcTemplate.update("UPDATE public.students  SET id=?, name=?, sir_name=?, cnp=?, register_date=?, category=?, "+
+       "teacher_id=?, med_paper=?, phone=?, email=?, birth_day=? WHERE <condition>;",
+       new Object[] { student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
+				student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
+				student.getEmail(),student.getBirthDay(),student.getId() },
+		new IDtMapper());
 	}
 
 	@Override
 	public Collection<Student> getByTeacher(long id) {
-		// TODO Auto-generated method stub
+	
 		return jdbcTemplate.query("SELECT id, name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email, birth_day "+ 
   "FROM public.students where teacher_id=? ;", new Long[] {id}, new StudentMapper());
 	}

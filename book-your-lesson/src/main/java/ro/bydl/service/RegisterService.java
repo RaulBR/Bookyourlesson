@@ -15,7 +15,7 @@ public class RegisterService {
 	public boolean checkUserUnique(User user) {
 		boolean isFree = true;
 
-		for (User users : dao.getAllUsers()) {
+		for (User users : dao.getAll()) {
 			String userFromDao=users.getUser();
 			String inComingUser=user.getUser();
 			if (inComingUser.equals(userFromDao)) {

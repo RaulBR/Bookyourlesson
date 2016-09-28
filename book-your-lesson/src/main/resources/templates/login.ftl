@@ -29,7 +29,7 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form action="/login"  accept-charset="UTF-8" role="form">
+			    	<form action="/login"  accept-charset="UTF-8" role="form" method="POST">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		   <input class="form-control" placeholder="Name" name="user" type="text">
