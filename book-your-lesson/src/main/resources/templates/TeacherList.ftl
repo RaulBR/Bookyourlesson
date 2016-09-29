@@ -30,17 +30,12 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
 	</nav>
   <h1> Vehicle list</h1>
- 
-	[#if permision??]
- 	<p><a href="/register/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a></p>
-	[/#if]
  
   <table class="table">
   <thead>
@@ -57,12 +52,14 @@
     <th>LicensePlate</th>
     
    	[#if permision??]
+   	[#if permision='admin']
    	 <th>Chassis</th>
    	 <th> Vignettes</th>
   	<th> Insurance</th>
    	<th> ITP</th>
   	<th>Edit</th>
    	<th> Delete</th>
+ 	[/#if]
    [/#if]
  
   	
@@ -82,22 +79,39 @@
 	  		
 	  		
 	  	[#if permision??]
+	  		[#if  permision='admin']
 	  		<td >	 ${vehicle.chassis} </td>
-	  		<td >	 ${vehicle.vignettes} </td>
-	  		<td >	 ${vehicle.insurance} </td>
-	  		<td >	 ${vehicle.ITP} </td>
+	  		<td >	 ${vehicle.vignettes?c} </td>
+	  		<td >	 ${vehicle.insurance?c} </td>
+	  		<td >	 ${vehicle.ITP?c} </td>
 	  		<td >
-	  			 <form name="form1" action="/register/vehicle/edit" method="POST">
+	  		 	  	<input type="hidden" class="form-control"  name="brand" value="${vehicle.brand}">
+					<input type="hidden" class="form-control"  name="carType" value= ${vehicle.carType}"> 
+					<input type="hidden" class="form-control"  name="fuel" value="${vehicle.fuel}">
+					<input type="hidden" class="form-control"  name="chassis" value=" ${vehicle.chassis}">
+					<input type="hidden" class="form-control" name="licensePlate" value=" ${vehicle.licensePlate}">
+					<input type="hidden" class="form-control" name="engine" value=" ${vehicle.engine}">
+					<input type="hidden" class="form-control" name="vignettes" value="${vehicle.vignettes?c}">
+					<input type="hidden" class="form-control" name="insurance" value=" ${vehicle.insurance?c}">
+					<input type="hidden" class="form-control" name="ITP" value="${vehicle.ITP?c}">
 	  				 <input type="hidden" name="id" value="${vehicle.id}">
-	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
+	  				 
+	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button></td>
 	  		</form>
-	  		</td>
-	  		<td >
-	  		 <form name="form1" action="/register/vehicle/delete" method="POST">
+	  		 <form name="form1" action="delete">
+	  				 <input type="hidden" class="form-control"  name="brand" value="${vehicle.brand}">
+					<input type="hidden" class="form-control"  name="carType" value= ${vehicle.carType}"> 
+					<input type="hidden" class="form-control"  name="fuel" value="${vehicle.fuel}">
+					<input type="hidden" class="form-control"  name="chassis" value=" ${vehicle.chassis}">
+					<input type="hidden" class="form-control" name="licensePlate" value=" ${vehicle.licensePlate}">
+					<input type="hidden" class="form-control" name="engine" value=" ${vehicle.engine}">
+					<input type="hidden" class="form-control" name="vignettes" value="${vehicle.vignettes?c}">
+					<input type="hidden" class="form-control" name="insurance" value=" ${vehicle.insurance?c}">
+					<input type="hidden" class="form-control" name="ITP" value="${vehicle.ITP?c}">
 	  				 <input type="hidden" name="id" value="${vehicle.id}">
-	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button>
+	  		<td >	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button></td>
 	  		</form>
-	  			</td>
+	  			[/#if]
 	  			[/#if]
 	  			[/#list]
 	  			[/#if]

@@ -22,6 +22,7 @@ import ro.bydl.service.CalendarService;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
+import ro.bydl.service.VehicleService;
 /**
  * this class handles the MVC for the schedule.
  * It retrives schedules based on permission and specific users.
@@ -43,6 +44,8 @@ public class ScheduleControler {
 	private TeacherService teacherService;
 	@Autowired
 	private CalendarService calendarService;
+	@Autowired
+	private VehicleService vehicleService;
 /**
  * returns a MV based on permission.
  * @param session
@@ -54,7 +57,7 @@ public class ScheduleControler {
 		String permison = session.getAttribute("permision").toString();
 		
 
-		int week = Integer.parseInt(session.getAttribute("weeks").toString());
+		int week = Integer.parseInt(session.getAttribute("week").toString());
 		ModelAndView result = new ModelAndView();
 
 		if (permison.equals("teacher")) {
@@ -66,6 +69,7 @@ public class ScheduleControler {
 			result = new ModelAndView("scheduleTeacher");
 
 			result.addObject("week", week);
+		//	result.addObject("car",vehicleService.findByTeacherId(teacher.getId()));
 			result.addObject("teacherOBJ", teacher);
 				//result.addObject("teacherId", session.getAttribute("theacherLogId"));
 			result.addObject("students", studentService.getByTeacherId( teacher.getId()));
@@ -80,12 +84,16 @@ public class ScheduleControler {
 			result = new ModelAndView("scheduleStudent");
 			result.addObject("studentOBJ", session.getAttribute("studentOBJ"));
 			result.addObject("studentId", currentStudent.getId());
+			//result.addObject("car",vehicleService.findByTeacherId(currentStudent.getTeacherId()));
 			result.addObject("schedules", scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
 			result.addObject("progress", scheduleService.pending(currentStudent.getId()));
 
 			result.addObject("absent", scheduleService.absent(currentStudent.getId()));
 			result.addObject("done", scheduleService.done(currentStudent.getId()));
+		} if (permison.equals("admin")) {
+			result= new ModelAndView("admin");
+			
 		}
 
 		result.addObject("week", week);

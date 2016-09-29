@@ -1,8 +1,11 @@
 package ro.bydl.domain;
 
-public class Teacher extends Person {
+import org.hibernate.validator.constraints.NotEmpty;
 
+public class Teacher extends Person {
+	@NotEmpty
 	private String hireDate;
+	@NotEmpty
 	private String medDate;
 
 	public String getHireDate() {

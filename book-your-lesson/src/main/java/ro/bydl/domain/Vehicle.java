@@ -1,17 +1,44 @@
 package ro.bydl.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Vehicle extends AbstractModel{
-	
+	@NotEmpty
 	private String brand;
+	@NotEmpty
 	private String carType;
+	@NotEmpty
 	private String fuel;
+	@NotEmpty
 	private String chassis;
 	private int engine;
+	@NotEmpty
 	private String licensePlate;
-	private boolean vignettes;
-	private boolean insurance;
-	private boolean ITP;
+	@NotEmpty
+	private String vignettes;
+	@NotEmpty
+	private String insurance;
+	@NotEmpty
+	private String ITP;
 	
+	private long teacherId;
+	public long getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(long teacherId) {
+		this.teacherId = teacherId;
+	}
+
+	public String getYear() {
+		return year;
+	}
+	
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	private String year;
 
 	public String getBrand() {
 		return brand;
@@ -49,22 +76,23 @@ public class Vehicle extends AbstractModel{
 	public void setLicensePlate(String licensePlate) {
 		this.licensePlate = licensePlate;
 	}
-	public boolean isVignettes() {
+	
+	public String getVignettes() {
 		return vignettes;
 	}
-	public void setVignettes(boolean vignettes) {
+	public void setVignettes(String vignettes) {
 		this.vignettes = vignettes;
 	}
-	public boolean isInsurance() {
+	public String getInsurance() {
 		return insurance;
 	}
-	public void setInsurance(boolean insurance) {
+	public void setInsurance(String insurance) {
 		this.insurance = insurance;
 	}
-	public boolean isITP() {
+	public String getITP() {
 		return ITP;
 	}
-	public void setITP(boolean iTP) {
+	public void setITP(String iTP) {
 		ITP = iTP;
 	}
 	@Override

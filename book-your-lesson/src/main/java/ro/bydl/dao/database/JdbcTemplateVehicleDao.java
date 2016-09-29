@@ -3,10 +3,12 @@ package ro.bydl.dao.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
 import ro.bydl.dao.VehicleDAO;
 import ro.bydl.domain.Vehicle;
 
@@ -19,19 +21,29 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	public Collection<Vehicle> getAll() {
 		
 		return jdbcTeamplate.query("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
-				+ "insurance, itp " + "FROM public.vehicle;", new VehicleMapper());
+				+ "insurance, itp, year,teacher_id   FROM public.vehicle;", new VehicleMapper());
 	}
 
 	@Override
-	public Collection<Vehicle> getByLicence() {
-		// TODO Auto-generated method stub
-		return null;
+	public Vehicle getByLicence(Vehicle vehicle) {
+		
+		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
+				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  license_plate=? ", new Object[] {vehicle.getLicensePlate()},new VehicleMapper());
 	}
 
 	@Override
 	public Vehicle findById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
+				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  id=? ", new Long[] {id},new VehicleMapper());
+	}
+	
+	@Override
+	public Vehicle findByTeacherId(Long id) {
+		// TODO Auto-generated method stub
+		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
+				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  teacher_id=? ", new Long[] {id},new VehicleMapper());
+		
 	}
 
 	@Override
@@ -39,11 +51,11 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 		System.out.println(model.getCarType());
 	
 		  jdbcTeamplate.update("INSERT INTO public.vehicle("
-					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp) " +
+					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp, year,teacher_id) " +
 
-					"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?) ;", model.getBrand(), model.getCarType(), model.getFuel(),
-					model.getChassis(), model.getEngine(), model.getLicensePlate(), model.isVignettes(),
-					model.isInsurance(), model.isITP());
+					"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?,?,? ) ;", model.getBrand(), model.getCarType(), model.getFuel(),
+					model.getChassis(), model.getEngine(), model.getLicensePlate(), model.getVignettes(),
+					model.getInsurance(), model.getITP(),model.getYear(),model.getTeacherId());
 		  return model;
 		 }
 
@@ -54,12 +66,13 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	}
 
 	@Override
-	public int edit(Vehicle model) {
+	public int edit(Vehicle m) {
 
 		return jdbcTeamplate.update(
-				"UPDATE public.vehicle " + "SET id=?, brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "
-						+ " vignettes=?, insurance=?, itp=?" + " WHERE id=?;",
-				model.getId());
+				"UPDATE public.vehicle " + "SET brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "
+						+ " vignettes=?, insurance=?, itp=?,year=?, teacher_id=?" + " WHERE id=?;",m.getBrand(),m.getCarType(),m.getFuel(),m.getChassis(),
+						m.getEngine(),m.getLicensePlate(),m.getVignettes(),m.getInsurance(),m.getITP(),m.getYear(),m.getTeacherId(),
+				m.getId());
 	}
 
 	private static class VehicleMapper implements RowMapper<Vehicle> {
@@ -74,9 +87,11 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 			vehicle.setChassis(rs.getString("chassis"));
 			vehicle.setEngine(rs.getInt("engine"));
 			vehicle.setLicensePlate(rs.getString("license_plate"));
-			vehicle.setVignettes(rs.getBoolean("vignettes"));
-			vehicle.setITP(rs.getBoolean("itp"));
-			vehicle.setInsurance(rs.getBoolean("insurance"));
+			vehicle.setVignettes(rs.getString("vignettes"));
+			vehicle.setITP(rs.getString("itp"));
+			vehicle.setInsurance(rs.getString("insurance"));
+			vehicle.setYear(rs.getString("year"));
+			vehicle.setTeacherId(rs.getLong("teacher_id"));
 			return vehicle;
 		}
 	}

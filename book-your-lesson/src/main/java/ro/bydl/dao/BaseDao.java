@@ -23,6 +23,8 @@ public interface BaseDao<T extends AbstractModel> {
 
 	int edit(T model);
 
+	
+
 
 }
 

@@ -1,13 +1,21 @@
 package ro.bydl.domain;
 
-public class Person extends AbstractModel {
+import org.hibernate.validator.constraints.NotEmpty;
 
+public class Person extends AbstractModel {
+	@NotEmpty
 	private String name;
+	@NotEmpty
 	private String sirName;
+
 	private long cnp;
+	@NotEmpty
 	private String category;
+
 	private long phoneNumber;
+	@NotEmpty
 	private String email;
+	@NotEmpty
 	private String birthDay;
 
 	public String getBirthDay() {

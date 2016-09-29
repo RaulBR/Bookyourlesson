@@ -1,14 +1,19 @@
 package ro.bydl.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Schedule extends AbstractModel {
 
 	private int startHour;
 	private int endHour;
+	@NotBlank
 	private String date;
 	private int week;
 	private boolean isFree;
 	private int studentId;
 	private int teacherId;
+	@NotBlank
 	private String status;
 	
 	public int getStudentId() {

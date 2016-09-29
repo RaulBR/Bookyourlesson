@@ -93,7 +93,7 @@ public class RegisterControler {
 				user.setPermision("student");
 				user.setTeacherId(0);
 				registerService.addUser(user);
-
+				modelAndView.setView(new RedirectView(""));
 			} else {
 				modelAndView.addObject("error2", new String("passwoard dont mach"));
 			}
@@ -102,7 +102,7 @@ public class RegisterControler {
 			modelAndView.addObject("error", new String("id exists"));
 
 		}
-
+		
 		return modelAndView;
 	}
 
@@ -146,13 +146,26 @@ public class RegisterControler {
 	@RequestMapping("vehicle")
 	public ModelAndView add(HttpSession session) throws Exception {
 		ModelAndView result = new ModelAndView("vehicle");
-
+		Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
+		result.addObject("teahcerOBJ",teacher);
+		String permision = session.getAttribute("permision").toString();
+		switch(permision) {
+			case "teacher":
+				Teacher teacherOBJ = (Teacher) session.getAttribute("teacheOBJ");
+				result.addObject("teacherOBJ", teacherOBJ);
+				break;
+			case "admin":
+				result.addObject("teachers", teacherService.getAll());
+				break;
+		}
 		return result;
 	}
 
 	@RequestMapping("vehicle/list")
 	public ModelAndView list(HttpSession session) throws Exception {
+		String permison = session.getAttribute("permision").toString();
 		ModelAndView result = new ModelAndView("vehicleList");
+		result.addObject("permision", permison);
 		result.addObject("vehicles", vehicleService.getAll());
 
 		return result;
@@ -161,16 +174,25 @@ public class RegisterControler {
 	@RequestMapping("vehicle/save")
 	public ModelAndView save(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("/vehicleList");
+		ModelAndView modelAndView = new ModelAndView("/vehicle");
 
-		modelAndView.addObject("vehicles", vehicleService.getAll());
-		vehicleService.save(vehicle);
+		if (vehicle.getId() == 0) {
+			if(vehicleService.isVehicleOk(vehicle)==true){
+				vehicleService.save(vehicle);
+				modelAndView.setView(new RedirectView("list"));
+			}else{
+				modelAndView.addObject("message",new String("Chassies or licencePlate are already in the system"));
+			}
+		} else {
+			// edit
+			vehicleService.edit(vehicle);
+		}
+		
 		modelAndView.setView(new RedirectView("list"));
-
 		return modelAndView;
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("vehicle/delete")
 	public ModelAndView delete(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicleList");
@@ -182,15 +204,26 @@ public class RegisterControler {
 		return modelAndView;
 	}
 
-	@RequestMapping("/edit")
-	public ModelAndView edit(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
+	@RequestMapping("vehicle/edit")
+	public ModelAndView edit(@Valid @ModelAttribute("edit") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("/vehicleList");
+		ModelAndView modelAndView = new ModelAndView("/vehicle");
 		
-		modelAndView.addObject("vehicle", vehicle);
-		vehicleService.edit(vehicle);
-		modelAndView.setView(new RedirectView(""));
+		
+		modelAndView.addObject("vehicle", vehicleService.findById(vehicle.getId()));
+		String permision = session.getAttribute("permision").toString();
+		switch(permision) {
+			case "teacher":
+				Teacher teacherOBJ = (Teacher) session.getAttribute("teacheOBJ");
+				modelAndView.addObject("teacherOBJ", teacherOBJ);
+				break;
+			case "admin":
+				modelAndView.addObject("teachers", teacherService.getAll());
+				break;
+		}
+		
 
 		return modelAndView;
 	}
+
 }

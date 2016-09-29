@@ -6,5 +6,7 @@ import ro.bydl.domain.Vehicle;
 
 public interface VehicleDAO extends BaseDao<Vehicle> {
 
-	public Collection<Vehicle> getByLicence();
+	public Vehicle getByLicence(Vehicle vehicle);
+
+	Vehicle findByTeacherId(Long id);
 }

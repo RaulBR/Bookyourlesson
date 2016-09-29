@@ -32,7 +32,7 @@ import ro.bydl.service.TeacherService;
 @Controller
 @Scope("session")
 @RequestMapping("")
-@SessionAttributes({ "weeks"})
+@SessionAttributes({ "week"})
 public class LoginController {
 
 	@Autowired
@@ -53,7 +53,7 @@ public class LoginController {
 		 session.invalidate();
 		ModelAndView mav = new ModelAndView("login");
 
-		mav.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+		mav.addObject("week", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 		
 		return mav;
 	}
@@ -99,6 +99,15 @@ public class LoginController {
 				}
 			}
 
+				if (logedUser.getPermision().equals("admin")) {
+					
+					session.setAttribute("permision", logedUser.getPermision());
+					session.setAttribute("user", user);
+
+					modelandView=new ModelAndView("admin");
+				
+			}
+
 		}
 
 		return modelandView;
@@ -108,6 +117,14 @@ public class LoginController {
 
 	  @RequestMapping("/logout")
 	  public ModelAndView logout(HttpSession session) {
+		  ModelAndView modelANdVeiw=new ModelAndView();
+		  modelANdVeiw.setView(new RedirectView(""));
+	    session.invalidate();
+	    return  modelANdVeiw;
+	  
+	}
+	  @RequestMapping("/erro")
+	  public ModelAndView error(HttpSession session) {
 		  ModelAndView modelANdVeiw=new ModelAndView();
 		  modelANdVeiw.setView(new RedirectView(""));
 	    session.invalidate();

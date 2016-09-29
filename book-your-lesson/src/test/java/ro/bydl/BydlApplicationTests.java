@@ -1,4 +1,5 @@
-package ro.sci;
+package ro.bydl;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

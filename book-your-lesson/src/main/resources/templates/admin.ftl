@@ -19,46 +19,17 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Progress</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
   		</div>
   	</div>
 	</nav>
-  <h1> Instructors</h1>
-  
- <table class="table">
-  <thead>
-     <tr >
-  
-  
-    <th>Number</th>
-    <th>Name</th>
-    <th>Sirname</th>
-    <th>Car</th>
-    <th>Category</th>
-   	
-	 	  	 [#assign nr = 0]
-	  		[#if teachers??]
-	  		[#list teachers as teacher]
-	  			 [#assign nr = nr +1 ]	
-	  		  <tr>		
-	  				<td > ${nr} </h3>  </td>		
-	  		<td > 		${teacher.name} </h3>  </td>
-	  		<td >	 ${teacher.sirName}</h3>  </td>
-	  		<td >	 car </td>
-	  		<td >	 ${teacher.category}</h3>  </td>		
-	  			
-	  	
-	  		
-	  		
-	  			[/#list]
-	  			[/#if]
-	  			 </tr>
  
-  
-  </tbody>
-
+ 
+ <p><a href="/register/vehicle"><input class="btn btn-info" role="button" value="Add Cars" type="submit"  readonly></a></p>
+ <p><input class="btn btn-info" role="button" value="edit/remove students" type="submit"  readonly></p>
+ <p><input class="btn btn-info" role="button" value="edit/remove teachers"  readonly></p>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
