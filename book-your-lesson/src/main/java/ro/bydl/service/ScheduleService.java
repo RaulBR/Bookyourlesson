@@ -3,19 +3,14 @@ package ro.bydl.service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.dao.database.JdbcTemplateScheduleeDao;
 import ro.bydl.domain.Schedule;
 

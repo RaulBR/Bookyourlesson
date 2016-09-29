@@ -32,7 +32,7 @@ import ro.bydl.service.TeacherService;
 @Controller
 @Scope("session")
 @RequestMapping("")
-@SessionAttributes({ "week"})
+@SessionAttributes({ "weeks"})
 public class LoginController {
 
 	@Autowired
@@ -53,7 +53,7 @@ public class LoginController {
 		 session.invalidate();
 		ModelAndView mav = new ModelAndView("login");
 
-		mav.addObject("week", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+		mav.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 		
 		return mav;
 	}

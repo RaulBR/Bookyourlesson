@@ -57,7 +57,7 @@ public class ScheduleControler {
 		String permison = session.getAttribute("permision").toString();
 		
 
-		int week = Integer.parseInt(session.getAttribute("week").toString());
+		int week = Integer.parseInt(session.getAttribute("weeks").toString());
 		ModelAndView result = new ModelAndView();
 
 		if (permison.equals("teacher")) {
