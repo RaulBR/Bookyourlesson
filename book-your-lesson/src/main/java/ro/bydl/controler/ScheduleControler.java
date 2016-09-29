@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
+import ro.bydl.domain.Teacher;
 import ro.bydl.service.CalendarService;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
@@ -29,7 +30,7 @@ import ro.bydl.service.TeacherService;
  */
 @Controller
 @RequestMapping("/schedule")
-@SessionAttributes({ "studentLogedId", "permision", "theacherLogId", "weeks" })
+@SessionAttributes({"week"})
 // @SessionAttributes("teacherId")
 
 public class ScheduleControler {
@@ -51,37 +52,40 @@ public class ScheduleControler {
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
 		String permison = session.getAttribute("permision").toString();
-		System.err.println(permison);
+		
 
 		int week = Integer.parseInt(session.getAttribute("weeks").toString());
 		ModelAndView result = new ModelAndView();
 
 		if (permison.equals("teacher")) {
-
-			int teacherId = Integer.parseInt(session.getAttribute("theacherLogId").toString());
-			System.err.println("teacher id " + teacherId);
+			Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
+			
+			
+			//int teacherId = Integer.parseInt(session.getAttribute("theacherLogId").toString());
+		
 			result = new ModelAndView("scheduleTeacher");
 
 			result.addObject("week", week);
-			result.addObject("teacherOBJ", session.getAttribute("teacherOBJ"));
-			result.addObject("teacherId", session.getAttribute("theacherLogId"));
-			result.addObject("students", studentService.getByTeacherId(teacherId));
-			result.addObject("schedules", scheduleService.searchByTeacherId(teacherId));
+			result.addObject("teacherOBJ", teacher);
+				//result.addObject("teacherId", session.getAttribute("theacherLogId"));
+			result.addObject("students", studentService.getByTeacherId( teacher.getId()));
+			result.addObject("schedules", scheduleService.searchByTeacherId(teacher.getId()));
 		}
 
 		if (permison.equals("student")) {
 
-			int iD = Integer.parseInt(session.getAttribute("studentLogedId").toString());
+			
 			Student currentStudent = (Student) session.getAttribute("studentOBJ");
+			
 			result = new ModelAndView("scheduleStudent");
 			result.addObject("studentOBJ", session.getAttribute("studentOBJ"));
-			result.addObject("studentId", session.getAttribute("studentLogedId"));
-			result.addObject("schedules", scheduleService.searchByStudentId(iD, currentStudent.getTeacherId()));
+			result.addObject("studentId", currentStudent.getId());
+			result.addObject("schedules", scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
-			result.addObject("progress", scheduleService.pending(iD));
+			result.addObject("progress", scheduleService.pending(currentStudent.getId()));
 
-			result.addObject("absent", scheduleService.absent(iD));
-			result.addObject("done", scheduleService.done(iD));
+			result.addObject("absent", scheduleService.absent(currentStudent.getId()));
+			result.addObject("done", scheduleService.done(currentStudent.getId()));
 		}
 
 		result.addObject("week", week);
@@ -89,7 +93,7 @@ public class ScheduleControler {
 		return result;
 	}
 /**
- * setts the next week numer.
+ * Sets the next week number.
  * @param session
  * @param week
  * @return
@@ -149,8 +153,7 @@ public class ScheduleControler {
 	public ModelAndView save(@Valid @ModelAttribute("schedules") Schedule schedule, BindingResult bindingResult,
 			HttpSession sessio) {
 		ModelAndView modelAndView = new ModelAndView("");
-		System.out.println(schedule.getStudentId());
-		System.out.println(schedule.getDate());
+	
 		scheduleService.save(schedule);
 
 		modelAndView.setView(new RedirectView(""));

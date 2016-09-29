@@ -14,6 +14,7 @@ import ro.bydl.domain.User;
  */
 
 @Service
+
 public final class LoginService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 	@Autowired

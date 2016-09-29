@@ -6,12 +6,14 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -28,8 +30,9 @@ import ro.bydl.service.TeacherService;
  *
  */
 @Controller
+@Scope("session")
 @RequestMapping("")
-@SessionAttributes({ "studentLogedId", "permision", "theacherLogId", "weeks" })
+@SessionAttributes({ "weeks"})
 public class LoginController {
 
 	@Autowired
@@ -46,9 +49,12 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("")
-	public ModelAndView mainPage(HttpSession session) {
+	public ModelAndView mainPage(HttpSession session,  SessionStatus status) {
+		 session.invalidate();
 		ModelAndView mav = new ModelAndView("login");
+
 		mav.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+		
 		return mav;
 	}
 
@@ -65,32 +71,30 @@ public class LoginController {
 			HttpSession session) {
 		ModelAndView modelandView = new ModelAndView("login");
 
-		System.out.println(user.getUser());
-
 		if (loginService.Permision(user) != null) {
 
 			User logedUser = loginService.Permision(user);
 
 			if (logedUser.getPermision().equals("student")) {
-
+				;
 				session.setAttribute("studentLogedId", logedUser.getStudentId());
 				session.setAttribute("studentOBJ", studentService.findById(user.getStudentId()));
 				session.setAttribute("permision", logedUser.getPermision());
 				modelandView.setView(new RedirectView("/schedule"));
 				session.setAttribute("user", user);
-				System.out.println("din user teacher " + user.getPermision());
+			
 			}
 
 			else {
 
 				if (logedUser.getPermision().equals("teacher")) {
-					// session.setAttribute("week",
-					// Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+					
 					session.setAttribute("theacherLogId", logedUser.getTeacherId());
+					
 					session.setAttribute("permision", logedUser.getPermision());
 					session.setAttribute("teacherOBJ", teacherService.findById(user.getTeacherId()));
 					session.setAttribute("user", user);
-					System.out.println("din user student " + user.getPermision());
+
 					modelandView.setView(new RedirectView("/schedule"));
 				}
 			}
@@ -99,6 +103,16 @@ public class LoginController {
 
 		return modelandView;
 
+	}
+	
+
+	  @RequestMapping("/logout")
+	  public ModelAndView logout(HttpSession session) {
+		  ModelAndView modelANdVeiw=new ModelAndView();
+		  modelANdVeiw.setView(new RedirectView(""));
+	    session.invalidate();
+	    return  modelANdVeiw;
+	  
 	}
 
 }

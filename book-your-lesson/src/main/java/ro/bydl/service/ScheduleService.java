@@ -78,9 +78,9 @@ public class ScheduleService {
 		
 	}
 
-	public Collection<Schedule> searchByTeacherId(int id) {
+	public Collection<Schedule> searchByTeacherId(long l) {
 		
-		return dao.searchByTeacherId(id);
+		return dao.searchByTeacherId(l);
 	}
 
 	
@@ -121,9 +121,9 @@ public class ScheduleService {
 		return nr;
 	}
 
-	public Collection<Schedule>  searchByStudentId(int id, int teacherId) {
+	public Collection<Schedule>  searchByStudentId(long l, int teacherId) {
 		
-		return dao.searchByStudentId(id, teacherId);
+		return dao.searchByStudentId(l, teacherId);
 	}
 
 }

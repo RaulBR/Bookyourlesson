@@ -19,11 +19,19 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <base href="/apx/" />
+    <base href="" />
     
   </head>
   [#escape x as x?html]
   <body>
+
+<nav class="navbar navbar-dark bg-primary">
+ <div class="nav navbar-nav">
+    <div class="container">
+  <a class="navbar-brand" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+  </div>
+</nav>
+
   <h1> Schedule leson</h1>
   
   	<h3>[#if studentOBJ??]${studentOBJ.name!''} ${studentOBJ.sirName!''}[#else]Vizitator[/#if] </h3>
@@ -96,7 +104,7 @@
 					<input type="hidden" name="studentId" value="${studentOBJ.id}">
 					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
 					
-					<p><input class="btn btn-warning" role="button" type="submit" value="PENDING" ></p>
+				<p><input class="btn btn-info" role="button" value="pending" type="submit"  readonly></p>
 					 </p></form>  </td>
 					 [#break]
 	  		[#case 'free']
@@ -109,11 +117,11 @@
 					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
 					<input type="hidden" name="status" value="pending">
 					
-			<p><input class="btn btn-default" role="button" type="submit" value="Book Lesson" ></p>
+			<p><input class="btn btn-default" role="button" type="submit" value="Book Leson" readonly></p>
 </form>  </td>
 			[#break]
 	  		[#case 'absent']	
-	  	<td>	<p><p><input class="btn btn-danger" role="button"  value="ABSENT" ></p></p></td>
+	  	<td><p><input class="btn btn-danger" role="button"type="submit" value="absent"  readonly></p></td>
 	  	  	[#break]
 	  	  		 
 	  	  	[#case 'notFree']	
@@ -123,7 +131,7 @@
 	  		<td><p>done</p></td>
 	  	  	[#break]
 	  	  		[#case 'booked']	
-	  		<td><p><input class="btn btn-success" role="button" type="submit" value="Booked" ></p></td>
+	  		<td><p><input class="btn btn-primary" type="submit" role="button" value="booked"  readonly></p></td>
 	  		[#break]
 	  	  	  [/#switch]
 	  [/#list]
@@ -140,6 +148,8 @@
     <li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
   </ul>
 </nav>
+
+[#if progress??]
 <p>Progress: </p>
 
 
@@ -168,7 +178,7 @@
     
   </div>
 </div>
-
+[/#if]
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

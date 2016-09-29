@@ -83,10 +83,7 @@ public class RegisterControler {
 	public ModelAndView save(@Valid @ModelAttribute("user2") User user, Student student, String pass2,
 			BindingResult bindingResult, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("studentForm");
-		System.out.println("before");
-		System.out.println(registerService.checkUserUnique(user));
-		System.out.println(registerService.checkPass(user.getPass(), pass2));
-
+		
 		if (registerService.checkUserUnique(user) == true) {
 
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
@@ -131,8 +128,7 @@ public class RegisterControler {
 				teacher.setBirthDay(teacherService.byrthDay(teacher.getCnp()));
 				user.setTeacherId((teacherService.addTeacher(teacher).getId()));
 				user.setPermision("teacher");
-				System.out.println(user.getPermision());
-				System.out.println(user.getTeacherId());
+			
 				registerService.addUser(user);
 
 			} else {
@@ -190,7 +186,7 @@ public class RegisterControler {
 	public ModelAndView edit(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicleList");
-
+		
 		modelAndView.addObject("vehicle", vehicle);
 		vehicleService.edit(vehicle);
 		modelAndView.setView(new RedirectView(""));

@@ -19,54 +19,45 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Progress</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
 	</nav>
-  <h1> Add vehicles</h1>
+  <h1> Instructors</h1>
   
-  <form action="/save">
-  <div class="form-group">
-    <label for="email">Vehicle Brand</label>
-    <input type="text" class="form-control"  name="brand">
-  </div>
-  <div class="form-group">
-    <label for="email">Model</label>
-    <input type="text" class="form-control"  name="carType">
-  </div>
-  <div class="form-group">
-    <label for="email">Fuel</label>
-    <input type="text" class="form-control"  name="fuel">
-  </div>
-  <div class="form-group">
-    <label for="email">Chassis number</label>
-    <input type="text" class="form-control"  name="chassis">
-  </div>
+ <table class="table">
+  <thead>
+     <tr >
   
-  <div class="form-group">
-    <label for="text">licensePlate</label>
-    <input type="text" class="form-control" name="licensePlate">
-  </div>
-  <div class="form-group">
-    <label for="text">engine</label>
-    <input type="text" class="form-control" name="engine">
-  </div>
-   <div class="form-group">
-    <label for="text">vignettes</label>
-    <input type="text" class="form-control" name="vignettes">
-  </div>
-   <div class="form-group">
-    <label for="text">insurance</label>
-    <input type="text" class="form-control" name="insurance">
-  </div>
-  <div class="form-group">
-    <label for="text">ITP</label>
-    <input type="text" class="form-control" name="ITP">
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+  
+    <th>Number</th>
+    <th>Name</th>
+    <th>Sirname</th>
+    <th>Car</th>
+    <th>Category</th>
+   	
+	 	  	 [#assign nr = 0]
+	  		[#if teachers??]
+	  		[#list teachers as teacher]
+	  			 [#assign nr = nr +1 ]	
+	  		  <tr>		
+	  				<td > ${nr} </h3>  </td>		
+	  		<td > 		${teacher.name} </h3>  </td>
+	  		<td >	 ${teacher.sirName}</h3>  </td>
+	  		<td >	 car </td>
+	  		<td >	 ${teacher.category}</h3>  </td>		
+	  			
+	  	
+	  		
+	  		
+	  			[/#list]
+	  			[/#if]
+	  			 </tr>
+ 
+  
+  </tbody>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -24,11 +24,23 @@
   </head>
   [#escape x as x?html]
   <body>
+  
+  
+  <nav class="navbar navbar-dark bg-primary">
+	 <div class="nav navbar-nav">
+   		 <div class="container" lass="logout">
+ 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/progress"> <font color="white"> Progress</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+  		</div>
+  	</div>
+	</nav>
   <h1> Schedule leson</h1>
  
-  	<h3>[#if name??]${name!''}[/#if] </h3>
-  <h4> [#if teacher??]${teacher.name} ${teacher.sirName} 
-  [#assign teacher= teacher.id][#else]No theacher[/#if] </h4>
+  	
+  <h3 class="sexy-text"> [#if teacherOBJ??]${teacherOBJ.name} ${teacherOBJ.sirName} 
+  [#assign teacher=teacherOBJ.id][#else]No theacher[/#if] </h3>
   
   
  [#assign dayName= ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
@@ -107,15 +119,17 @@
 									<input type="hidden" name="endHour" value="${endHour}">
 									<input type="hidden" name="date" value="${day}">								
 									<input type="hidden" name="id" value="${curentSchedule}">
-									<input type="hidden" name="teacherId" value="${teacherId}">
+									<input type="hidden" name="teacherId" value="${teacherOBJ.id}">
 									
 									[#if statut == 'free']
-										<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)"></p>
+										<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)" readonly></p>
 										<div class="wrap-schedule-option" style="display: none">
+										<input type="hidden" name="status" value="booked">
 											<select class="form-control sel-schedule-option" id="studentId"  name="studentId">
 												[#if students??]
 											
 													[#list students as student]
+													
 														<option value="${student.id}" >${student.name} ${student.sirName} </option>
 											
 													[/#list]
@@ -128,30 +142,31 @@
 										</div>
 										
 									[#else]
+										
 										<input type="hidden" name="studentId" value="${existingStudentId}">
 										[#switch statut]
 											[#case 'pending']
-													<p><input class="btn btn-default" role="button" value="pending" title="Show appointment actions" onclick="showAction(this)"></p>
+													<p><input class="btn btn-info" role="button" value="pending" title="Show appointment actions" onclick="showAction(this)" readonly></p>
 												[#break]
 												
 												[#case 'free']
-													<p><input class="btn btn-default" role="button" value="free" title="Show appointment actions" onclick="showAction(this)"></p>
+													<p><input class="btn btn-default" role="button" value="free" title="Show appointment actions" onclick="showAction(this)" readonly></p>
 												[#break]
 												
 												[#case 'absent']	
-													<p><p><input class="btn btn-danger" role="button" value="absent" title="Show appointment actions" onclick="showAction(this)"></p></p>
+													<p><p><input class="btn btn-danger" role="button" value="absent" title="Show appointment actions" onclick="showAction(this)" readonly></p></p>
 												[#break]
 												
 												[#case 'notFree']
-													<p><input class="btn btn-default" role="button" value="notFree" title="Show appointment actions" onclick="showAction(this)"></p>
+													<p><input class="btn btn-default" role="button" value="notFree" title="Show appointment actions" onclick="showAction(this)" readonly></p>
 												[#break]
 												
 												[#case 'done']	
-													<p><input class="btn btn-success" role="button" value="done" title="Show appointment actions" onclick="showAction(this)"></p>
+													<p><input class="btn btn-success" role="button" value="done" title="Show appointment actions" onclick="showAction(this)" readonly></p>
 												[#break]
 												
 												[#case 'booked']
-													<p><input class="btn btn-primary" role="button" value="booked" title="Show appointment actions" onclick="showAction(this)"></p>
+													<p><input class="btn btn-primary" role="button" value="booked" title="Show appointment actions" onclick="showAction(this)" readonly></p>
 												[#break]
 										[/#switch]
 										<div class="wrap-schedule-option" style="display: none">
