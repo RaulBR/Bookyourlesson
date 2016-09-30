@@ -93,7 +93,7 @@ public class ScheduleService {
 			}
 			
 		}
-		return nr;
+		return (nr*100/15);
 	}
 	public int absent(long id){
 		int nr=0;
@@ -103,7 +103,7 @@ public class ScheduleService {
 			}
 			
 		}
-		return nr;
+		return (nr*100/10);
 	}
 	public int done(long id){
 		int nr=0;
@@ -113,7 +113,7 @@ public class ScheduleService {
 			}
 			
 		}
-		return nr;
+		return (nr*100/30);
 	}
 
 	public Collection<Schedule>  searchByStudentId(long l, int teacherId) {

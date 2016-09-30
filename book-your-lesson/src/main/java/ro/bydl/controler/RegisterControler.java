@@ -148,6 +148,7 @@ public class RegisterControler {
 		ModelAndView result = new ModelAndView("vehicle");
 		Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
 		result.addObject("teahcerOBJ",teacher);
+		
 		String permision = session.getAttribute("permision").toString();
 		switch(permision) {
 			case "teacher":
@@ -225,5 +226,15 @@ public class RegisterControler {
 
 		return modelAndView;
 	}
+	@RequestMapping("student/list")
+	public ModelAndView studentList(HttpSession session) throws Exception {
+		String permison = session.getAttribute("permision").toString();
+		ModelAndView result = new ModelAndView("studentList");
+		Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
+		System.out.println(teacher.getName());
+		result.addObject("permision", permison);
+	result.addObject("students", studentService.getByTeacherId( teacher.getId()));
 
+		return result;
+	}
 }

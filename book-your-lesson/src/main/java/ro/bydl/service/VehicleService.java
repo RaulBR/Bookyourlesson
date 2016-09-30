@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.VehicleDAO;
 import ro.bydl.dao.database.JdbcTemplateVehicleDao;
 import ro.bydl.domain.Teacher;
 import ro.bydl.domain.Vehicle;

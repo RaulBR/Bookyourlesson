@@ -2,132 +2,61 @@
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
 <html lang="en">
- <!DOCTYPE html>
-<html lang="en">
   <head>
-     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+   <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-	<link href="/js/sch.js" rel="sch">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <base href="/apx/" />
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link href="/css/style.css" rel="stylesheet">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
   </head>
   [#escape x as x?html]
   <body>
-   <nav class="navbar navbar-dark bg-primary">
+  <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
 	</nav>
-  <h1> Vehicle list</h1>
- 
-  <table class="table">
+  <h1>Students</h1>
+  
+ <table class="table">
   <thead>
      <tr >
   
   
     <th>Number</th>
-    <th>Brand</th>
-    <th>Model</th>
-    <th>Year</th>
-    <th>Fuel</th>
-   
-    <th>Engine (cm^3)</th>
-    <th>LicensePlate</th>
-    
-   	[#if permision??]
-   	[#if permision='admin']
-   	 <th>Chassis</th>
-   	 <th> Vignettes</th>
-  	<th> Insurance</th>
-   	<th> ITP</th>
-  	<th>Edit</th>
-   	<th> Delete</th>
- 	[/#if]
-   [/#if]
- 
-  	
+    <th>Name</th>
+    <th>Sirname</th>
+    <th>Category</th>
+    <th>Papers</th>
+    <th>Register Date</th>
+   	
 	 	  	 [#assign nr = 0]
-	  		[#if vehicles??]
-	  		[#list vehicles as vehicle]
+	  		[#if students??]
+	  		[#list students as student]
 	  			 [#assign nr = nr +1 ]	
 	  		  <tr>		
-	  				<td > ${nr}  </td>		
-	  		<td > 		${vehicle.brand}  </td>
-	  		<td >	 ${vehicle.carType} </td>
-	  		
-	  		<td >	 ${vehicle.year} </td>
-	  		<td >	 ${vehicle.fuel} </td>
-	  		<td >	 ${vehicle.engine} </td>	
-	  		<td >	 ${vehicle.licensePlate} </td>
+	  				<td > ${nr}   </td>		
+	  		<td >${student.name}   </td>
+	  		<td >${student.sirName} </td>
+	  		<td >${student.category}  </td>		
+	  		<td>  	${student.medPaper?c}</td>
+	<td>  	${student.registrationDate}</td>
 	  		
 	  		
-	  	[#if permision??]
-	  		[#if  permision='admin']
-	  		<td >	 ${vehicle.chassis} </td>
-	  		<td >	 ${vehicle.vignettes?c} </td>
-	  		<td >	 ${vehicle.insurance?c} </td>
-	  		<td >	 ${vehicle.ITP?c} </td>
-	  		<td >
-	  		 	  	<input type="hidden" class="form-control"  name="brand" value="${vehicle.brand}">
-					<input type="hidden" class="form-control"  name="carType" value= ${vehicle.carType}"> 
-					<input type="hidden" class="form-control"  name="fuel" value="${vehicle.fuel}">
-					<input type="hidden" class="form-control"  name="chassis" value=" ${vehicle.chassis}">
-					<input type="hidden" class="form-control" name="licensePlate" value=" ${vehicle.licensePlate}">
-					<input type="hidden" class="form-control" name="engine" value=" ${vehicle.engine}">
-					<input type="hidden" class="form-control" name="vignettes" value="${vehicle.vignettes?c}">
-					<input type="hidden" class="form-control" name="insurance" value=" ${vehicle.insurance?c}">
-					<input type="hidden" class="form-control" name="ITP" value="${vehicle.ITP?c}">
-	  				 <input type="hidden" name="id" value="${vehicle.id}">
-	  				 
-	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button></td>
-	  		</form>
-	  		 <form name="form1" action="delete">
-	  				 <input type="hidden" class="form-control"  name="brand" value="${vehicle.brand}">
-					<input type="hidden" class="form-control"  name="carType" value= ${vehicle.carType}"> 
-					<input type="hidden" class="form-control"  name="fuel" value="${vehicle.fuel}">
-					<input type="hidden" class="form-control"  name="chassis" value=" ${vehicle.chassis}">
-					<input type="hidden" class="form-control" name="licensePlate" value=" ${vehicle.licensePlate}">
-					<input type="hidden" class="form-control" name="engine" value=" ${vehicle.engine}">
-					<input type="hidden" class="form-control" name="vignettes" value="${vehicle.vignettes?c}">
-					<input type="hidden" class="form-control" name="insurance" value=" ${vehicle.insurance?c}">
-					<input type="hidden" class="form-control" name="ITP" value="${vehicle.ITP?c}">
-	  				 <input type="hidden" name="id" value="${vehicle.id}">
-	  		<td >	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button></td>
-	  		</form>
-	  			[/#if]
-	  			[/#if]
 	  			[/#list]
 	  			[/#if]
-	  			
-	  			
-	  	
-	  		
-	  	  		
-	  	  	  
-
-	  </tr>
+	  			 </tr>
  
   
   </tbody>
-
-</table>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

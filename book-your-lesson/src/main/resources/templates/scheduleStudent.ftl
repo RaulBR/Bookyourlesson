@@ -158,7 +158,7 @@
 <div class="progress">
   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${done}" aria-valuemin="0" aria-valuemax="100" style="width: ${done}%">
     <span class="sr-only">${done}/30(success)</span>
-   ${done}/30(success)
+  Done ${done}%
   </div>
 </div>
 
@@ -167,14 +167,14 @@
   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: ${progress}%">
     <span class="sr-only"> pending: ${progress}</span>
  
-    ${progress}
+   progress: ${progress}%
   </div>
 
  </div>
 <div class="progress">
   <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="${absent}" aria-valuemin="0" aria-valuemax="100" style="width: ${absent}%">
     <span class="sr-only">${absent} Absent (danger)</span>
-    Absent: ${absent};
+    Absent: ${absent}%
     
   </div>
 </div>

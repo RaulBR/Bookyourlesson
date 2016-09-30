@@ -22,7 +22,6 @@ import ro.bydl.service.CalendarService;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
-import ro.bydl.service.VehicleService;
 /**
  * this class handles the MVC for the schedule.
  * It retrives schedules based on permission and specific users.
@@ -44,8 +43,7 @@ public class ScheduleControler {
 	private TeacherService teacherService;
 	@Autowired
 	private CalendarService calendarService;
-	@Autowired
-	private VehicleService vehicleService;
+
 /**
  * returns a MV based on permission.
  * @param session
