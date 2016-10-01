@@ -51,7 +51,7 @@ public class PersonService {
 		calendar.setTime(date);
 		LocalDateTime now = LocalDateTime.now();
 		
-		if(calendar.getWeekYear()-now.getYear()<18){
+		if(now.getYear()-calendar.getWeekYear()<18){
 			return false;
 		}else{
 		return true;

@@ -3,8 +3,7 @@ package ro.bydl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
-import ro.bydl.service.ScheduleService;
+import ro.bydl.service.ScheduleServiceTest;
 import ro.bydl.service.StudentService;
 
 
@@ -12,8 +11,8 @@ import ro.bydl.service.StudentService;
 public class TestApplicationConfiguration {
 
 	@Bean
-	public ScheduleService scheduleService() {
-		return new ScheduleService();
+	public ScheduleServiceTest scheduleService() {
+		return new ScheduleServiceTest();
 	}
 	
 	@Bean

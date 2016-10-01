@@ -117,7 +117,7 @@
 					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
 					<input type="hidden" name="status" value="pending">
 					
-			<p><input class="btn btn-default" role="button" type="submit" value="Book Leson" readonly></p>
+			<p><input class="btn btn-default" role="button" type="submit" value="Book Lesson" readonly></p>
 </form>  </td>
 			[#break]
 	  		[#case 'absent']	
@@ -128,7 +128,7 @@
 	  		<td><p><p><input class="btn" role="text"  value="NOT FREE" readonly></p></p></td>
 	  	  	[#break]
 	  	  		[#case 'done']	
-	  		<td><p>done</p></td>
+	  		<td><p><input class="btn btn-success" role="button" type="submit" value="Done"  readonly></p></td>
 	  	  	[#break]
 	  	  		[#case 'booked']	
 	  		<td><p><input class="btn btn-primary" type="submit" role="button" value="booked"  readonly></p></td>

@@ -45,6 +45,14 @@ JdbcTemplateStudentDao dao;
 		
 		
 	}
-	
 
+	public boolean isCnpRightLength(Student student) {
+		String cnp=Long.toString(student.getCnp());
+		if(cnp.length()<12){
+		return false;
+	}else{
+		return true;
+	}
+	
+	}
 }
