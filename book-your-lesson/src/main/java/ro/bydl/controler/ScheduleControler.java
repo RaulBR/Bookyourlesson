@@ -19,7 +19,7 @@ import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
 import ro.bydl.service.CalendarService;
-import ro.bydl.service.ScheduleServiceTest;
+import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
 /**
@@ -36,7 +36,7 @@ import ro.bydl.service.TeacherService;
 public class ScheduleControler {
 
 	@Autowired
-	private ScheduleServiceTest scheduleService;
+	private ScheduleService scheduleService;
 	@Autowired
 	private StudentService studentService;
 	@Autowired
