@@ -22,6 +22,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		  <hibernate.annotations.version>3.3.1.GA</hibernate.annotations.version>
+    <hibernate.validator.version>3.0.0.GA</hibernate.validator.version>
+    <hibernate.commons.annotations.version>3.3.0.ga</hibernate.commons.annotations.version>
+    <hibernate.ejb3.persistence.version>1.0.2.GA</hibernate.ejb3.persistence.version>
+    <hibernate.version>3.2.6</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -35,13 +40,13 @@
 		</dependency>
 		<!-- Test -->
 		<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.8.2</version>
-</dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+		</dependency>
 
 
-<!-- http://mvnrepository.com/artifact/postgresql/postgresql -->
+		<!-- http://mvnrepository.com/artifact/postgresql/postgresql -->
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -61,7 +66,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-	
+
 
 
 		<dependency>
@@ -70,23 +75,23 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-<dependency>
-    <groupId>org.webjars</groupId>
-    <artifactId>jquery</artifactId>
-    <version>2.1.1</version>
-</dependency>
- 
-<dependency>
-    <groupId>org.webjars</groupId>
-    <artifactId>bootstrap</artifactId>
-    <version>3.2.0</version>
-    <exclusions>
-        <exclusion>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
+	<dependency>
+		<groupId>org.webjars</groupId>
+		<artifactId>jquery</artifactId>
+		<version>2.1.1</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.webjars</groupId>
+		<artifactId>bootstrap</artifactId>
+		<version>3.2.0</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.webjars</groupId>
+				<artifactId>jquery</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
 	<build>
 		<plugins>
 			<plugin>
@@ -97,12 +102,12 @@
 	</build>
 
 	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-    <property name="scopes">
-        <map>
-            <entry key="session">
-                <bean class="org.springframework.context.support.SimpleThreadScope"/>
-            </entry>
-        </map>
-    </property>
-</bean>
+		<property name="scopes">
+			<map>
+				<entry key="session">
+					<bean class="org.springframework.context.support.SimpleThreadScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
 </project>
