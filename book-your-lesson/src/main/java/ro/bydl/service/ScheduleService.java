@@ -16,7 +16,7 @@ import ro.bydl.domain.Schedule;
 
 @Service
 public class ScheduleService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleServiceTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleService.class);
 	
 
 	@Autowired
