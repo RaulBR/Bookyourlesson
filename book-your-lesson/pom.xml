@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>4.3.0.RELEASE</version>
+			<version>4.3.0.RELEASE</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
 		<!-- http://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
@@ -63,15 +63,12 @@
 			<version>1.2.2</version>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
-	<dependency>
+		<dependency>
 		<groupId>org.webjars</groupId>
 		<artifactId>jquery</artifactId>
 		<version>2.1.1</version>
@@ -88,6 +85,8 @@
 			</exclusion>
 		</exclusions>
 	</dependency>
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -97,13 +96,5 @@
 		</plugins>
 	</build>
 
-	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-		<property name="scopes">
-			<map>
-				<entry key="session">
-					<bean class="org.springframework.context.support.SimpleThreadScope" />
-				</entry>
-			</map>
-		</property>
-	</bean>
+
 </project>
