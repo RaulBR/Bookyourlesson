@@ -46,7 +46,7 @@
 	  				<td > ${nr} </h3>  </td>		
 	  		<td > 		${teacher.name} </h3>  </td>
 	  		<td >	 ${teacher.sirName}</h3>  </td>
-	  		<td >	 car </td>
+	  		<td >	<a class="btn btn-primary" href="/cars?teacherId=${teacher.id}" role="button">Cars</a>
 	  		<td >	 ${teacher.category}</h3>  </td>		
 	  			
 	  	
