@@ -2,6 +2,7 @@ package ro.bydl;
 
 import java.util.Collection;
 
+@SuppressWarnings("rawtypes")
 public class IMStudentDAO implements StudentDAO {
 
 	@Override

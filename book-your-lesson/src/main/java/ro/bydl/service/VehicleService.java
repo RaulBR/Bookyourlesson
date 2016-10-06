@@ -47,9 +47,11 @@ public class VehicleService {
 		
 	}
 
-	public Teacher findByTeacherId(long id) {
+	public Collection<Vehicle> findByTeacherId(long id) {
+	
+			System.out.println(dao.findByTeacherId(id));
 		
-		return findByTeacherId(id);
+		return dao.findByTeacherId(id);
 	}
 
 	public Vehicle findById(long id) {

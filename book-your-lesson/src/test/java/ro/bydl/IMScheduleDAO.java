@@ -6,6 +6,7 @@ import java.util.Map;
 
 import ro.bydl.domain.Schedule;
 
+@SuppressWarnings("rawtypes")
 public class IMScheduleDAO implements ScheduleDAO {
 	private Map<Long, Schedule> schedules = new HashMap<Long, Schedule>();
 	@Override

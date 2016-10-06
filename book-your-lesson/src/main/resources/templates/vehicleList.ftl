@@ -40,7 +40,14 @@
  
 	[#if permision??]
  	<p><a href="/register/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a></p>
+ 	[#else]
+ 	 <h4> [#if teacher??]Instructor:  ${teacher.name!''} ${teacher.sirName!''}
+ 		<p><a href="/register/student"><input class="btn btn-info" role="button" value="Register"   readonly></a></p>
+ 	</h4>
+ [/#if] 
+ 	
 	[/#if]
+	
  
   <table class="table">
   <thead>
@@ -63,10 +70,8 @@
    	<th> ITP</th>
   	<th>Edit</th>
    	<th> Delete</th>
-   [/#if]
- 
-  	
-	 	  	 [#assign nr = 0]
+   [/#if]  	
+	 	  [#assign nr = 0]
 	  		[#if vehicles??]
 	  		[#list vehicles as vehicle]
 	  			 [#assign nr = nr +1 ]	
@@ -74,7 +79,6 @@
 	  				<td > ${nr}  </td>		
 	  		<td > 		${vehicle.brand}  </td>
 	  		<td >	 ${vehicle.carType} </td>
-	  		
 	  		<td >	 ${vehicle.year} </td>
 	  		<td >	 ${vehicle.fuel} </td>
 	  		<td >	 ${vehicle.engine} </td>	

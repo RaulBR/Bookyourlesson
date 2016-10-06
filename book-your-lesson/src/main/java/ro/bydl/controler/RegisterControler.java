@@ -164,9 +164,13 @@ public class RegisterControler {
 
 	@RequestMapping("vehicle/list")
 	public ModelAndView list(HttpSession session) throws Exception {
-		String permison = session.getAttribute("permision").toString();
 		ModelAndView result = new ModelAndView("vehicleList");
+		if(session.getAttribute("permision")!=null){
+		String permison = session.getAttribute("permision").toString();
 		result.addObject("permision", permison);
+		}
+		
+		
 		result.addObject("vehicles", vehicleService.getAll());
 
 		return result;

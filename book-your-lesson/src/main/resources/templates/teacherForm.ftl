@@ -61,9 +61,9 @@
   
    
     <select name="Category"  class="form-control">
-    <option value="A">Category <b>A</b></option>
-    <option value="B">Category <b>B</b></option>
-    <option value="C">Category <b>C</b></option>
+     	<option value="B">Category <b>B</b></option>
+    	<option value="A">Category <b>A</b></option>
+   		<option value="C">Category <b>C</b></option>
   </select>
   </div>
   

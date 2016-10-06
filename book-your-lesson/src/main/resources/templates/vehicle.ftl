@@ -82,7 +82,9 @@
 		</div>
 		<div class="form-group">
 		    <label for="text">ITP</label>
+		    
 		    <input type="text" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP}[/#if]">
+		    
 		</div>
   
 		[#if teachers??]
