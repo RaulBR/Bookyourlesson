@@ -49,7 +49,7 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 
 	@Override
 	public Vehicle update(Vehicle model) {
-		System.out.println(model.getCarType());
+		
 	
 		  jdbcTeamplate.update("INSERT INTO public.vehicle("
 					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp, year,teacher_id) " +
