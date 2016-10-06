@@ -48,8 +48,7 @@ public class VehicleService {
 
 	public Collection<Vehicle> findByTeacherId(long id) {
 	
-			System.out.println(dao.findByTeacherId(id));
-		
+			
 		return dao.findByTeacherId(id);
 	}
 
