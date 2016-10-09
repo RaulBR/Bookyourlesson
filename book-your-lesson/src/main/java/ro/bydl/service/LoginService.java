@@ -14,8 +14,7 @@ import ro.bydl.domain.User;
  */
 
 @Service
-
-public final class LoginService {
+public final class LoginService  {
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 	@Autowired
