@@ -2,7 +2,8 @@ package ro.bydl.service.statistics.containers;
 
 import ro.bydl.domain.Teacher;
 
-public class TeacherStatisticalContainer extends PersonStatisticContainer<Teacher>  implements Comparable<TeacherStatisticalContainer>{
+public class TeacherStatisticalContainer extends PersonStatisticContainer<Teacher>  
+implements Comparable<TeacherStatisticalContainer>{
 	
 	
 	@Override
