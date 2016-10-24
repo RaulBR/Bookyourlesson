@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateUserDao;
+import ro.bydl.dao.database.JdbcTemplateUserDAO;
 import ro.bydl.domain.User;
 /**
  * This class checks the validity of users and passeords
@@ -18,7 +18,7 @@ public final class LoginService  {
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 	@Autowired
-	JdbcTemplateUserDao dao;
+	JdbcTemplateUserDAO dao;
 
 /**
  * This method checks the validity of the User and returns the user.

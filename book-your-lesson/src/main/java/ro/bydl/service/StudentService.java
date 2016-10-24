@@ -8,13 +8,13 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateStudentDao;
+import ro.bydl.dao.database.JdbcTemplateStudentDAO;
 import ro.bydl.domain.Student;
 
 @Service
 public class StudentService extends PersonService{
 @Autowired
-JdbcTemplateStudentDao dao;
+JdbcTemplateStudentDAO dao;
 
 	public Student addStudent(Student student){
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -55,4 +55,7 @@ JdbcTemplateStudentDao dao;
 	}
 	
 	}
+	
+	
+	
 }

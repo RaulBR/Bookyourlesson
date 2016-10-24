@@ -62,14 +62,14 @@ public class ScheduleControler {
 			Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
 			
 			
-			//int teacherId = Integer.parseInt(session.getAttribute("theacherLogId").toString());
+			
 		
 			result = new ModelAndView("scheduleTeacher");
 
 			result.addObject("week", week);
-		//	result.addObject("car",vehicleService.findByTeacherId(teacher.getId()));
+		
 			result.addObject("teacherOBJ", teacher);
-				//result.addObject("teacherId", session.getAttribute("theacherLogId"));
+			
 			result.addObject("students", studentService.getByTeacherId( teacher.getId()));
 			result.addObject("schedules", scheduleService.searchByTeacherId(teacher.getId()));
 		}

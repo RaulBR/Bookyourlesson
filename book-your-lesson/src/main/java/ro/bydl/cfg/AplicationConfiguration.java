@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import ro.bydl.dao.ScheduleDAO;
-import ro.bydl.dao.database.JdbcTemplateScheduleeDao;
+import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
 
 @Configuration
 public class AplicationConfiguration {
@@ -35,7 +35,7 @@ public class AplicationConfiguration {
 	@Bean
 	public ScheduleDAO scheduleDAO() {
 
-		return new JdbcTemplateScheduleeDao();
+		return new JdbcTemplateScheduleDAO();
 
 	}
 }

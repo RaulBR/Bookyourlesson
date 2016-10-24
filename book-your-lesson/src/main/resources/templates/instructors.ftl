@@ -34,7 +34,7 @@
   
     <th>Number</th>
     <th>Name</th>
-    <th>Sirname</th>
+    <th>Sir Name</th>
     <th>Car</th>
     <th>Category</th>
    	

@@ -13,7 +13,7 @@ import ro.bydl.dao.StudnetDAO;
 import ro.bydl.domain.Student;
 
 @Component
-public class JdbcTemplateStudentDao implements StudnetDAO {
+public class JdbcTemplateStudentDAO implements StudnetDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -27,7 +27,7 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 	}
 
 	@Override
-	public Student findById(Long id) {
+	public Student findById(long id) {
 		
 		return jdbcTemplate.queryForObject("SELECT id, name, sir_name, cnp, register_date, category, teacher_id, "+
        "med_paper, phone, email, birth_day  FROM public.students WHERE id=?;",new Long[] {id},new StudentMapper());

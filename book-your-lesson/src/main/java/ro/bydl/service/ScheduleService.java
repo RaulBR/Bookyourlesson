@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateScheduleeDao;
+import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
 import ro.bydl.domain.Schedule;
 
 @Service
@@ -20,7 +20,7 @@ public class ScheduleService {
 	
 
 	@Autowired
-	private JdbcTemplateScheduleeDao dao;
+	private JdbcTemplateScheduleDAO dao;
 	
 	
 	

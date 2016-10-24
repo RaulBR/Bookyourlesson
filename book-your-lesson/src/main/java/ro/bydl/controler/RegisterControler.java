@@ -180,7 +180,7 @@ public class RegisterControler {
 	public ModelAndView save(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicle");
-
+		
 		if (vehicle.getId() == 0) {
 			if(vehicleService.isVehicleOk(vehicle)==true){
 				vehicleService.save(vehicle);

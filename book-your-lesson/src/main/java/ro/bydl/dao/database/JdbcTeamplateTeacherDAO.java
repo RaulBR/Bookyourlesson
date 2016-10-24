@@ -55,7 +55,7 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 
 
 	@Override
-	public Teacher findById(Long id) {
+	public Teacher findById(long id) {
 		
 		return  jdbcTeamplate.queryForObject("SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, "+
       "birth_day,id "+

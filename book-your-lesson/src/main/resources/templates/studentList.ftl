@@ -48,7 +48,7 @@
 	  		<td >${student.name}   </td>
 	  		<td >${student.sirName} </td>
 	  		<td >${student.category}  </td>		
-	  		<td>  	${student.medPaper?c}</td>
+	  		<td> ${student.medPaper?c}</td>
 	<td>  	${student.registrationDate}</td>
 	  		
 	  		

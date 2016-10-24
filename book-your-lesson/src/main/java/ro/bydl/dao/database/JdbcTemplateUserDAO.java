@@ -13,7 +13,7 @@ import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
 
 @Component
-public class JdbcTemplateUserDao implements UserDAO {
+public class JdbcTemplateUserDAO implements UserDAO {
 
 	@Autowired
 	JdbcTemplate jdbcTeamplate;
@@ -26,7 +26,7 @@ public class JdbcTemplateUserDao implements UserDAO {
 	}
 
 	@Override
-	public User findById(Long id) {
+	public User findById(long id) {
 
 		return jdbcTeamplate.queryForObject(
 				"SELECT users, pass, permision, student_id, teacher_id, id  FROM public.users; WHERE id=?",
