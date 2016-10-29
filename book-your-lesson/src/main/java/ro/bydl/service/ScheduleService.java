@@ -11,24 +11,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateScheduleDao;
+import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 
 @Service
 public class ScheduleService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleService.class);
-	
 
 	@Autowired
 
-	JdbcTemplateScheduleDao dao;
+	ScheduleDAO dao;
 
-	
-	public String []getDays(int week) {
-		CalendarHelper calHelp=new CalendarHelper();
+	public String[] getDays(int week) {
+		CalendarHelper calHelp = new CalendarHelper();
 		return calHelp.getDays(week);
 	}
-	
+
 	public int validate(Schedule schedule) throws ValidationException {
 
 		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
@@ -65,64 +63,64 @@ public class ScheduleService {
 		dao.delete(schedule);
 
 	}
-	public int countSchedules(long id){
-		
-		return (dao.searchByStudentId(id).size()*100/30);
-		
+
+	public int countSchedules(long id) {
+
+		return (dao.searchByStudentId(id).size() * 100 / 30);
+
 	}
-	
 
 	public int edit(Schedule schedule) {
-		
+
 		return (dao.edit(schedule));
-		
+
 	}
 
 	public Collection<Schedule> searchByTeacherId(long teahcerId) {
-		
+
 		return dao.searchByTeacherId(teahcerId);
 	}
 
-	
+	public Collection<Schedule> searchByStudentId(int id) {
 
-	public Collection<Schedule>  searchByStudentId(int id) {
-		
 		return dao.searchByStudentId(id);
 	}
 
-	public int pending(long id){
-		int nr=0;
-		for (Schedule s:dao.searchByStudentId(id)){
-			if(s.getStatus().equals("pending")||s.getStatus().equals("booked")){
+	public int pending(long id) {
+		int nr = 0;
+		for (Schedule s : dao.searchByStudentId(id)) {
+			if (s.getStatus().equals("pending") || s.getStatus().equals("booked")) {
 				nr++;
 			}
-			
+
 		}
-		return (nr*100/15);
-	}
-	public int absent(long id){
-		int nr=0;
-		for (Schedule s:dao.searchByStudentId(id)){
-			if(s.getStatus().equals("absent")){
-				nr++;
-			}
-			
-		}
-		return (nr*100/10);
-	}
-	public int done(long id){
-		int nr=0;
-		for (Schedule s:dao.searchByStudentId(id)){
-			if(s.getStatus().equals("done")){
-				nr++;
-			}
-			
-		}
-		return (nr*100/30);
+		return (nr * 100 / 15);
 	}
 
-	public Collection<Schedule>  searchByStudentId(long l, long teacherId) {
-		
+	public int absent(long id) {
+		int nr = 0;
+		for (Schedule s : dao.searchByStudentId(id)) {
+			if (s.getStatus().equals("absent")) {
+				nr++;
+			}
+
+		}
+		return (nr * 100 / 10);
+	}
+
+	public int done(long id) {
+		int nr = 0;
+		for (Schedule s : dao.searchByStudentId(id)) {
+			if (s.getStatus().equals("done")) {
+				nr++;
+			}
+
+		}
+		return (nr * 100 / 30);
+	}
+
+	public Collection<Schedule> searchByStudentId(long l, long teacherId) {
+
 		return dao.searchByStudentId(l, teacherId);
 	}
 

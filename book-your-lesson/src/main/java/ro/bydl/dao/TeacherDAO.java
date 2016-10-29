@@ -6,4 +6,6 @@ import ro.bydl.domain.Teacher;
 
 public  interface TeacherDAO extends BaseDao<Teacher>{
 	Collection<Teacher> getByTeacher(int theacherId);
+
+	
 }

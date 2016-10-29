@@ -13,7 +13,7 @@ import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 
 @Component
-public class JdbcTemplateScheduleDao implements ScheduleDAO {
+public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -36,12 +36,14 @@ public class JdbcTemplateScheduleDao implements ScheduleDAO {
 
 	}
 
+	@Override
 	public Collection<Schedule> searchByTeacherId(long id) {
 
 		return jdbcTemplate.query("SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
 				+ "FROM public.schedule WHERE teacher_id=?;", new Long[] { id }, new ScheduleMapper());
 	}
 
+	@Override
 	public Collection<Schedule> searchByStudentId(long id) {
 
 		return jdbcTemplate.query("SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, " + "status "
@@ -81,6 +83,7 @@ public class JdbcTemplateScheduleDao implements ScheduleDAO {
 				schedule.getStudentId(), schedule.getTeacherId(), schedule.getStatus(), schedule.getId());
 	}
 
+	@Override
 	public Collection<Schedule> searchByStudentId(long id, long teacherId) {
 
 		return jdbcTemplate.query(
@@ -89,6 +92,7 @@ public class JdbcTemplateScheduleDao implements ScheduleDAO {
 				new Long[] { id, teacherId }, new ScheduleMapper());
 	}
 
+	@Override
 	public Collection<Schedule> selectDistinctTeacherId() {
 		return jdbcTemplate.query("SELECT DISTINCT teacher_id" + "FROM public.schedule;", new ScheduleMapper());
 
@@ -118,39 +122,35 @@ public class JdbcTemplateScheduleDao implements ScheduleDAO {
 		}
 
 	}
-
-	
-
-	public Long coutTeacherStatus(int week, String status, long techerId) {
+	@Override
+	public long coutTeacherStatus(int week, String status, long techerId) {
 
 		return jdbcTemplate.queryForObject(
 				"SELECT count(*)  id  FROM public.schedule WHERE week=? AND status=? AND  schedule.teacher_id=?;",
 				new Object[] { week, status, techerId }, Long.class);
 	}
-
-	public Long coutTeacherStatus(String status, long techerId) {
+	@Override
+	public long coutTeacherStatus(String status, long techerId) {
 
 		return jdbcTemplate.queryForObject(
 				"SELECT count(*) " + "id " + "FROM public.schedule WHERE status=? AND schedule.teacher_id=?;",
 				new Object[] { status, techerId }, Long.class);
 	}
-
-	
-	
-	
-
-	public Long coutStudentStatus(int week, String status, long studentId) {
+	@Override
+	public long coutStudentStatus(int week, String status, long studentId) {
 
 		return jdbcTemplate.queryForObject(
 				"SELECT count(*)  id  FROM public.schedule WHERE week=? AND status=? AND  schedule.student_id=?;",
 				new Object[] { week, status, studentId }, Long.class);
 	}
-
-	public Long coutStudentStatus(String status, long studentId) {
+	@Override
+	public long coutStudentStatus(String status, long studentId) {
 
 		return jdbcTemplate.queryForObject(
 				"SELECT count(*) " + "id " + "FROM public.schedule WHERE status=? AND schedule.student_id=?;",
 				new Object[] { status, studentId }, Long.class);
 	}
+
+	
 
 }

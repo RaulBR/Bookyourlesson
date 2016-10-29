@@ -10,8 +10,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTeamplateTeacherDAO;
-import ro.bydl.dao.database.JdbcTemplateScheduleDao;
+import ro.bydl.dao.ScheduleDAO;
+import ro.bydl.dao.TeacherDAO;
+import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Teacher;
 import ro.bydl.service.statistics.containers.TeacherStatisticalContainer;
@@ -19,9 +20,9 @@ import ro.bydl.service.statistics.containers.TeacherStatisticalContainer;
 @Service
 public class TeacherScheduleStatisticsService {
 	@Autowired
-	private JdbcTemplateScheduleDao dao;
+	private ScheduleDAO dao;
 	@Autowired
-	private JdbcTeamplateTeacherDAO teacherDao;
+	private TeacherDAO teacherDao;
 
 	public Collection<TeacherStatisticalContainer> howBusy() {
 		List<TeacherStatisticalContainer> sorted = getBruteList();
