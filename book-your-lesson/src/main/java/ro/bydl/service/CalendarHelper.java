@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CalendarService{
-	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarService.class);
+public class CalendarHelper{
+	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarHelper.class);
 	public String monday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();

@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateScheduleeDao;
+import ro.bydl.ScheduleDAO;
+import ro.bydl.dao.database.JdbcTemplateScheduleDao;
 import ro.bydl.domain.Schedule;
 
 @Service
@@ -20,7 +21,7 @@ public class ScheduleService {
 	
 
 	@Autowired
-	private JdbcTemplateScheduleeDao dao;
+	JdbcTemplateScheduleDao dao;
 	
 	
 	
@@ -73,9 +74,9 @@ public class ScheduleService {
 		
 	}
 
-	public Collection<Schedule> searchByTeacherId(long l) {
+	public Collection<Schedule> searchByTeacherId(long teahcerId) {
 		
-		return dao.searchByTeacherId(l);
+		return dao.searchByTeacherId(teahcerId);
 	}
 
 	
@@ -116,7 +117,7 @@ public class ScheduleService {
 		return (nr*100/30);
 	}
 
-	public Collection<Schedule>  searchByStudentId(long l, int teacherId) {
+	public Collection<Schedule>  searchByStudentId(long l, long teacherId) {
 		
 		return dao.searchByStudentId(l, teacherId);
 	}

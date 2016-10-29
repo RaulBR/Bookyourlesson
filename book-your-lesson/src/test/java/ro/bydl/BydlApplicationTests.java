@@ -7,10 +7,10 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import ro.bydl.bydlApplication;
+import ro.bydl.BydlApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = bydlApplication.class)
+@SpringApplicationConfiguration(classes = BydlApplication.class)
 @WebAppConfiguration
 public class BydlApplicationTests {
 

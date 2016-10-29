@@ -31,15 +31,15 @@ import ro.bydl.service.VehicleService;
 @Controller
 @RequestMapping("/register")
 public class RegisterControler {
-	@Autowired
-	StudentService studentService;
+
 	@Autowired
 	TeacherService teacherService;
 	@Autowired
 	RegisterService registerService;
 	@Autowired
 	VehicleService vehicleService;
-
+	@Autowired
+	StudentService studentService;
 	/**
 	 * Returners a Model and view object for the "student" mapping.
 	 * 

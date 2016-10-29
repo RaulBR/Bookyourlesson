@@ -1,11 +1,8 @@
 package ro.bydl;
 
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 
 import ro.bydl.domain.Schedule;
 
@@ -32,16 +29,7 @@ public class IMScheduleDAO implements ScheduleDAO {
 	}
 
 
-	public boolean delete(Schedule model) {
-		
-		 boolean result = schedules.containsKey(model.getId());
-
-		if (result)
-			schedules.remove(model.getId());
-		return result;
-	}
-
-		
+	
 	
 
 	@Override
@@ -74,20 +62,16 @@ public class IMScheduleDAO implements ScheduleDAO {
 		return null;
 	}
 
+
+
 	@Override
-	public Object update(Object model) {
+	public Collection<Schedule> searchByStudentId(long id, long teacherId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean delete(Object model) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int edit(Object model) {
+	public int delete(Schedule model) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

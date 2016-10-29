@@ -15,22 +15,11 @@ public class TestApplicationConfiguration {
 	public ScheduleService scheduleService() {
 		return new ScheduleService();
 	}
-	
-	@Bean
-	public ScheduleDAO<?> ScheduleDAO() {
-		return new IMScheduleDAO();
-	
-		
-	}
+
 	@Bean
 	public StudentService studentService() {
 		return new StudentService();
 	}
 	
-	@Bean
-	public StudentDAO<?> StudentDAO() {
-		return new IMStudentDAO();
 	
-		
-	}
 }

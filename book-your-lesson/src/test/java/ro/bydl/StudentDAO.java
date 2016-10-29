@@ -2,19 +2,11 @@ package ro.bydl;
 
 import java.util.Collection;
 
+import ro.bydl.dao.BaseDao;
 import ro.bydl.domain.Student;
 
-public interface StudentDAO<T> {
-Collection<T> getAll();
-	
-	T findById(Long id);
-	
-	T update(T model);
-	
-	int delete(T model);
+public interface StudentDAO extends BaseDao<Student> {
 
-	int edit(T model);
 	Collection<Student> getByTeacher(long id);
-
 
 }

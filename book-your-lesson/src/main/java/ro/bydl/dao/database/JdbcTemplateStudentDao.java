@@ -44,7 +44,7 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 				new Object[] { student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
 						student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
 						student.getEmail(),student.getBirthDay() },
-				new IDtMapper());
+				new StudentMapper());
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
        new Object[] { student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
 				student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
 				student.getEmail(),student.getBirthDay(),student.getId() },
-		new IDtMapper());
+		 Integer.class);
 	}
 
 	@Override
@@ -93,13 +93,5 @@ public class JdbcTemplateStudentDao implements StudnetDAO {
 
 	}
 
-	private static class IDtMapper implements RowMapper<Student> {
-
-		@Override
-		public Student mapRow(ResultSet rs, int arg1) throws SQLException {
-			Student student = new Student();
-			student.setId(rs.getLong("id"));
-			return student;
-		}
-	}
+	
 }

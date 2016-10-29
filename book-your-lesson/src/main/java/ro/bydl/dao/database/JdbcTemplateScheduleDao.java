@@ -13,7 +13,7 @@ import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 
 @Component
-public class JdbcTemplateScheduleeDao implements ScheduleDAO {
+public class JdbcTemplateScheduleDao implements ScheduleDAO {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

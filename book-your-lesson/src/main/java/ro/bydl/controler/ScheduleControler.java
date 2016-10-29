@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
-import ro.bydl.service.CalendarService;
+import ro.bydl.service.CalendarHelper;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
@@ -42,7 +42,7 @@ public class ScheduleControler {
 	@Autowired
 	private TeacherService teacherService;
 	@Autowired
-	private CalendarService calendarService;
+	private CalendarHelper calendarService;
 
 /**
  * returns a MV based on permission.
