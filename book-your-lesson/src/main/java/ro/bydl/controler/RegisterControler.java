@@ -88,7 +88,7 @@ public class RegisterControler {
 
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
 
-				student.setBirthDay(studentService.byrthDay(student.getCnp()));
+				student.setBirthDay(studentService.birthDay(student.getCnp()));
 				user.setStudentId(studentService.addStudent(student).getId());
 				user.setPermision("student");
 				user.setTeacherId(0);
@@ -125,7 +125,7 @@ public class RegisterControler {
 		if (registerService.checkUserUnique(user) == true) {
 
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
-				teacher.setBirthDay(teacherService.byrthDay(teacher.getCnp()));
+				teacher.setBirthDay(teacherService.birthDay(teacher.getCnp()));
 				user.setTeacherId((teacherService.addTeacher(teacher).getId()));
 				user.setPermision("teacher");
 			

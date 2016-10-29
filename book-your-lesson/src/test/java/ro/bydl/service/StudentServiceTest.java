@@ -18,7 +18,7 @@ public class StudentServiceTest {
 		Student student =new Student();
 		student.setCnp(1880511240011l);
 		StudentService studentService=new StudentService();
-		assertEquals("11.05.1988", studentService.byrthDay(1880511240011l));
+		assertEquals("11.05.1988", studentService.birthDay(1880511240011l));
 	}
 	@Test
 	public void isAllowedTest(){

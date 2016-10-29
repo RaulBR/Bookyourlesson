@@ -9,7 +9,7 @@ import java.util.Calendar;
 import ro.bydl.domain.Student;
 
 public class StudentHelper {
-	public String byrthDay(long cnp){
+	public String birthDay(long cnp){
 		String stringCnp= Long.toString(cnp);
 		String []cnpElements=stringCnp.split("");
 		String year="";
