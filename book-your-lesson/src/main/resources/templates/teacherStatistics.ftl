@@ -11,7 +11,35 @@
 <link href="/css/style.css" rel="stylesheet">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    	<script type="text/javascript" src="./dist/Chart.bundle.js"></script>
+  
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     
+    <style>
+    #canvas-holder {
+        width: 100%;
+        margin-top: 50px;
+        text-align: center;
+    }
+    #chartjs-tooltip {
+      opacity: 1;
+      position: absolute;
+      background: rgba(0, 0, 0, .7);
+      color: white;
+      border-radius: 3px;
+      -webkit-transition: all .1s ease;
+      transition: all .1s ease;
+      pointer-events: none;
+      -webkit-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    .chartjs-tooltip-key {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+    }
+    </style>
   </head>
   [#escape x as x?html]
   <body>
@@ -90,28 +118,124 @@
 </ng>  
  [/#list]
  [/#if]
-<div class="container">
-
-  <div class="progress progress-bar-vertical">
-    <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
-      <span class="sr-only">30% Complete</span>
+ [#if teacherSchedules??]
+ [#list  teacherSchedules as key]
+  <div id="canvas-holder" style="width:30%">
+        <canvas id="chart-area" />
     </div>
-  </div>
-  
-    <div class="progress progress-bar-vertical">
-    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
-      <span class="sr-only">60% Complete</span>
-    </div>
-  </div>
+   
+    <script>
+ 
+    var config = {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [
+                   ${key.done},
+                    ${key.done},
+                    ${key.pending},
+                    ${key.booked},
+                   ${key.absent},
+                ],
+                backgroundColor: [
+                    "#F7464A",
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                ],
+                label: 'Dataset 1'
+            },],
+            labels: [
+                "Done",
+                "Done",
+                "Pending",
+                "Booked",
+                "NotFree"
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'left',
+            },
+            title: {
+                display: true,
+                text: '${key.t.name} ${key.t.sirName}'
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    };
 
-  <div class="progress progress-bar-vertical">
-    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
-      <span class="sr-only">60% Complete</span>
-    </div>
-  </div>
+    window.onload = function() {
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        window.myDoughnut = new Chart(ctx, config);
+    };
 
-</div>
+    $('#randomizeData').click(function() {
+        $.each(config.data.datasets, function(i, dataset) {
+            dataset.data = dataset.data.map(function() {
+                return randomScalingFactor();
+            });
 
+            dataset.backgroundColor = dataset.backgroundColor.map(function() {
+                return randomColor(0.7);
+            });
+        });
+
+        window.myDoughnut.update();
+    });
+
+    $('#addDataset').click(function() {
+        var newDataset = {
+            backgroundColor: [],
+            data: [],
+            label: 'New dataset ' + config.data.datasets.length,
+        };
+
+        for (var index = 0; index < config.data.labels.length; ++index) {
+            newDataset.data.push(randomScalingFactor());
+            newDataset.backgroundColor.push(randomColor(0.7));
+        }
+
+        config.data.datasets.push(newDataset);
+        window.myDoughnut.update();
+    });
+
+    $('#addData').click(function() {
+        if (config.data.datasets.length > 0) {
+            config.data.labels.push('data #' + config.data.labels.length);
+
+            $.each(config.data.datasets, function(index, dataset) {
+                dataset.data.push(randomScalingFactor());
+                dataset.backgroundColor.push(randomColor(0.7));
+            });
+
+            window.myDoughnut.update();
+        }
+    });
+
+    $('#removeDataset').click(function() {
+        config.data.datasets.splice(0, 1);
+        window.myDoughnut.update();
+    });
+
+    $('#removeData').click(function() {
+        config.data.labels.splice(-1, 1); // remove the label first
+
+        config.data.datasets.forEach(function(dataset, datasetIndex) {
+            dataset.data.pop();
+            dataset.backgroundColor.pop();
+        });
+
+        window.myDoughnut.update();
+    });
+    </script>
+[/#list]
+ [/#if]
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

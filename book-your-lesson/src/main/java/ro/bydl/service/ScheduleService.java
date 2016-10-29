@@ -22,7 +22,10 @@ public class ScheduleService {
 	@Autowired
 	private JdbcTemplateScheduleDAO dao;
 	
-	
+	public String []getDays(int week) {
+		CalendarHelper calHelp=new CalendarHelper();
+		return calHelp.getDays(week);
+	}
 	
 	public int validate(Schedule schedule) throws ValidationException {
 

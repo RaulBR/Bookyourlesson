@@ -3,14 +3,14 @@ package ro.bydl.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateUserDAO;
+import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
 
 @Service
 public class RegisterService {
 
 	@Autowired
-	JdbcTemplateUserDAO dao;
+	UserDAO dao;
 
 	public boolean checkUserUnique(User user) {
 		boolean isFree = true;

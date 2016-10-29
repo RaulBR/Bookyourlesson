@@ -18,7 +18,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
-import ro.bydl.service.CalendarService;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
@@ -41,8 +40,8 @@ public class ScheduleControler {
 	private StudentService studentService;
 	@Autowired
 	private TeacherService teacherService;
-	@Autowired
-	private CalendarService calendarService;
+
+	
 
 /**
  * returns a MV based on permission.
@@ -52,6 +51,7 @@ public class ScheduleControler {
  */
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
+		
 		String permison = session.getAttribute("permision").toString();
 		
 
@@ -95,7 +95,7 @@ public class ScheduleControler {
 		}
 
 		result.addObject("week", week);
-		result.addObject("weekDays", calendarService.getDays(week));
+		result.addObject("weekDays",scheduleService.getDays(week));
 		return result;
 	}
 /**

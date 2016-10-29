@@ -8,18 +8,19 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateStudentDAO;
+import ro.bydl.dao.StudnetDAO;
 import ro.bydl.domain.Student;
 
 @Service
-public class StudentService extends PersonService{
+public class StudentService extends StudentHelper{
 @Autowired
-JdbcTemplateStudentDAO dao;
+
+private StudnetDAO dao;
 
 	public Student addStudent(Student student){
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
-		
+		 	
 		student.setRegistrationDate(dateFormat.format(cal.getTime()));
 				return dao.update(student);
 		
