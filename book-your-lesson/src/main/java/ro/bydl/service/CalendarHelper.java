@@ -1,20 +1,23 @@
 package ro.bydl.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD:book-your-lesson/src/main/java/ro/bydl/service/CalendarHelper.java
 @Service
 public class CalendarHelper{
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarHelper.class);
+=======
+
+public class CalendarHelper{
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarHelper.class);
+	
+>>>>>>> raul:book-your-lesson/src/main/java/ro/bydl/service/CalendarHelper.java
 	public String monday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();

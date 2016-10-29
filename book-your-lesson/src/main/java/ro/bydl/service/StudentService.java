@@ -10,19 +10,24 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateStudentDao;
+import ro.bydl.dao.StudnetDAO;
 import ro.bydl.domain.Student;
 
 @Service
+<<<<<<< HEAD
 public class StudentService extends PersonHelper{
 	
+=======
+public class StudentService extends StudentHelper{
+>>>>>>> raul
 @Autowired
-JdbcTemplateStudentDao dao;
+
+private StudnetDAO dao;
 
 	public Student addStudent(Student student){
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
-		
+		 	
 		student.setRegistrationDate(dateFormat.format(cal.getTime()));
 				return dao.update(student);
 		
@@ -48,6 +53,7 @@ JdbcTemplateStudentDao dao;
 		
 		
 	}
+<<<<<<< HEAD
 	
 	public boolean isAllawed(Student student ){
 		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -69,4 +75,19 @@ JdbcTemplateStudentDao dao;
 		return true;
 		
 	}}
+=======
+
+	public boolean isCnpRightLength(Student student) {
+		String cnp=Long.toString(student.getCnp());
+		if(cnp.length()<12){
+		return false;
+	}else{
+		return true;
+	}
+	
+	}
+	
+	
+	
+>>>>>>> raul
 }

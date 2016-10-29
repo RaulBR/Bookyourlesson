@@ -10,12 +10,12 @@ public class Schedule extends AbstractModel {
 	private String date;
 	private int week;
 	private boolean isFree;
-	private int studentId;
-	private int teacherId;
+	private long studentId;
+	private long teacherId;
 	@NotBlank
 	private String status;
 	
-	public int getStudentId() {
+	public long getStudentId() {
 		return studentId;
 	}
 
@@ -23,7 +23,7 @@ public class Schedule extends AbstractModel {
 		this.studentId = studentId;
 	}
 
-	public int getTeacherId() {
+	public long getTeacherId() {
 		return teacherId;
 	}
 
@@ -89,7 +89,7 @@ public class Schedule extends AbstractModel {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		long result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + endHour;
 		result = prime * result + (isFree ? 1231 : 1237);
@@ -98,7 +98,7 @@ public class Schedule extends AbstractModel {
 		result = prime * result + studentId;
 		result = prime * result + teacherId;
 		result = prime * result + week;
-		return result;
+		return (int) result;
 	}
 
 	@Override

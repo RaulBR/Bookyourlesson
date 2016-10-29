@@ -13,7 +13,7 @@ import ro.bydl.dao.VehicleDAO;
 import ro.bydl.domain.Vehicle;
 
 @Component
-public class JdbcTemplateVehicleDao implements VehicleDAO {
+public class JdbcTemplateVehicleDAO implements VehicleDAO {
 
 	@Autowired
 	JdbcTemplate jdbcTeamplate;
@@ -32,24 +32,24 @@ public class JdbcTemplateVehicleDao implements VehicleDAO {
 	}
 
 	@Override
-	public Vehicle findById(Long id) {
-		// TODO Auto-generated method stub
+	public Vehicle findById(long id) {
+		
 		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
 				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  id=? ", new Long[] {id},new VehicleMapper());
 	}
 	
 	@Override
-	public Vehicle findByTeacherId(Long id) {
-		// TODO Auto-generated method stub
-		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
-				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  teacher_id=? ", new Long[] {id},new VehicleMapper());
+	public Collection<Vehicle> findByTeacherId(Long id) {
+		
+		return  jdbcTeamplate.query("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes, "+
+      " insurance, itp, year, teacher_id "+
+ "FROM public.vehicle WHERE  teacher_id=? ;", new Long[] {id},new VehicleMapper());
 		
 	}
 
 	@Override
 	public Vehicle update(Vehicle model) {
-		System.out.println(model.getCarType());
-	
+		
 		  jdbcTeamplate.update("INSERT INTO public.vehicle("
 					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp, year,teacher_id) " +
 

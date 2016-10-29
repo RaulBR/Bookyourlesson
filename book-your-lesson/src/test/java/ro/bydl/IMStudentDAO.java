@@ -2,8 +2,12 @@ package ro.bydl;
 
 import java.util.Collection;
 
+<<<<<<< HEAD
 import ro.bydl.domain.Student;
 
+=======
+@SuppressWarnings("rawtypes")
+>>>>>>> raul
 public class IMStudentDAO implements StudentDAO {
 
 	

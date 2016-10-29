@@ -16,14 +16,14 @@ public class Person extends AbstractModel {
 	@NotEmpty
 	private String email;
 	@NotEmpty
-	private String birthDay;
+	private String birthday;
 
 	public String getBirthDay() {
-		return birthDay;
+		return birthday;
 	}
 
 	public void setBirthDay(String birthDay) {
-		this.birthDay = birthDay;
+		this.birthday = birthDay;
 	}
 
 	public long getPhoneNumber() {

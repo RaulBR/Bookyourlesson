@@ -5,18 +5,20 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateVehicleDao;
-import ro.bydl.domain.Teacher;
+import ro.bydl.dao.database.JdbcTemplateVehicleDAO;
 import ro.bydl.domain.Vehicle;
 
 @Service
 public class VehicleService {
 
 	@Autowired
-	private JdbcTemplateVehicleDao dao;
+	private JdbcTemplateVehicleDAO dao;
 
 	public void save(Vehicle vehicle) {
+		vehicle.setVignettes(vehicle.getVignettes().replace("-", "."));
 
+		vehicle.setITP(vehicle.getITP().replace("-", "."));
+		vehicle.setInsurance(vehicle.getInsurance().replace("-", "."));
 		dao.update(vehicle);
 
 	}
@@ -25,36 +27,36 @@ public class VehicleService {
 		return dao.getAll();
 
 	}
+
 	public void delete(Vehicle vehicle) {
 		dao.delete(vehicle);
-		
 
 	}
 
 	public void edit(Vehicle vehicle) {
 		dao.edit(vehicle);
-		
+
 	}
-	public boolean isVehicleOk(Vehicle vehicle){
-		for(Vehicle v: getAll()){
-			if(vehicle.equals(v)){
+
+	public boolean isVehicleOk(Vehicle vehicle) {
+		for (Vehicle v : getAll()) {
+			if (vehicle.equals(v)) {
 				return false;
 			}
 		}
-		
+
 		return true;
-		
-		
+
 	}
 
-	public Teacher findByTeacherId(long id) {
-		
-		return findByTeacherId(id);
+	public Collection<Vehicle> findByTeacherId(long id) {
+
+		return dao.findByTeacherId(id);
 	}
 
 	public Vehicle findById(long id) {
 		return dao.findById(id);
-		// TODO Auto-generated method stub
-		
+
 	}
+
 }

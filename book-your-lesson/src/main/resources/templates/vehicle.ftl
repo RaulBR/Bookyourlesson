@@ -69,20 +69,22 @@
 		    <input type="text" class="form-control" name="licensePlate" value="[#if vehicle??]${vehicle.licensePlate}[/#if]">
 		</div>
 		<div class="form-group">
-		    <label for="text">engine</label>
+		    <label for="text">engine (cm^3)</label>
 		    <input type="text" class="form-control" name="engine" value="[#if vehicle??]${vehicle.engine}[/#if]">
 		</div>
  		<div class="form-group">
-		    <label for="text">vignettes</label>
-		    <input type="text" class="form-control" name="vignettes" value="[#if vehicle??]${vehicle.vignettes}[/#if]">
+		    <label for="text">vignettes </label>
+		    <input type="date"  datetime="DD-MM-YYYY" class="form-control" name="vignettes" value="[#if vehicle??]${vehicle.vignettes}[/#if]">
 		</div>
 		<div class="form-group">
 		    <label for="text">insurance</label>
-		    <input type="text" class="form-control" name="insurance" value="[#if vehicle??]${vehicle.insurance}[/#if]">
+		    <input type="date" class="form-control" name="insurance" value="[#if vehicle??]${vehicle.insurance}[/#if]">
 		</div>
 		<div class="form-group">
-		    <label for="text">ITP</label>
-		    <input type="text" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP}[/#if]">
+		    <label for="date">ITP</label>
+		    
+		    <input type="date" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP}[/#if]">
+		    
 		</div>
   
 		[#if teachers??]

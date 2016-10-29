@@ -20,6 +20,7 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+ 		 
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
@@ -33,7 +34,7 @@
   
     <th>Number</th>
     <th>Name</th>
-    <th>Sirname</th>
+    <th>Sir Name</th>
     <th>Car</th>
     <th>Category</th>
    	
@@ -45,7 +46,7 @@
 	  				<td > ${nr} </h3>  </td>		
 	  		<td > 		${teacher.name} </h3>  </td>
 	  		<td >	 ${teacher.sirName}</h3>  </td>
-	  		<td >	 car </td>
+	  		<td >	<a class="btn btn-primary" href="/cars?teacherId=${teacher.id}" role="button">Cars</a>
 	  		<td >	 ${teacher.category}</h3>  </td>		
 	  			
 	  	

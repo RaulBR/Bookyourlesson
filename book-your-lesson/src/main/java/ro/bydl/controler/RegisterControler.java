@@ -31,15 +31,15 @@ import ro.bydl.service.VehicleService;
 @Controller
 @RequestMapping("/register")
 public class RegisterControler {
-
+	@Autowired
+	StudentService studentService;
 	@Autowired
 	TeacherService teacherService;
 	@Autowired
 	RegisterService registerService;
 	@Autowired
 	VehicleService vehicleService;
-	@Autowired
-	StudentService studentService;
+
 	/**
 	 * Returners a Model and view object for the "student" mapping.
 	 * 
@@ -88,7 +88,7 @@ public class RegisterControler {
 
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
 
-				student.setBirthDay(studentService.byrthDay(student.getCnp()));
+				student.setBirthDay(studentService.birthDay(student.getCnp()));
 				user.setStudentId(studentService.addStudent(student).getId());
 				user.setPermision("student");
 				user.setTeacherId(0);
@@ -125,7 +125,7 @@ public class RegisterControler {
 		if (registerService.checkUserUnique(user) == true) {
 
 			if (registerService.checkPass(user.getPass(), pass2) == true) {
-				teacher.setBirthDay(teacherService.byrthDay(teacher.getCnp()));
+				teacher.setBirthDay(teacherService.birthDay(teacher.getCnp()));
 				user.setTeacherId((teacherService.addTeacher(teacher).getId()));
 				user.setPermision("teacher");
 			
@@ -164,9 +164,13 @@ public class RegisterControler {
 
 	@RequestMapping("vehicle/list")
 	public ModelAndView list(HttpSession session) throws Exception {
-		String permison = session.getAttribute("permision").toString();
 		ModelAndView result = new ModelAndView("vehicleList");
+		if(session.getAttribute("permision")!=null){
+		String permison = session.getAttribute("permision").toString();
 		result.addObject("permision", permison);
+		}
+		
+		
 		result.addObject("vehicles", vehicleService.getAll());
 
 		return result;
@@ -176,7 +180,7 @@ public class RegisterControler {
 	public ModelAndView save(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicle");
-
+		
 		if (vehicle.getId() == 0) {
 			if(vehicleService.isVehicleOk(vehicle)==true){
 				vehicleService.save(vehicle);

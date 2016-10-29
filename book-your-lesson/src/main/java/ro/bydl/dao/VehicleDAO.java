@@ -8,5 +8,5 @@ public interface VehicleDAO extends BaseDao<Vehicle> {
 
 	public Vehicle getByLicence(Vehicle vehicle);
 
-	Vehicle findByTeacherId(Long id);
+	Collection<Vehicle> findByTeacherId(Long id);
 }

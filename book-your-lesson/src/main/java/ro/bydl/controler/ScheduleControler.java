@@ -18,7 +18,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
+<<<<<<< HEAD
 import ro.bydl.service.CalendarHelper;
+=======
+>>>>>>> raul
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
@@ -41,8 +44,13 @@ public class ScheduleControler {
 	private StudentService studentService;
 	@Autowired
 	private TeacherService teacherService;
+<<<<<<< HEAD
 	@Autowired
 	private CalendarHelper calendarService;
+=======
+
+	
+>>>>>>> raul
 
 /**
  * returns a MV based on permission.
@@ -52,6 +60,7 @@ public class ScheduleControler {
  */
 	@RequestMapping("")
 	public ModelAndView schedule(HttpSession session) throws Exception {
+		
 		String permison = session.getAttribute("permision").toString();
 		
 
@@ -62,14 +71,14 @@ public class ScheduleControler {
 			Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
 			
 			
-			//int teacherId = Integer.parseInt(session.getAttribute("theacherLogId").toString());
+			
 		
 			result = new ModelAndView("scheduleTeacher");
 
 			result.addObject("week", week);
-		//	result.addObject("car",vehicleService.findByTeacherId(teacher.getId()));
+		
 			result.addObject("teacherOBJ", teacher);
-				//result.addObject("teacherId", session.getAttribute("theacherLogId"));
+			
 			result.addObject("students", studentService.getByTeacherId( teacher.getId()));
 			result.addObject("schedules", scheduleService.searchByTeacherId(teacher.getId()));
 		}
@@ -95,7 +104,7 @@ public class ScheduleControler {
 		}
 
 		result.addObject("week", week);
-		result.addObject("weekDays", calendarService.getDays(week));
+		result.addObject("weekDays",scheduleService.getDays(week));
 		return result;
 	}
 /**

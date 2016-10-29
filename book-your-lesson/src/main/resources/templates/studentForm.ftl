@@ -20,6 +20,7 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		
   		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
  		 
   		</div>
@@ -36,24 +37,24 @@
   </div>
     <div class="form-group">
     <label for="text">Name:</label>
-    <input type="text" class="form-control" name="name">
+    <input type="text" class="form-control" name="name" value="[#if student??]${student.name}[/#if]">
   </div>
    <div class="form-group">
     <label for="text">Sir Name</label>
-    <input type="text" class="form-control" name="sirName">
+    <input type="text" class="form-control" name="sirName" value="[#if student??]${student.sirName}[/#if]">
   </div>
   </div>
    <div class="form-group">
     <label for="text">Email</label>
-    <input type="email" class="form-control" name="email">
+    <input type="email" class="form-control" name="email" value="[#if student??]${student.email}[/#if]">
   </div>
     <div class="form-group">
     <label for="text">CNP</label>
-    <input type="text" class="form-control" name="cnp">
+    <input type="text" class="form-control" name="cnp"  value="[#if student??]${student.cnp}[/#if]">
   </div>
    <div class="form-group">
     <label for="text">Phone Number</label>
-    <input type="text" class="form-control" name="phoneNumber">
+    <input type="text" class="form-control" name="phoneNumber"  value="[#if student??]${student.phoneNumber}[/#if]">
   </div>
      [#if teachers??]
         <div class="form-group">
@@ -72,15 +73,15 @@
   
    
     <select name="Category"  class="form-control">
-    <option value="A">Category <b>A</b></option>
     <option value="B">Category <b>B</b></option>
+    <option value="A">Category <b>A</b></option>
     <option value="C">Category <b>C</b></option>
   </select>
   </div>
   
    <div class="form-group">
     <label for="text">Medical Papers</label>  
-    <select name="medPaper"  class="form-control">
+    <select name="medPaper"  class="form-control" value="[#if student??]${student.medPaper}[/#if]">
     <option value="true"> <b>Yes</b></option>
     <option value="false"> <b>No</b></option>
    
@@ -90,7 +91,7 @@
   
  	<div class="form-group" >
     <label for="text">User</label>
-    <input type="text" class="form-control" name="user">
+    <input type="text" class="form-control" name="user" >
   </div>
   <div class="form-group">
     <label for="text">Pasword</label>
