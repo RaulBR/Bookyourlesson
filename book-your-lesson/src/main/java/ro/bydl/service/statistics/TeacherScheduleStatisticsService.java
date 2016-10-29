@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ro.bydl.dao.database.JdbcTeamplateTeacherDAO;
-import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
+import ro.bydl.dao.database.JdbcTemplateScheduleDao;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Teacher;
 import ro.bydl.service.statistics.containers.TeacherStatisticalContainer;
@@ -17,7 +19,7 @@ import ro.bydl.service.statistics.containers.TeacherStatisticalContainer;
 @Service
 public class TeacherScheduleStatisticsService {
 	@Autowired
-	private JdbcTemplateScheduleDAO dao;
+	private JdbcTemplateScheduleDao dao;
 	@Autowired
 	private JdbcTeamplateTeacherDAO teacherDao;
 

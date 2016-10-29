@@ -11,12 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import ro.bydl.ScheduleDAO;
 import ro.bydl.dao.database.JdbcTemplateScheduleDao;
-=======
-import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
->>>>>>> raul
 import ro.bydl.domain.Schedule;
 
 @Service
@@ -25,12 +20,9 @@ public class ScheduleService {
 	
 
 	@Autowired
-<<<<<<< HEAD
+
 	JdbcTemplateScheduleDao dao;
-	
-=======
-	private JdbcTemplateScheduleDAO dao;
->>>>>>> raul
+
 	
 	public String []getDays(int week) {
 		CalendarHelper calHelp=new CalendarHelper();

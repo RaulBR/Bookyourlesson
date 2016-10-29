@@ -7,17 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD:book-your-lesson/src/main/java/ro/bydl/service/CalendarHelper.java
-@Service
-public class CalendarHelper{
-	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarHelper.class);
-=======
+
 
 public class CalendarHelper{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarHelper.class);
 	
->>>>>>> raul:book-your-lesson/src/main/java/ro/bydl/service/CalendarHelper.java
+
 	public String monday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();

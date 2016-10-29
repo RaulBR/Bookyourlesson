@@ -11,17 +11,12 @@ import org.springframework.stereotype.Service;
 import ro.bydl.dao.TeacherDAO;
 import ro.bydl.domain.Teacher;
 @Service
-<<<<<<< HEAD
-public class TeacherService extends PersonHelper {
 
-	@Autowired
-	TeacherDAO dao;
-=======
 public class TeacherService extends StudentHelper {
 
 	@Autowired
 	private TeacherDAO dao;
->>>>>>> raul
+
 	
 	public Teacher findById(long id) {
 		

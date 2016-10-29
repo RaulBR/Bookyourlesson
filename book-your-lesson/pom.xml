@@ -69,7 +69,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
+
     <groupId>org.webjars</groupId>
     <artifactId>jquery</artifactId>
     <version>2.1.1</version>
@@ -86,28 +86,15 @@
         </exclusion>
     </exclusions>
 </dependency>
-	</dependencies>
 
-=======
-		<groupId>org.webjars</groupId>
-		<artifactId>jquery</artifactId>
-		<version>2.1.1</version>
-	</dependency>
 
-	<dependency>
-		<groupId>org.webjars</groupId>
-		<artifactId>bootstrap</artifactId>
-		<version>3.2.0</version>
-		<exclusions>
-			<exclusion>
-				<groupId>org.webjars</groupId>
-				<artifactId>jquery</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-	</dependencies>
 	
->>>>>>> raul
+			
+	</dependencies>
+
+
+	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -117,9 +104,5 @@
 		</plugins>
 	</build>
 
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> raul
 </project>

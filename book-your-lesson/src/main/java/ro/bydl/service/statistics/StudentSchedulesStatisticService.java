@@ -10,18 +10,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTeamplateTeacherDAO;
-import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
+import ro.bydl.dao.database.JdbcTemplateScheduleDao;
 import ro.bydl.dao.database.JdbcTemplateStudentDAO;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
-import ro.bydl.domain.Teacher;
 import ro.bydl.service.statistics.containers.StudentStatisticalContainer;
 
 @Service
 public class StudentSchedulesStatisticService {
 	@Autowired
-	private JdbcTemplateScheduleDAO dao;
+	private JdbcTemplateScheduleDao dao;
 	@Autowired
 	private JdbcTemplateStudentDAO studentDao;
 	
