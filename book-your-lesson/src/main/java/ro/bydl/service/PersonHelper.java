@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 import ro.bydl.domain.Student;
 
-public class StudentHelper {
+public class PersonHelper {
 	public String birthDay(long cnp){
 		String stringCnp= Long.toString(cnp);
 		String []cnpElements=stringCnp.split("");

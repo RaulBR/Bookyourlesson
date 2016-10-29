@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.ScheduleDAO;
-import ro.bydl.dao.database.JdbcTemplateScheduleDAO;
-import ro.bydl.dao.database.JdbcTemplateStudentDAO;
+import ro.bydl.dao.StudnetDAO;
+
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.service.statistics.containers.StudentStatisticalContainer;
@@ -22,7 +22,7 @@ public class StudentSchedulesStatisticService {
 	@Autowired
 	private ScheduleDAO dao;
 	@Autowired
-	private JdbcTemplateStudentDAO studentDao;
+	private StudnetDAO studentDao;
 	
 	public Collection<StudentStatisticalContainer> howBusy() {
 		List<StudentStatisticalContainer> sorted = getBruteList();

@@ -12,7 +12,7 @@ import ro.bydl.dao.TeacherDAO;
 import ro.bydl.domain.Teacher;
 @Service
 
-public class TeacherService extends StudentHelper {
+public class TeacherService extends PersonHelper {
 
 	@Autowired
 	private TeacherDAO dao;

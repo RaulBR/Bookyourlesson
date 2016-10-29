@@ -13,7 +13,7 @@ import ro.bydl.domain.Student;
 
 @Service
 
-public class StudentService extends StudentHelper{
+public class StudentService extends PersonHelper{
 
 @Autowired
 
