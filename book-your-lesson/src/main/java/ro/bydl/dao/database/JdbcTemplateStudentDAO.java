@@ -77,6 +77,13 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 				  "FROM public.students where cnp=? ;", new String[] {cnp}, new StudentMapper());
 		
 	}
+	@Override
+	public Student getByEmail(String email) {
+		return jdbcTemplate.queryForObject("SELECT id, name, sir_name, cnp, register_date, category, teacher_id,  med_paper, phone, email, birth_day "+ 
+				  "FROM public.students where email=? ;", new String[] {email}, new StudentMapper());
+		
+	}
+
 	private static class StudentMapper implements RowMapper<Student> {
 
 		@Override
@@ -97,7 +104,7 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 		}
 
 	}
-
+	
 	
 
 	

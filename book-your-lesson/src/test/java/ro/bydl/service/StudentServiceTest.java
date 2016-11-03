@@ -16,9 +16,9 @@ public class StudentServiceTest {
 	@Test
 	public void dateTest(){
 		Student student =new Student();
-		student.setCnp(1880511240011l);
+		student.setCnp("1880511240011");
 		StudentService studentService=new StudentService();
-		assertEquals("11.05.1988", studentService.birthDay(1880511240011l));
+		assertEquals("11.05.1988", studentService.birthDay("1880511240011l"));
 	}
 	@Test
 	public void isAllowedTest(){
@@ -37,14 +37,14 @@ public class StudentServiceTest {
 	@Test
 	public void CnpRightLenghtFalseTest(){
 		Student student =new Student();
-		student.setCnp(18845654);;
+		student.setCnp("18845654");;
 		StudentService studentService=new StudentService();
 		assertFalse( studentService.isCnpRightLength(student));
 	}
 	@Test
 	public void CnpRightLenghtTest(){
 		Student student =new Student();
-		student.setCnp(1880511240011l);
+		student.setCnp("1880511240011");
 		StudentService studentService=new StudentService();
 		assertTrue( studentService.isCnpRightLength(student));
 	}

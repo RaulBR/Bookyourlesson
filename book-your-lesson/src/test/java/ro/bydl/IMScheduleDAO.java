@@ -17,14 +17,6 @@ public class IMScheduleDAO implements ScheduleDAO {
 
 	
 
-	@Override
-	public Schedule insert(Schedule model) {
-		
-		schedules.put(model.getId(),model);
-
-		return model;
-	}
-
 
 	
 	
@@ -103,6 +95,18 @@ public class IMScheduleDAO implements ScheduleDAO {
 	public Collection<Schedule> selectDistinctTeacherId() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+
+
+
+
+	@Override
+	public long insert(Schedule model) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

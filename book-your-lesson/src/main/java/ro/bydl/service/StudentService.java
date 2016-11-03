@@ -25,9 +25,30 @@ public class StudentService extends PersonHelper {
 	public long addStudent(Student student) throws ValidationException {
 		student.setBirthDay(birthDay(student.getCnp()));
 		validateStudent(setRegistrationDate(student));
-
+		student.setName(formatName(student.getName()));
+		student.setSirName(formatName(student.getSirName()));
 		return dao.insert(student);
 
+	}
+
+	private String formatName(String nameToDo) {
+		String name="";
+		
+		
+		
+		String[]first=nameToDo.split("");
+		
+		int count=0;
+		for(String s:first){
+			if(count==0){
+			name=s.toUpperCase();	
+			}else{
+				name+=s.toLowerCase();
+			}
+			count++;
+		}
+		return name;
+		
 	}
 
 	private void validateStudent(Student student) throws ValidationException {
@@ -39,11 +60,15 @@ public class StudentService extends PersonHelper {
 		if (!isCnpRightLength(student)) {
 			errors.add("cnp of an incorect length");
 		}
-		if (!cnpExists(student)) {
+		if (cnpExists(student)) {
 			errors.add("data already exists");
 		}
 		if (isInTheFuture(student)) {
 			errors.add("you may be form the future /n go back in time to register");
+		}
+		if(isEmailUsed(student)){
+			errors.add("email already exists");
+			
 		}
 				
 		if (!errors.isEmpty()) {
@@ -54,23 +79,36 @@ public class StudentService extends PersonHelper {
 
 	
 
+	private boolean isEmailUsed(Student student) {
+		try {
+			
+			dao.getByEmail(student.getEmail());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
+		
+	
+	}
+
 	private boolean isInTheFuture(Student student) {
 		student.getBirthDay();
 
-		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		// TODO
-		Date date;
-		Date registerDate;
-		try {
-			date = format.parse((student.getBirthDay()));
-			registerDate = format.parse((student.getRegistrationDate()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// if(registerDate<date){
-		// return true;
-		// }
+//		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+//		// TODO
+//		Date date;
+//		Date registerDate;
+//		try {
+//			date = format.parse((student.getBirthDay()));
+//			registerDate = format.parse((student.getRegistrationDate()));
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		// if(registerDate<date){
+//		// return true;
+//		// }
 
 		return false;
 	}
@@ -79,9 +117,9 @@ public class StudentService extends PersonHelper {
 		try {
 			String cnp = student.getCnp();
 			dao.getByCnp(cnp);
-			return false;
-		} catch (Exception e) {
 			return true;
+		} catch (Exception e) {
+			return false;
 		}
 
 	}

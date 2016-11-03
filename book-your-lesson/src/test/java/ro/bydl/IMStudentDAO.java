@@ -19,12 +19,7 @@ public class IMStudentDAO implements StudentDAO {
 	}
 
 	
-	@Override
-	public Student insert(Student model) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public int delete(Student model) {
 		// TODO Auto-generated method stub
@@ -46,6 +41,22 @@ public class IMStudentDAO implements StudentDAO {
 
 	@Override
 	public Collection<Student> getByTeacher(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public long insert(Student model) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public Student getByCnp(long cnp) {
 		// TODO Auto-generated method stub
 		return null;
 	}

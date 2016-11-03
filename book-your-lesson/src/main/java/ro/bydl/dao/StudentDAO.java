@@ -16,6 +16,8 @@ public interface StudentDAO extends BaseDao <Student>  {
 
 	Student getByCnp(String cnp);
 
+	Student getByEmail(String email);
+
 	
 
 }
