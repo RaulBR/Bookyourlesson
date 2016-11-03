@@ -5,21 +5,21 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.dao.database.JdbcTemplateVehicleDAO;
+import ro.bydl.dao.VehicleDAO;
 import ro.bydl.domain.Vehicle;
 
 @Service
 public class VehicleService {
 
 	@Autowired
-	private JdbcTemplateVehicleDAO dao;
+	private VehicleDAO dao;
 
 	public void save(Vehicle vehicle) {
 		vehicle.setVignettes(vehicle.getVignettes().replace("-", "."));
 
 		vehicle.setITP(vehicle.getITP().replace("-", "."));
 		vehicle.setInsurance(vehicle.getInsurance().replace("-", "."));
-		dao.update(vehicle);
+		dao.insert(vehicle);
 
 	}
 
@@ -34,7 +34,7 @@ public class VehicleService {
 	}
 
 	public void edit(Vehicle vehicle) {
-		dao.edit(vehicle);
+		dao.update(vehicle);
 
 	}
 

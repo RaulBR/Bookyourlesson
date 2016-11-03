@@ -18,12 +18,13 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teachers/instructors"> <font color="white"> Instructors</font></a>
  		 
   		</div>
   	</div>
 	</nav>
 <div id="fullscreen_bg" class="fullscreen_bg"/>
+
 
 <div class="container">
 
@@ -34,12 +35,15 @@
 
 </div>
 <div class="container">
+
     <div class="row vertical-offset-100">
     	<div class="col-md-4 col-md-offset-4">
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">Please sign in</h3>
+			    	
 			 	</div>
+			 	[#if error??]<p>Error: ${error}</p>[/#if]
 			  	<div class="panel-body">
 			    	<form action="/login"  accept-charset="UTF-8" role="form" method="POST">
                     <fieldset>
@@ -59,7 +63,7 @@
 			    		
 			    	</fieldset>
 			    	</form>
-			    	<form action="/register/student" method="POST" accept-charset="UTF-8" role="form">
+			    	<form action="/student" method="POST" accept-charset="UTF-8" role="form">
 			    	<input class="btn btn-lg btn-success btn-block" type="submit" value="Student Sign up">
 			      	</form>
 			      	

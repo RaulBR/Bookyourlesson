@@ -22,12 +22,12 @@ public class TeacherService extends PersonHelper {
 		
 		return dao.findById(id);
 	}
-	public Teacher addTeacher(Teacher teacher) {
+	public long addTeacher(Teacher teacher) {
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
 		
 		teacher.setHireDate(dateFormat.format(cal.getTime()));
-		return dao.update(teacher);
+		return dao.insert(teacher);
 	}
 	public Collection <Teacher> getAll() {
 		

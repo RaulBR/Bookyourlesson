@@ -17,11 +17,11 @@ public interface BaseDao<T extends AbstractModel> {
 	
 	T findById(long id);
 	
-	T update(T model);
+	long insert(T model);
 	
 	int delete(T model);
 
-	int edit(T model);
+	long update(T model);
 
 	
 

@@ -1,4 +1,4 @@
-package ro.bydl.service;
+package ro.bydl.service.errors;
 
 import java.util.Arrays;
 

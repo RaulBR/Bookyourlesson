@@ -25,14 +25,14 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public Schedule update(Schedule schedule) {
-		jdbcTemplate.update(
+	public long insert(Schedule schedule) {
+		
+
+		return jdbcTemplate.update(
 				"INSERT INTO public.schedule( " + "week, start_hour, end_hour, date,  student_id, teacher_id, status) "
 						+ "VALUES (?, ?, ?, ?, ?, ?, ?);",
 				new Object[] { schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), schedule.getDate(),
 						schedule.getStudentId(), schedule.getTeacherId(), schedule.getStatus() });
-
-		return schedule;
 
 	}
 
@@ -74,7 +74,7 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public int edit(Schedule schedule) {
+	public long update(Schedule schedule) {
 
 		return jdbcTemplate.update(
 				"UPDATE public.schedule " + "  SET week=?, start_hour=?, end_hour=?, date=?,  student_id=?, "

@@ -3,16 +3,9 @@ package ro.bydl.service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 
 
 public class CalendarHelper{
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(CalendarHelper.class);
-	
 
 	public String monday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");

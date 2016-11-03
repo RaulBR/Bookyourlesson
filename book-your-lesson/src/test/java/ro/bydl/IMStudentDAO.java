@@ -2,21 +2,15 @@ package ro.bydl;
 
 import java.util.Collection;
 
-<<<<<<< HEAD
 import ro.bydl.domain.Student;
 
-=======
-@SuppressWarnings("rawtypes")
->>>>>>> raul
+
+
 public class IMStudentDAO implements StudentDAO {
 
 	
 
-	@Override
-	public Collection getByTeacher(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public Collection<Student> getAll() {
@@ -24,14 +18,9 @@ public class IMStudentDAO implements StudentDAO {
 		return null;
 	}
 
+	
 	@Override
-	public Student findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Student update(Student model) {
+	public Student insert(Student model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -43,9 +32,22 @@ public class IMStudentDAO implements StudentDAO {
 	}
 
 	@Override
-	public int edit(Student model) {
+	public long update(Student model) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Student findById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Collection<Student> getByTeacher(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

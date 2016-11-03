@@ -48,15 +48,15 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
-	public Vehicle update(Vehicle model) {
+	public long insert(Vehicle model) {
 		
-		  jdbcTeamplate.update("INSERT INTO public.vehicle("
+		  
+		  return jdbcTeamplate.update("INSERT INTO public.vehicle("
 					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp, year,teacher_id) " +
 
 					"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?,?,? ) ;", model.getBrand(), model.getCarType(), model.getFuel(),
 					model.getChassis(), model.getEngine(), model.getLicensePlate(), model.getVignettes(),
 					model.getInsurance(), model.getITP(),model.getYear(),model.getTeacherId());
-		  return model;
 		 }
 
 	@Override
@@ -66,7 +66,7 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
-	public int edit(Vehicle m) {
+	public long update(Vehicle m) {
 
 		return jdbcTeamplate.update(
 				"UPDATE public.vehicle " + "SET brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "

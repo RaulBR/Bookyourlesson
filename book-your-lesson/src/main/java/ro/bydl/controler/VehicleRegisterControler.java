@@ -22,17 +22,16 @@ import ro.bydl.service.TeacherService;
 import ro.bydl.service.VehicleService;
 
 /**
- * This class is the model and view controler for the registretion forms of the
- * aplication
+ * This class is the model and view controller for the registration forms of the
+ * application
  * 
  * @author Raul
  *
  */
 @Controller
 @RequestMapping("/register")
-public class RegisterControler {
-	@Autowired
-	StudentService studentService;
+public class VehicleRegisterControler {
+
 	@Autowired
 	TeacherService teacherService;
 	@Autowired
@@ -40,108 +39,8 @@ public class RegisterControler {
 	@Autowired
 	VehicleService vehicleService;
 
-	/**
-	 * Returners a Model and view object for the "student" mapping.
-	 * 
-	 * @param session
-	 * @return
-	 * @throws Exception
-	 */
 
-	@RequestMapping("student")
-	public ModelAndView student(HttpSession session) throws Exception {
-		ModelAndView result = new ModelAndView("studentForm");
-		result.addObject("teachers", teacherService.getAll());
-		return result;
-	}
 
-	/**
-	 * Returners a Model and view object for the "teacher" mapping.
-	 * 
-	 * @param session
-	 * @return
-	 * @throws Exception
-	 */
-
-	@RequestMapping("teacher")
-	public ModelAndView teacher(HttpSession session) throws Exception {
-		ModelAndView result = new ModelAndView("teacherForm");
-		return result;
-	}
-
-	/**
-	 * Gets ,validates and sends to de DB the new students data.
-	 * 
-	 * @param user
-	 * @param student
-	 * @param pass2
-	 * @param bindingResult
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "/student/userSave", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute("user2") User user, Student student, String pass2,
-			BindingResult bindingResult, HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("studentForm");
-		
-		if (registerService.checkUserUnique(user) == true) {
-
-			if (registerService.checkPass(user.getPass(), pass2) == true) {
-
-				student.setBirthDay(studentService.birthDay(student.getCnp()));
-				user.setStudentId(studentService.addStudent(student).getId());
-				user.setPermision("student");
-				user.setTeacherId(0);
-				registerService.addUser(user);
-				modelAndView.setView(new RedirectView(""));
-			} else {
-				modelAndView.addObject("error2", new String("passwoard dont mach"));
-			}
-
-		} else {
-			modelAndView.addObject("error", new String("id exists"));
-
-		}
-		
-		return modelAndView;
-	}
-
-	/**
-	 * Gets ,validates and sends to de DB the new teacher data.
-	 * 
-	 * @param user
-	 * @param teacher
-	 * @param pass2
-	 * @param bindingResult
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "/teacher/userSave", method = RequestMethod.POST)
-	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") User user, Teacher teacher, String pass2,
-			BindingResult bindingResult, HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("studentForm");
-
-		;
-		if (registerService.checkUserUnique(user) == true) {
-
-			if (registerService.checkPass(user.getPass(), pass2) == true) {
-				teacher.setBirthDay(teacherService.birthDay(teacher.getCnp()));
-				user.setTeacherId((teacherService.addTeacher(teacher).getId()));
-				user.setPermision("teacher");
-			
-				registerService.addUser(user);
-
-			} else {
-				modelAndView.addObject("error2", new String("passwoard dont mach"));
-			}
-
-		} else {
-			modelAndView.addObject("error", new String("id exists"));
-
-		}
-
-		return modelAndView;
-	}
 
 	@RequestMapping("vehicle")
 	public ModelAndView add(HttpSession session) throws Exception {
@@ -230,15 +129,5 @@ public class RegisterControler {
 
 		return modelAndView;
 	}
-	@RequestMapping("student/list")
-	public ModelAndView studentList(HttpSession session) throws Exception {
-		String permison = session.getAttribute("permision").toString();
-		ModelAndView result = new ModelAndView("studentList");
-		Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
-		System.out.println(teacher.getName());
-		result.addObject("permision", permison);
-	result.addObject("students", studentService.getByTeacherId( teacher.getId()));
-
-		return result;
-	}
+	
 }

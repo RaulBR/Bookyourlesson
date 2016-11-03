@@ -7,12 +7,15 @@ public class Person extends AbstractModel {
 	private String name;
 	@NotEmpty
 	private String sirName;
-
-	private long cnp;
+	
+	
+	@NotEmpty
+	private String cnp;
+	
 	@NotEmpty
 	private String category;
 
-	private long phoneNumber;
+	private String phoneNumber;
 	@NotEmpty
 	private String email;
 	@NotEmpty
@@ -26,11 +29,11 @@ public class Person extends AbstractModel {
 		this.birthday = birthDay;
 	}
 
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -66,34 +69,14 @@ public class Person extends AbstractModel {
 		this.sirName = sirName;
 	}
 
-	public long getCnp() {
+	public String getCnp() {
 		return cnp;
 	}
 
-	public void setCnp(long cnp) {
+	public void setCnp(String cnp) {
 		this.cnp = cnp;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (cnp ^ (cnp >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (cnp != other.cnp)
-			return false;
-		return true;
-	}
+	
 
 }

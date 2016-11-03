@@ -27,10 +27,10 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 			teacher.setId(rs.getInt("id"));
 			teacher.setName(rs.getString("name"));
 			teacher.setSirName(rs.getString("sir_name"));
-			teacher.setCnp(rs.getLong("cnp"));
+			teacher.setCnp(rs.getString("cnp"));
 			teacher.setCategory(rs.getString("category"));
 			teacher.setEmail(rs.getString("email"));
-			teacher.setPhoneNumber(rs.getLong("phone"));
+			teacher.setPhoneNumber(rs.getString("phone"));
 			teacher.setMedDate(rs.getString("med_date"));
 			teacher.setBirthDay(rs.getString("birth_day"));
 			teacher.setHireDate(rs.getString("hire_date"));
@@ -69,14 +69,14 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 
 
 	@Override
-	public Teacher update(Teacher teacher) {
+	public long insert(Teacher teacher) {
 		
 		return jdbcTeamplate.queryForObject("INSERT INTO public.teachers( name, sir_name, cnp, "
 				+ "hire_date, category, phone, email, med_date, "+
             "birth_day) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",new Object[] { 
 		   teacher.getName(), teacher.getSirName(), teacher.getCnp(), teacher.getHireDate(),
 					 teacher.getCategory(),teacher.getPhoneNumber(),
-					teacher.getEmail(),teacher.getMedDate(),teacher.getBirthDay() },new IDtMapper());
+					teacher.getEmail(),teacher.getMedDate(),teacher.getBirthDay() },Long.class);
 	}
 
 
@@ -94,9 +94,9 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 
 
 	@Override
-	public int edit(Teacher model) {
+	public long update(Teacher model) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0L;
 	}
 
 

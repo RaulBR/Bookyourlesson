@@ -27,34 +27,34 @@
   	</div>
 	</nav>
   <h1> Register Student </h1>
-  
-  <form action="/register/student/userSave" class="sexy-form"  method="POST" >
+  <p>[#if error??][#list errors as error]${error}[/#list][/#if]</p>
+  <form action="/student/userSave" class="sexy-form"  method="POST" >
   
 
-   
+  [#if errors??][#list errors as error]<p> ${error}</p>[/#list][/#if]
 
 
   </div>
     <div class="form-group">
     <label for="text">Name:</label>
-    <input type="text" class="form-control" name="name" value="[#if student??]${student.name}[/#if]">
+    <input type="text" class="form-control" name="name" [#if student??]value="${student.name}"[/#if]>
   </div>
    <div class="form-group">
     <label for="text">Sir Name</label>
-    <input type="text" class="form-control" name="sirName" value="[#if student??]${student.sirName}[/#if]">
+    <input type="text" class="form-control" name="sirName" [#if student??]value="${student.sirName}"[/#if]>
   </div>
   </div>
    <div class="form-group">
     <label for="text">Email</label>
-    <input type="email" class="form-control" name="email" value="[#if student??]${student.email}[/#if]">
+    <input type="email" class="form-control" name="email" [#if student??]value="${student.email}"[/#if]>
   </div>
     <div class="form-group">
     <label for="text">CNP</label>
-    <input type="text" class="form-control" name="cnp"  value="[#if student??]${student.cnp}[/#if]">
+    <input type="text" class="form-control" name="cnp"  [#if student??]value="${student.cnp}"[/#if]>
   </div>
    <div class="form-group">
     <label for="text">Phone Number</label>
-    <input type="text" class="form-control" name="phoneNumber"  value="[#if student??]${student.phoneNumber}[/#if]">
+    <input type="text" class="form-control" name="phoneNumber"  [#if student??]value="${student.phoneNumber}"[/#if]>
   </div>
      [#if teachers??]
         <div class="form-group">
@@ -81,7 +81,7 @@
   
    <div class="form-group">
     <label for="text">Medical Papers</label>  
-    <select name="medPaper"  class="form-control" value="[#if student??]${student.medPaper}[/#if]">
+    <select name="medPaper"  class="form-control" [#if student??]value="${student.medPaper?c}"[/#if]>
     <option value="true"> <b>Yes</b></option>
     <option value="false"> <b>No</b></option>
    

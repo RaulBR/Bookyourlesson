@@ -70,45 +70,20 @@ public class LoginController {
 	public ModelAndView add(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelandView = new ModelAndView("login");
-
+try{
 		if (loginService.Permision(user) != null) {
-
-			User logedUser = loginService.Permision(user);
-
-			if (logedUser.getPermision().equals("student")) {
-				;
-				session.setAttribute("studentLogedId", logedUser.getStudentId());
-				session.setAttribute("studentOBJ", studentService.findById(user.getStudentId()));
-				session.setAttribute("permision", logedUser.getPermision());
-				modelandView.setView(new RedirectView("/schedule"));
-				session.setAttribute("user", user);
 			
-			}
-
-			else {
-
-				if (logedUser.getPermision().equals("teacher")) {
-					
-					session.setAttribute("theacherLogId", logedUser.getTeacherId());
-					
-					session.setAttribute("permision", logedUser.getPermision());
-					session.setAttribute("teacherOBJ", teacherService.findById(user.getTeacherId()));
-					session.setAttribute("user", user);
-
-					modelandView.setView(new RedirectView("/schedule"));
-				}
-			}
-
-				if (logedUser.getPermision().equals("admin")) {
-					
-					session.setAttribute("permision", logedUser.getPermision());
-					session.setAttribute("user", user);
-
-					modelandView=new ModelAndView("admin");
-				
-			}
+				session.setAttribute("user", loginService.Permision(user));
+				modelandView.setView(new RedirectView("/schedule"));
+						
 
 		}
+}catch(Exception e){
+	
+	
+	modelandView = new ModelAndView("login");
+	modelandView.addObject("error",new String("User or pasword is incorect"));
+}
 
 		return modelandView;
 
@@ -123,13 +98,6 @@ public class LoginController {
 	    return  modelANdVeiw;
 	  
 	}
-	  @RequestMapping("/erro")
-	  public ModelAndView error(HttpSession session) {
-		  ModelAndView modelANdVeiw=new ModelAndView();
-		  modelANdVeiw.setView(new RedirectView(""));
-	    session.invalidate();
-	    return  modelANdVeiw;
-	  
-	}
+	 
 
 }

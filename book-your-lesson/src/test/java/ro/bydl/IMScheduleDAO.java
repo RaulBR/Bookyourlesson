@@ -15,14 +15,10 @@ public class IMScheduleDAO implements ScheduleDAO {
 		return null;
 	}
 
-	@Override
-	public Schedule findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
-	public Schedule update(Schedule model) {
+	public Schedule insert(Schedule model) {
 		
 		schedules.put(model.getId(),model);
 
@@ -34,7 +30,7 @@ public class IMScheduleDAO implements ScheduleDAO {
 	
 
 	@Override
-	public int edit(Schedule model) {
+	public long update(Schedule model) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -75,6 +71,38 @@ public class IMScheduleDAO implements ScheduleDAO {
 	public int delete(Schedule model) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+
+	@Override
+	public Schedule findById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public long coutStudentStatus(String string, Long long1) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public long coutTeacherStatus(String string, Long long1) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public Collection<Schedule> selectDistinctTeacherId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -6,11 +6,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
-import ro.bydl.domain.Student;
+import ro.bydl.domain.Person;
 
 public class PersonHelper {
-	public String birthDay(long cnp){
-		String stringCnp= Long.toString(cnp);
+	public String birthDay(String cnp){
+		String stringCnp= cnp;
 		String []cnpElements=stringCnp.split("");
 		String year="";
 		String day="";
@@ -37,11 +37,11 @@ public class PersonHelper {
 	
 	
 	
-	public boolean isAllawed(Student student ){
+	public boolean isAllawed(Person p ){
 		DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		java.util.Date date = null;
 		try {
-			 date =  formatter.parse(student.getBirthDay());
+			 date =  formatter.parse(p.getBirthDay());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

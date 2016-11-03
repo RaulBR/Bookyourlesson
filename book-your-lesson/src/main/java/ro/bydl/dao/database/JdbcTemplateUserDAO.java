@@ -34,13 +34,13 @@ public class JdbcTemplateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User update(User user) {
+	public long insert(User user) {
 
-		jdbcTeamplate.update(
+		
+		return jdbcTeamplate.update(
 				"INSERT INTO public.users( " + " users, pass, permision, student_id, teacher_id) "
 						+ "VALUES ( ?, ?, ?, ?, ?);",
 				user.getUser(), user.getPass(), user.getPermision(), user.getStudentId(), user.getTeacherId());
-		return user;
 	}
 
 	@Override
@@ -50,13 +50,29 @@ public class JdbcTemplateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public int edit(User model) {
+	public long update(User model) {
 
 		return jdbcTeamplate.update(
 				"UPDATE public.users  SET users=?, pass=?, permision=?, student_id=?, teacher_id=?, id=? "
 						+ "WHERE id=?;",
 				new Object[] { model.getUser(), model.getPass(), model.getPermision(), model.getStudentId(),
 						model.getTeacherId(), model.getId() });
+	}
+
+	@Override
+	public User getByUserAndPaswoard(String user, String password) {
+		return jdbcTeamplate.queryForObject(
+				"SELECT users, pass, permision, student_id, teacher_id, id  FROM public.users WHERE users=? AND pass=?;",
+				new String[] { user, password }, new UserMapper());
+
+	}
+
+	@Override
+	public User getByUser(String user) {
+
+		return jdbcTeamplate.queryForObject(
+				"SELECT users, pass, permision, student_id, teacher_id, id  FROM public.users WHERE users=?;",
+				new String[] { user }, new UserMapper());
 	}
 
 	private static class UserMapper implements RowMapper<User> {
@@ -74,4 +90,5 @@ public class JdbcTemplateUserDAO implements UserDAO {
 			return user;
 		}
 	}
+
 }
