@@ -75,7 +75,7 @@
 	  		[#if schedules??]
 	  			[#list schedules as schedule]
 	  				[#if schedule.startHour == hour]
-	  				[#if schedule.date== day]
+	  				[#if schedule.date?string('dd.MM.yyyy')== day]
 		  				  				
 	  				[#assign statut = schedule.status]
 	  				[#assign curentSchedule= schedule.id]

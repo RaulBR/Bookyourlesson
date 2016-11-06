@@ -19,18 +19,19 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Progress</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
   		</div>
   	</div>
 	</nav>
   <h1> Add vehicles</h1>
+  [#if erors??][#list errors as error]${error}[/#list][/#if]
   	[#if message??]
   		<h2><format color-"read">${message}</format></h2>
   	[/#if]
   
-  	<form action="/register/vehicle/save">
+  	<form action="/vehicle/save">
   		[#if vehicle??]
   			<input type="hidden" name="id" value="${vehicle.id}" />
   		[/#if]
@@ -74,16 +75,16 @@
 		</div>
  		<div class="form-group">
 		    <label for="text">vignettes </label>
-		    <input type="date"  datetime="DD-MM-YYYY" class="form-control" name="vignettes" value="[#if vehicle??]${vehicle.vignettes}[/#if]">
+		    <input type="date"  class="form-control" name="vignettes" value="[#if vehicle??]${vehicle.vignettes?string('MM/dd/yyyy')}[/#if]">   
 		</div>
 		<div class="form-group">
 		    <label for="text">insurance</label>
-		    <input type="date" class="form-control" name="insurance" value="[#if vehicle??]${vehicle.insurance}[/#if]">
+		    <input type="date" class="form-control" name="insurance" value="[#if vehicle??]${vehicle.insurance?string('MM/dd/yyyy')}[/#if]">
 		</div>
 		<div class="form-group">
 		    <label for="date">ITP</label>
 		    
-		    <input type="date" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP}[/#if]">
+		    <input type="date" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP?string('MM/dd/yyyy')}[/#if]">
 		    
 		</div>
   
@@ -112,7 +113,7 @@
 			[/#if]
 		[/#if]
 	
- 		<input class="btn btn-warning" role="button" value="Cancel" onclick="window.location.href='/register/vehicle/list'" >
+ 		<input class="btn btn-warning" role="button" value="Cancel" onclick="window.location.href='/vehicle/list'" >
 		<input class="btn btn-success" role="button" type="submit" value="SAVE" >
 	</form>
 

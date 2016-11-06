@@ -1,8 +1,10 @@
 package ro.bydl.domain;
 
+import java.util.Date;
+
 public class Student  extends Person{
 	
-	private String registrationDate;
+	private Date registrationDate;
 	private boolean medPaper;
 	private int teacherId;
 	
@@ -13,10 +15,10 @@ public class Student  extends Person{
 	public void setTeacherId(int teacherId) {
 		this.teacherId = teacherId;
 	}
-	public String getRegistrationDate() {
+	public Date getRegistrationDate() {
 		return registrationDate;
 	}
-	public void setRegistrationDate(String registrationDate) {
+	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 	

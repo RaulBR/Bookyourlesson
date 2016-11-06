@@ -1,18 +1,20 @@
 package ro.bydl.domain;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Teacher extends Person {
 	@NotEmpty
-	private String hireDate;
+	private Date hireDate;
 	@NotEmpty
 	private String medDate;
 
-	public String getHireDate() {
+	public Date getHireDate() {
 		return hireDate;
 	}
 
-	public void setHireDate(String hireDate) {
+	public void setHireDate(Date hireDate) {
 		this.hireDate = hireDate;
 	}
 

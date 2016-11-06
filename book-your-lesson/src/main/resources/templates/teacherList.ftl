@@ -19,7 +19,7 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
  		 
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
@@ -46,7 +46,7 @@
 	  				<td > ${nr} </h3>  </td>		
 	  		<td > 		${teacher.name} </h3>  </td>
 	  		<td >	 ${teacher.sirName}</h3>  </td>
-	  		<td >	<a class="btn btn-primary" href="/cars?teacherId=${teacher.id}" role="button">Cars</a>
+	  		<td >	<a class="btn btn-primary" href="/vehicle/list?teacherId=${teacher.id}" role="button">Cars</a>
 	  		<td >	 ${teacher.category}</h3>  </td>		
 	  			
 	  	

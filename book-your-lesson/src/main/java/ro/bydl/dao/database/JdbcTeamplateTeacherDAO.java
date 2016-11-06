@@ -32,8 +32,8 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 			teacher.setEmail(rs.getString("email"));
 			teacher.setPhoneNumber(rs.getString("phone"));
 			teacher.setMedDate(rs.getString("med_date"));
-			teacher.setBirthDay(rs.getString("birth_day"));
-			teacher.setHireDate(rs.getString("hire_date"));
+			teacher.setBirthDay(rs.getDate("birth_day"));
+			teacher.setHireDate(rs.getDate("hire_date"));
 			
 			
 			return teacher;
@@ -104,18 +104,12 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 
 	@Override
 	public Collection<Teacher> getByTeacher(int theacherId) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
-	private static class IDtMapper implements RowMapper<Teacher> {
 
-		@Override
-		public Teacher mapRow(ResultSet rs, int arg1) throws SQLException {
-			Teacher student = new Teacher();
-			student.setId(rs.getLong("id"));
-			return student;
-		}
-	}
+
+
 
 
 

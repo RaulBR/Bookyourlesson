@@ -1,7 +1,6 @@
 package ro.bydl.service;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -10,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 import ro.bydl.service.errors.ValidationException;
@@ -30,15 +28,10 @@ public class ScheduleService {
 
 	public int validate(Schedule schedule) throws ValidationException {
 
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		
 		Calendar cal = Calendar.getInstance();
 
-		try {
-			cal.setTime(df.parse(schedule.getDate()));
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-		}
+		cal.setTime((schedule.getDate()));
 		if (cal.get(Calendar.YEAR) > Calendar.getInstance().get(Calendar.YEAR) + 1) {
 			System.out.println("error");
 		}

@@ -1,7 +1,5 @@
 package ro.bydl.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -23,11 +21,15 @@ public class TeacherService extends PersonHelper {
 		return dao.findById(id);
 	}
 	public long addTeacher(Teacher teacher) {
-		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		
+		setHireDate(teacher);
+		refinePerson(teacher);
+		return dao.insert(teacher);
+	}
+	private void setHireDate(Teacher teacher) {
 		Calendar cal = Calendar.getInstance();
 		
-		teacher.setHireDate(dateFormat.format(cal.getTime()));
-		return dao.insert(teacher);
+		teacher.setHireDate((cal.getTime()));
 	}
 	public Collection <Teacher> getAll() {
 		

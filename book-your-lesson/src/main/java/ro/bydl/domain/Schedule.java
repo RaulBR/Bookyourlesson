@@ -1,20 +1,23 @@
 package ro.bydl.domain;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Schedule extends AbstractModel {
 
 	private int startHour;
 	private int endHour;
-	@NotBlank
-	private String date;
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	private Date date;
 	private int week;
 	private boolean isFree;
 	private long studentId;
 	private long teacherId;
 	@NotBlank
 	private String status;
-	
+
 	public long getStudentId() {
 		return studentId;
 	}
@@ -63,11 +66,11 @@ public class Schedule extends AbstractModel {
 		this.endHour = endHour;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -78,7 +81,7 @@ public class Schedule extends AbstractModel {
 	public void setFree(boolean isFree) {
 		this.isFree = isFree;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Schedule [startHour=" + startHour + ", endHour=" + endHour + ", date=" + date + ", week=" + week
@@ -134,6 +137,5 @@ public class Schedule extends AbstractModel {
 			return false;
 		return true;
 	}
-
 
 }

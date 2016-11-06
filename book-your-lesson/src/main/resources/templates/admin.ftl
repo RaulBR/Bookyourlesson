@@ -19,15 +19,15 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> teacherList</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
   		</div>
   	</div>
 	</nav>
  
  
- <p><a href="/register/vehicle"><input class="btn btn-info" role="button" value="Add Cars" type="submit"  readonly></a></p>
+ <p><a href="/vehicle"><input class="btn btn-info" role="button" value="Add Cars" type="submit"  readonly></a></p>
  <p><input class="btn btn-info" role="button" value="edit/remove students" type="submit"  readonly></p>
  <p><input class="btn btn-info" role="button" value="edit/remove teachers"  readonly></p>
 

@@ -1,6 +1,9 @@
 package ro.bydl.domain;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Vehicle extends AbstractModel{
 	@NotEmpty
@@ -14,12 +17,12 @@ public class Vehicle extends AbstractModel{
 	private int engine;
 	@NotEmpty
 	private String licensePlate;
-	@NotEmpty
-	private String vignettes;
-	@NotEmpty
-	private String insurance;
-	@NotEmpty
-	private String ITP;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date vignettes;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date insurance;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date ITP;
 	
 	private long teacherId;
 	public long getTeacherId() {
@@ -77,22 +80,22 @@ public class Vehicle extends AbstractModel{
 		this.licensePlate = licensePlate;
 	}
 	
-	public String getVignettes() {
+	public Date getVignettes() {
 		return vignettes;
 	}
-	public void setVignettes(String vignettes) {
+	public void setVignettes(Date vignettes) {
 		this.vignettes = vignettes;
 	}
-	public String getInsurance() {
+	public Date getInsurance() {
 		return insurance;
 	}
-	public void setInsurance(String insurance) {
+	public void setInsurance(Date insurance) {
 		this.insurance = insurance;
 	}
-	public String getITP() {
+	public Date getITP() {
 		return ITP;
 	}
-	public void setITP(String iTP) {
+	public void setITP(Date iTP) {
 		ITP = iTP;
 	}
 	@Override

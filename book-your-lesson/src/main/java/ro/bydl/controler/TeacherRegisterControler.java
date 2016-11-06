@@ -1,5 +1,7 @@
 package ro.bydl.controler;
 
+import java.text.ParseException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,7 +21,7 @@ import ro.bydl.service.TeacherService;
 import ro.bydl.service.errors.ValidationException;
 
 @Controller
-@RequestMapping("teachers")
+@RequestMapping("teacher")
 public class TeacherRegisterControler {
 	@Autowired
 	TeacherService teacherService;
@@ -35,7 +37,7 @@ public class TeacherRegisterControler {
 	 * @throws Exception
 	 */
 
-	@RequestMapping("teacher")
+	@RequestMapping("")
 	public ModelAndView teacher(HttpSession session) throws Exception {
 		ModelAndView result = new ModelAndView("teacherForm");
 		return result;
@@ -51,10 +53,11 @@ public class TeacherRegisterControler {
 	 * @param bindingResult
 	 * @param session
 	 * @return
+	 * @throws ParseException 
 	 */
-	@RequestMapping(value = "/teacher/userSave", method = RequestMethod.POST)
-	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") User user, Teacher teacher, String pass2,
-			BindingResult bindingResult, HttpSession session) {
+	@RequestMapping(value = "/userSave", method = RequestMethod.POST)
+	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") User user, Teacher teacher,
+			BindingResult bindingResult, HttpSession session) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView("studentForm");
 
 		
@@ -76,9 +79,9 @@ public class TeacherRegisterControler {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/instructors")
+	@RequestMapping("/list")
 	public ModelAndView instructors(HttpSession session){
-		ModelAndView modelAndView=new ModelAndView("instructors");
+		ModelAndView modelAndView=new ModelAndView("teacherList");
 		
 		modelAndView.addObject("teachers",teacherService.getAll());
 		

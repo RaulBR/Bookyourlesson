@@ -74,6 +74,20 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 						m.getEngine(),m.getLicensePlate(),m.getVignettes(),m.getInsurance(),m.getITP(),m.getYear(),m.getTeacherId(),
 				m.getId());
 	}
+	@Override
+	public Vehicle findByChassis(String chassis) {
+		// TODO Auto-generated method stub
+		 return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes, "+
+			      " insurance, itp, year, teacher_id "+
+			      "FROM public.vehicle WHERE  chassis=? ;", new String[] {chassis},new VehicleMapper());
+	}
+	@Override
+	public Vehicle findbyLicencePlate(String licensePlate) {
+		// TODO Auto-generated method stub
+		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes, "+
+			      " insurance, itp, year, teacher_id "+
+			      "FROM public.vehicle WHERE  license_plate=? ;", new String[] {licensePlate},new VehicleMapper());
+	}
 
 	private static class VehicleMapper implements RowMapper<Vehicle> {
 
@@ -87,9 +101,9 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 			vehicle.setChassis(rs.getString("chassis"));
 			vehicle.setEngine(rs.getInt("engine"));
 			vehicle.setLicensePlate(rs.getString("license_plate"));
-			vehicle.setVignettes(rs.getString("vignettes"));
-			vehicle.setITP(rs.getString("itp"));
-			vehicle.setInsurance(rs.getString("insurance"));
+			vehicle.setVignettes(rs.getDate("vignettes"));
+			vehicle.setITP(rs.getDate("itp"));
+			vehicle.setInsurance(rs.getDate("insurance"));
 			vehicle.setYear(rs.getString("year"));
 			vehicle.setTeacherId(rs.getLong("teacher_id"));
 			return vehicle;
@@ -97,3 +111,7 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 }
+
+	
+
+

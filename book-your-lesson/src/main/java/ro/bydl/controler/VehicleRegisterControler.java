@@ -8,18 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
 import ro.bydl.domain.Vehicle;
 import ro.bydl.service.RegisterService;
-import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
 import ro.bydl.service.VehicleService;
+import ro.bydl.service.errors.ValidationException;
 
 /**
  * This class is the model and view controller for the registration forms of the
@@ -29,7 +27,7 @@ import ro.bydl.service.VehicleService;
  *
  */
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/vehicle")
 public class VehicleRegisterControler {
 
 	@Autowired
@@ -39,64 +37,62 @@ public class VehicleRegisterControler {
 	@Autowired
 	VehicleService vehicleService;
 
-
-
-
-	@RequestMapping("vehicle")
-	public ModelAndView add(HttpSession session) throws Exception {
+	@RequestMapping("")
+	public ModelAndView add(HttpSession session) {
 		ModelAndView result = new ModelAndView("vehicle");
-		Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
-		result.addObject("teahcerOBJ",teacher);
-		
-		String permision = session.getAttribute("permision").toString();
-		switch(permision) {
-			case "teacher":
-				Teacher teacherOBJ = (Teacher) session.getAttribute("teacheOBJ");
-				result.addObject("teacherOBJ", teacherOBJ);
-				break;
-			case "admin":
-				result.addObject("teachers", teacherService.getAll());
-				break;
+		User user = (User) session.getAttribute("user");
+
+		String permision = user.getPermision();
+		switch (permision) {
+		case "teacher":
+			Teacher teacher = teacherService.findById(user.getTeacherId());
+
+			result.addObject("teacherOBJ", teacher);
+			break;
+		case "admin":
+			result.addObject("teachers", teacherService.getAll());
+			break;
 		}
 		return result;
 	}
 
-	@RequestMapping("vehicle/list")
-	public ModelAndView list(HttpSession session) throws Exception {
+	@RequestMapping("/list")
+	public ModelAndView list(HttpSession session, User u) {
 		ModelAndView result = new ModelAndView("vehicleList");
-		if(session.getAttribute("permision")!=null){
-		String permison = session.getAttribute("permision").toString();
-		result.addObject("permision", permison);
-		}
-		
-		
-		result.addObject("vehicles", vehicleService.getAll());
 
+		if (u.getTeacherId() > 0) {
+			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+
+		} else if (((User) session.getAttribute("user")).getPermision() == "teacher") {
+			result.addObject("vehicles",
+					vehicleService.findByTeacherId(((User) session.getAttribute("user")).getTeacherId()));
+			result.addObject("permision", ((User) session.getAttribute("user")).getPermision());
+		} else {
+			result.addObject("vehicles", vehicleService.getAll());
+			result.addObject("permision", ((User) session.getAttribute("user")).getPermision());
+		}
 		return result;
 	}
 
-	@RequestMapping("vehicle/save")
-	public ModelAndView save(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
+	@RequestMapping("/save")
+	public ModelAndView save(@Valid @ModelAttribute("vehicle") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicle");
-		
-		if (vehicle.getId() == 0) {
-			if(vehicleService.isVehicleOk(vehicle)==true){
-				vehicleService.save(vehicle);
-				modelAndView.setView(new RedirectView("list"));
-			}else{
-				modelAndView.addObject("message",new String("Chassies or licencePlate are already in the system"));
-			}
-		} else {
-			// edit
-			vehicleService.edit(vehicle);
+
+		try {
+			vehicleService.save(vehicle);
+		} catch (ValidationException e) {
+
+			modelAndView = new ModelAndView("/vehicle");
+			modelAndView.addObject("errors", e.getCauses());
+			e.printStackTrace();
 		}
-		
-		modelAndView.setView(new RedirectView("list"));
+		// modelAndView.setView(new RedirectView("list"));
+
 		return modelAndView;
 	}
 
-	@RequestMapping("vehicle/delete")
+	@RequestMapping("/delete")
 	public ModelAndView delete(@Valid @ModelAttribute("save") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicleList");
@@ -108,26 +104,24 @@ public class VehicleRegisterControler {
 		return modelAndView;
 	}
 
-	@RequestMapping("vehicle/edit")
+	@RequestMapping("/edit")
 	public ModelAndView edit(@Valid @ModelAttribute("edit") Vehicle vehicle, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/vehicle");
-		
-		
+
 		modelAndView.addObject("vehicle", vehicleService.findById(vehicle.getId()));
-		String permision = session.getAttribute("permision").toString();
-		switch(permision) {
-			case "teacher":
-				Teacher teacherOBJ = (Teacher) session.getAttribute("teacheOBJ");
-				modelAndView.addObject("teacherOBJ", teacherOBJ);
-				break;
-			case "admin":
-				modelAndView.addObject("teachers", teacherService.getAll());
-				break;
+		String permision = ((User) session.getAttribute("user")).getPermision();
+		switch (permision) {
+		case "teacher":
+			Teacher teacherOBJ = (Teacher) session.getAttribute("teacheOBJ");
+			modelAndView.addObject("teacherOBJ", teacherOBJ);
+			break;
+		case "admin":
+			modelAndView.addObject("teachers", teacherService.getAll());
+			break;
 		}
-		
 
 		return modelAndView;
 	}
-	
+
 }

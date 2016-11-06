@@ -110,7 +110,7 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 		public Schedule mapRow(ResultSet rs, int arg1) throws SQLException {
 			Schedule schedule = new Schedule();
 			schedule.setId(rs.getInt("id"));
-			schedule.setDate(rs.getString("date"));
+			schedule.setDate(rs.getDate("date"));
 			schedule.setWeek(rs.getInt("week"));
 			schedule.setStartHour(rs.getInt("start_hour"));
 			schedule.setEndHour(rs.getInt("end_hour"));

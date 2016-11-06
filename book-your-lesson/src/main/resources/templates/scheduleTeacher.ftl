@@ -30,7 +30,7 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
   		  <a class="navbar-brand" class="logout" color="white" href="/register/student/list"> <font color="white"> Students</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/progress"> <font color="white"> Progress</font></a>
   		  <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white"> Schedulet</font></a>
@@ -80,7 +80,7 @@
 	  		[#if schedules??]
 	  			[#list schedules as schedule]
 	  				[#if schedule.startHour == hour]
-	  				[#if schedule.date== day]
+	  				[#if schedule.date?string('dd.MM.yyyy')== day]
 	  				[#if students??]
 				  		[#list students as student]
 				  		[#if student.id == schedule.studentId]

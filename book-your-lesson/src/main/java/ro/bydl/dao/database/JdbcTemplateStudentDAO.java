@@ -93,13 +93,13 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 			student.setName(rs.getString("name"));
 			student.setSirName(rs.getString("sir_name"));
 			student.setCnp(rs.getString("cnp"));
-			student.setRegistrationDate(rs.getString("register_date"));
+			student.setRegistrationDate(rs.getDate("register_date"));
 			student.setMedPaper(rs.getBoolean("med_paper"));
 			student.setTeacherId(rs.getInt("teacher_id"));
 			student.setCategory(rs.getString("category"));
 			student.setEmail(rs.getString("email"));
 			student.setPhoneNumber(rs.getString("phone"));
-			student.setBirthDay(("birth_day"));
+			student.setBirthDay(rs.getDate("birth_day"));
 			return student;
 		}
 

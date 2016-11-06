@@ -30,8 +30,8 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
@@ -39,7 +39,7 @@
   <h1> Vehicle list</h1>
  
 	[#if permision??]
- 	<p><a href="/register/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a></p>
+ 	<p><a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a></p>
  	[#else]
  	 <h4> [#if teacher??]Instructor:  ${teacher.name!''} ${teacher.sirName!''}
  		<p><a href="/register/student"><input class="btn btn-info" role="button" value="Register"   readonly></a></p>
@@ -91,7 +91,7 @@
 	  		<td >	 ${vehicle.insurance} </td>
 	  		<td >	 ${vehicle.ITP} </td>
 	  		<td >
-	  			 <form name="form1" action="/register/vehicle/edit" method="POST">
+	  			 <form name="form1" action="/vehicle/edit" method="POST">
 	  				 <input type="hidden" name="id" value="${vehicle.id}">
 	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
 	  		</form>

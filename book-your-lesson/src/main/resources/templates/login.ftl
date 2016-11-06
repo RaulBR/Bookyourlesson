@@ -18,7 +18,7 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/teachers/instructors"> <font color="white"> Instructors</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 
   		</div>
   	</div>
@@ -67,7 +67,7 @@
 			    	<input class="btn btn-lg btn-success btn-block" type="submit" value="Student Sign up">
 			      	</form>
 			      	
-			      	<form action="/register/teacher" method="POST" accept-charset="UTF-8" role="form">
+			      	<form action="/teacher" method="POST" accept-charset="UTF-8" role="form">
 			    	<input class="btn btn-lg btn-success btn-block" type="submit" value="Teacher Sign up">
 			      	</form>
 			    </div>

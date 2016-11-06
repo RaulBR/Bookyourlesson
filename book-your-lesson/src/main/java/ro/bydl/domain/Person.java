@@ -1,5 +1,7 @@
 package ro.bydl.domain;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Person extends AbstractModel {
@@ -19,13 +21,13 @@ public class Person extends AbstractModel {
 	@NotEmpty
 	private String email;
 	@NotEmpty
-	private String birthday;
+	private Date birthday;
 
-	public String getBirthDay() {
+	public Date getBirthDay() {
 		return birthday;
 	}
 
-	public void setBirthDay(String birthDay) {
+	public void setBirthDay(Date birthDay) {
 		this.birthday = birthDay;
 	}
 

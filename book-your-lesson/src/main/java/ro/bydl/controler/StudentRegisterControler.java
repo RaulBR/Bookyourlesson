@@ -1,5 +1,7 @@
 package ro.bydl.controler;
 
+import java.text.ParseException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Student;
-import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
 import ro.bydl.service.RegisterService;
 import ro.bydl.service.StudentService;
@@ -52,12 +53,13 @@ public class StudentRegisterControler {
 	 * @param bindingResult
 	 * @param session
 	 * @return
+	 * @throws ParseException 
 	 */
 	
 	
 	@RequestMapping(value = "/userSave", method = RequestMethod.POST)
 	public ModelAndView save(@Valid @ModelAttribute("user") User user, Student student,
-			BindingResult bindingResult, HttpSession session) {
+			BindingResult bindingResult, HttpSession session) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView("");
 
 		
@@ -82,11 +84,12 @@ public class StudentRegisterControler {
 	//copiat
 	@RequestMapping("/list")
 	public ModelAndView studentList(HttpSession session) throws Exception {
-		String permison = session.getAttribute("permision").toString();
+		
+		String permison = ((User) session.getAttribute("user")).getPermision();
 		ModelAndView result = new ModelAndView("studentList");
-		Teacher teacher=(Teacher) session.getAttribute("teacherOBJ");
+	
 		result.addObject("permision", permison);
-	result.addObject("students", studentService.getByTeacherId( teacher.getId()));
+	
 
 		return result;
 	}

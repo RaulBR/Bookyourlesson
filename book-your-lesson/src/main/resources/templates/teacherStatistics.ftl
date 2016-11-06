@@ -14,7 +14,8 @@
     	<script type="text/javascript" src="./dist/Chart.bundle.js"></script>
   
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    
+    <script src="/dist/Chart.bundle.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <style>
     #canvas-holder {
         width: 100%;
@@ -47,8 +48,8 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/register/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/instructors"> <font color="white"> Instructors</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
   		</div>
   	</div>
@@ -120,22 +121,28 @@
  [/#if]
  [#if teacherSchedules??]
  [#list  teacherSchedules as key]
-  <div id="canvas-holder" style="width:30%">
+<p>
+   <div id="canvas-holder" style="width:50%">
         <canvas id="chart-area" />
     </div>
    
     <script>
- 
+  
+    var randomColor = function(opacity) {
+        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+    };
+
     var config = {
         type: 'doughnut',
         data: {
             datasets: [{
                 data: [
-                   ${key.done},
+                
                     ${key.done},
+                    ${key.absent},
                     ${key.pending},
                     ${key.booked},
-                   ${key.absent},
+                    ${key.done},
                 ],
                 backgroundColor: [
                     "#F7464A",
@@ -148,7 +155,7 @@
             },],
             labels: [
                 "Done",
-                "Done",
+                "Absent",
                 "Pending",
                 "Booked",
                 "NotFree"
@@ -157,11 +164,11 @@
         options: {
             responsive: true,
             legend: {
-                position: 'left',
+                position: 'top',
             },
             title: {
                 display: true,
-                text: '${key.t.name} ${key.t.sirName}'
+                text: ' ${key.t.name} ${key.t.sirName}'
             },
             animation: {
                 animateScale: true,
@@ -207,7 +214,7 @@
 
     $('#addData').click(function() {
         if (config.data.datasets.length > 0) {
-            config.data.labels.push('data #' + config.data.labels.length);
+            config.data.labels.push('data #' + config.data.labels.length);	
 
             $.each(config.data.datasets, function(index, dataset) {
                 dataset.data.push(randomScalingFactor());
@@ -234,6 +241,7 @@
         window.myDoughnut.update();
     });
     </script>
+    </p>
 [/#list]
  [/#if]
 
