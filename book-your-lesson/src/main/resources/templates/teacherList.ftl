@@ -37,18 +37,40 @@
     <th>Sir Name</th>
     <th>Car</th>
     <th>Category</th>
+    <th>Email</th>
+   	[#if permision??]
+   	<th>Hire date</th>
+   	<th>CNP</th>
    	
+   	[/#if]
 	 	  	 [#assign nr = 0]
 	  		[#if teachers??]
 	  		[#list teachers as teacher]
 	  			 [#assign nr = nr +1 ]	
 	  		  <tr>		
-	  				<td > ${nr} </h3>  </td>		
-	  		<td > 		${teacher.name} </h3>  </td>
-	  		<td >	 ${teacher.sirName}</h3>  </td>
+	  				<td > ${nr}  </td>		
+	  		<td > 		${teacher.name}   </td>
+	  		<td >	 ${teacher.sirName} </td>
 	  		<td >	<a class="btn btn-primary" href="/vehicle/list?teacherId=${teacher.id}" role="button">Cars</a>
-	  		<td >	 ${teacher.category}</h3>  </td>		
-	  			
+	  		<td >	 ${teacher.category} </td>
+	  		<td >	 ${teacher.email} </td>
+	  				[#if permision??]
+	  		<td >	 ${teacher.hireDate} </td>
+	  		<td >	 ${teacher.cnp} </td>
+	  		
+	  		<td >
+	  			 <form name="form1" action="/teacher/edit" method="POST">
+	  				 <input type="hidden" name="id" value="${teacher.id}">
+	  			<button  type="submit" class="btn btn-info" value="${teacher.id}">EDIT</button>
+	  		</form>
+	  		</td>
+	  		<td >
+	  		 <form name="form1" action="/teacher/delete" method="POST">
+	  				 <input type="hidden" name="id" value="${teacher.id}">
+	  				 	<button  type="submit" class="btn btn-info" value="${teacher.id}">DEL</button>
+	  		</form>
+	  			</td>
+	  			[/#if]
 	  	
 	  		
 	  		

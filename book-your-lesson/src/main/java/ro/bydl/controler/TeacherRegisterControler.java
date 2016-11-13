@@ -8,14 +8,16 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
-import ro.bydl.service.RegisterService;
+import ro.bydl.service.RegisternService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
 import ro.bydl.service.errors.ValidationException;
@@ -27,8 +29,7 @@ public class TeacherRegisterControler {
 	TeacherService teacherService;
 	@Autowired
 	StudentService studentService;
-	@Autowired
-	RegisterService registerService;
+
 	/**
 	 * Returners a Model and view object for the "teacher" mapping.
 	 * 
@@ -42,7 +43,6 @@ public class TeacherRegisterControler {
 		ModelAndView result = new ModelAndView("teacherForm");
 		return result;
 	}
-	
 
 	/**
 	 * Gets ,validates and sends to the DB the new teacher data.
@@ -53,39 +53,53 @@ public class TeacherRegisterControler {
 	 * @param bindingResult
 	 * @param session
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/userSave", method = RequestMethod.POST)
-	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") User user, Teacher teacher,
-			BindingResult bindingResult, HttpSession session) throws ParseException {
-		ModelAndView modelAndView = new ModelAndView("studentForm");
+	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") Teacher teacher, BindingResult bindingResult,
+			HttpSession session) throws ParseException {
+		ModelAndView modelAndView = new ModelAndView("teahcerForm");
 
-		
-		
-				teacher.setBirthDay(teacherService.birthDay(teacher.getCnp()));
-				user.setTeacherId((teacherService.addTeacher(teacher)));
-				user.setPermision("teacher");
-			
-				try {
-					registerService.addUser(user);
-				} catch (ValidationException e) {
-					modelAndView=new ModelAndView("studentForm");
-					modelAndView.addObject("errors", e.getCauses());
-					e.printStackTrace();
+		boolean hasErros = false;
+
+		if (!bindingResult.hasErrors()) {
+
+			try {
+
+				teacherService.addTeacher(teacher);
+
+				modelAndView.setView(new RedirectView(""));
+
+			} catch (ValidationException ex) {
+				for (String err : ex.getCauses()) {
+					bindingResult.addError(new ObjectError("teahcer", err));
 				}
+				hasErros = true;
+			}
 
-	
+		} else {
+			hasErros = true;
+		}
+		if (hasErros) {
+			modelAndView = new ModelAndView("teahcerForm");
+
+			modelAndView.addObject("teacher", teacher);
+			// modelAndView.addObject("user", user);
+			modelAndView.addObject("errors", bindingResult.getAllErrors());
+		}
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("/list")
-	public ModelAndView instructors(HttpSession session){
-		ModelAndView modelAndView=new ModelAndView("teacherList");
-		
-		modelAndView.addObject("teachers",teacherService.getAll());
-		
-		return modelAndView;
-		
+	public ModelAndView instructors(HttpSession session) {
+		ModelAndView result = new ModelAndView("teacherList");
+		if (session.getAttribute("user") != null) {
+			result.addObject("permision", ((User) session.getAttribute("user")).getPermision());
+
+		}
+		result.addObject("teachers", teacherService.getAll());
+		return result;
 	}
+
 }

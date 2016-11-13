@@ -28,8 +28,8 @@
  
  
  <p><a href="/vehicle"><input class="btn btn-info" role="button" value="Add Cars" type="submit"  readonly></a></p>
- <p><input class="btn btn-info" role="button" value="edit/remove students" type="submit"  readonly></p>
- <p><input class="btn btn-info" role="button" value="edit/remove teachers"  readonly></p>
+ <p><a href="/teacher/list"><input class="btn btn-info" role="button" value="edit/remove students" type="submit"  readonly></a></p>
+ <p><a href="/teacher/list"><input class="btn btn-info" role="button" value="edit/remove teachers"  readonly></a></p>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

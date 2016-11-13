@@ -6,13 +6,13 @@ public class Student  extends Person{
 	
 	private Date registrationDate;
 	private boolean medPaper;
-	private int teacherId;
+	private long teacherId;
 	
 	
-	public int getTeacherId() {
+	public long getTeacherId() {
 		return teacherId;
 	}
-	public void setTeacherId(int teacherId) {
+	public void setTeacherId(long teacherId) {
 		this.teacherId = teacherId;
 	}
 	public Date getRegistrationDate() {

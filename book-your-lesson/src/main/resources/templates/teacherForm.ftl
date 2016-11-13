@@ -26,41 +26,49 @@
   	</div>
 	</nav>
   <h1> Register Teacher </h1>
-  
-  <form action="/teacher/userSave" class="sexy-form" method="POST">
-  
+  [#if errors??]
+    <div>
+        <ul>
+            [#list errors as error]
+            <br>
+                <b style="color:red">
+                [#if error.field??]${error.field}: [/#if]${error.defaultMessage}
+                </b>
+            [/#list]
+        </ul>
+    </div>
+[/#if]
 
-   
 
-
+  <form action="/student/userSave" class="sexy-form"  method="POST" >
   </div>
     <div class="form-group">
-    <label for="text">Name:</label>
-    <input type="text" class="form-control" name="name">
+    <label for="text">Name:</label>               
+    <input type="text" class="form-control" name="name" value=" [#if teacher??]${teacher.name}[/#if]">
   </div>
    <div class="form-group">
     <label for="text">Sir Name</label>
-    <input type="text" class="form-control" name="sirName">
+    <input type="text" class="form-control" name="sirName" value=" [#if teacher??]${teacher.sirName}[/#if]">
   </div>
   </div>
    <div class="form-group">
     <label for="text">Email</label>
-    <input type="email" class="form-control" name="email">
+    <input type="email" class="form-control" name="email" value=" [#if teacher??]${teacher.email}[/#if]">
   </div>
     <div class="form-group">
     <label for="text">CNP</label>
-    <input type="text" class="form-control" name="cnp">
+    <input type="text" class="form-control" name="cnp" value=" [#if teacher??]${teacher.cnp}[/#if]">
   </div>
    <div class="form-group">
     <label for="text">Phone Number</label>
-    <input type="text" class="form-control" name="phoneNumber">
+    <input type="text" class="form-control" name="phoneNumber" value=" [#if teacher??]${teacher.phoneNumber}[/#if]">
   </div>
   
    <div class="form-group">
     <label for="text">category</label>
   
    
-    <select name="Category"  class="form-control">
+    <select name="Category"  class="form-control" value=" [#if teacher??]${teacher.Category}[/#if]">
      	<option value="B">Category <b>B</b></option>
     	<option value="A">Category <b>A</b></option>
    		<option value="C">Category <b>C</b></option>
@@ -69,7 +77,7 @@
   
    <div class="form-group">
     <label for="text">Medical Papers</label>  
-    <select name="medDate"  class="form-control">
+    <select name="medDate"  class="form-control" value=" [#if teacher??]${teacher.medDate}[/#if]">
     <option value="true"> <b>Yes</b></option>
     <option value="false"> <b>No</b></option>
    
@@ -79,7 +87,7 @@
   
  	<div class="form-group" >
     <label for="text">User</label>
-    <input type="text" class="form-control" name="user">
+    <input type="text" class="form-control" name="user" value=" [#if user??]${user.user}[/#if]">
   </div>
   <div class="form-group">
     <label for="text">Pasword</label>
@@ -94,6 +102,7 @@
  
   <input class="btn btn-success" role="button" type="submit" value="Submit" >
 </form>
+
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

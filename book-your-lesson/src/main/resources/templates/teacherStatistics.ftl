@@ -57,7 +57,7 @@
  <h1>Teachers </h1>
  
  <h2>Week:[#if week??]${week}[/#if]</h2>
- 
+
  [#if teacherSchedules??]
  [#list  teacherSchedules as key]
  
@@ -118,6 +118,67 @@
 </div>
 </ng>  
  [/#list]
+ [/#if]
+ [#if teacherSchedule??]
+
+ 
+ 
+ <ng ng-app="test">
+<div class="container" ng-controller="Ctrl">
+
+  <h2>${teacherSchedule.t.name} ${teacherSchedule.t.sirName}</h2>
+  
+  
+  <hr>
+  </th>
+  <div class="row">
+   
+    <div class="progress vertical" >
+    
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
+  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.total}%">
+    ${teacherSchedule.total}
+  </div>
+</div>
+
+ <div class="progress " >
+    
+  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow=""
+  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.done}%">
+    ${teacherSchedule.done}
+  </div>
+</div>
+
+ <div class="progress" >
+    
+  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
+  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.booked}%">
+    ${teacherSchedule.booked}
+  </div>
+</div>
+<div class="progress" >
+    
+  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
+  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.pending}%">
+    ${teacherSchedule.pending}
+  </div>
+</div>
+
+ <div class="progress" >
+    
+  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
+  aria-valuemin="0" aria-valuemax=${teacherSchedule.total}" style="width:${teacherSchedule.absent}%">
+    ${teacherSchedule.absent}
+  </div>
+</div>
+    
+  
+  </div>
+  
+  
+</div>
+</ng>  
+
  [/#if]
  [#if teacherSchedules??]
  [#list  teacherSchedules as key]

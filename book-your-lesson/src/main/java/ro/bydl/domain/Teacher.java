@@ -5,7 +5,7 @@ import java.util.Date;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Teacher extends Person {
-	@NotEmpty
+	
 	private Date hireDate;
 	@NotEmpty
 	private String medDate;

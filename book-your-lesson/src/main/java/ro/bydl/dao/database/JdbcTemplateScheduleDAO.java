@@ -151,6 +151,14 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 				new Object[] { status, studentId }, Long.class);
 	}
 
+	@Override
+	public int cuntByTeacherId(long teahcerId) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.queryForObject(
+				"SELECT count(*) " + "id " + "FROM public.schedule WHERE schedule.teacher_id=?;",
+				new Object[] {  teahcerId }, Integer.class);
+	}
+
 	
 
 }

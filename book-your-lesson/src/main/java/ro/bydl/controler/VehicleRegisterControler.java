@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
 import ro.bydl.domain.Vehicle;
-import ro.bydl.service.RegisterService;
+import ro.bydl.service.RegisternService;
 import ro.bydl.service.TeacherService;
 import ro.bydl.service.VehicleService;
 import ro.bydl.service.errors.ValidationException;
@@ -33,8 +33,7 @@ public class VehicleRegisterControler {
 	@Autowired
 	TeacherService teacherService;
 	@Autowired
-	RegisterService registerService;
-	@Autowired
+	
 	VehicleService vehicleService;
 
 	@RequestMapping("")
@@ -56,22 +55,53 @@ public class VehicleRegisterControler {
 		return result;
 	}
 
+	
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, User u) {
 		ModelAndView result = new ModelAndView("vehicleList");
 
-		if (u.getTeacherId() > 0) {
-			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+		
+			if(session.getAttribute("user")!=null){
+				User user = (User) session.getAttribute("user");
+				String permison=user.getPermision();
+				if (u.getTeacherId() > 0) {
+				
+				
+				result.addObject("permision", user.getPermision());
+				switch (permison) {
+				case "teacher":
+					result.addObject("vehicles",
+							vehicleService.findByTeacherId(user.getTeacherId()));
+					result.addObject("permision", permison);
+					break;
+				case "admin":
+					result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+					result.addObject("permision", permison);
+					break;
+				
+				default:
+					result.addObject("vehicles", vehicleService.getAll());
+					result.addObject("permision", permison);
+					break;
+				
+				}
+			
 
-		} else if (((User) session.getAttribute("user")).getPermision() == "teacher") {
-			result.addObject("vehicles",
-					vehicleService.findByTeacherId(((User) session.getAttribute("user")).getTeacherId()));
-			result.addObject("permision", ((User) session.getAttribute("user")).getPermision());
-		} else {
+		
+			
+		} else{
 			result.addObject("vehicles", vehicleService.getAll());
+			result.addObject("permision", permison);
+			}
+				
+		}else {
+			
+			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
 			result.addObject("permision", ((User) session.getAttribute("user")).getPermision());
 		}
+		
 		return result;
+		
 	}
 
 	@RequestMapping("/save")
@@ -81,13 +111,15 @@ public class VehicleRegisterControler {
 
 		try {
 			vehicleService.save(vehicle);
+			modelAndView.setView(new RedirectView("list"));
 		} catch (ValidationException e) {
 
 			modelAndView = new ModelAndView("/vehicle");
 			modelAndView.addObject("errors", e.getCauses());
-			e.printStackTrace();
+
+
 		}
-		// modelAndView.setView(new RedirectView("list"));
+		 
 
 		return modelAndView;
 	}

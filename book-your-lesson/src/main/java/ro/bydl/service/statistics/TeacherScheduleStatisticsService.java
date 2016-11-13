@@ -23,6 +23,19 @@ public class TeacherScheduleStatisticsService {
 	@Autowired
 	private TeacherDAO teacherDao;
 
+	
+	
+	public TeacherStatisticalContainer howBusy(long teahcerId){
+		TeacherStatisticalContainer tsc=new TeacherStatisticalContainer();
+		tsc.setT(teacherDao.findById(teahcerId));
+		tsc.setTotal(dao.cuntByTeacherId(teahcerId));
+		tsc.setDone(dao.coutTeacherStatus("done", teahcerId));
+		tsc.setAbsent(dao.coutTeacherStatus("absent", teahcerId));
+		tsc.setPending(dao.coutTeacherStatus("pending", teahcerId));
+		tsc.setBooked(dao.coutTeacherStatus("booked", teahcerId));
+		return tsc;
+		
+	}
 	public Collection<TeacherStatisticalContainer> howBusy() {
 		List<TeacherStatisticalContainer> sorted = getBruteList();
 
@@ -43,11 +56,11 @@ public class TeacherScheduleStatisticsService {
 	private List<TeacherStatisticalContainer> getBruteList() {
 		List<TeacherStatisticalContainer> sorted = new LinkedList<>();
 
-		for (Map.Entry<Long, Integer> teacher : scheduleCount(dao.getAll()).entrySet()) {
-			Teacher tec = teacherDao.findById(teacher.getKey());
+		for (Map.Entry<Long, Integer> teachers : scheduleCount(dao.getAll()).entrySet()) {
+			Teacher tec = teacherDao.findById(teachers.getKey());
 			TeacherStatisticalContainer statistic = new TeacherStatisticalContainer();
 
-			getStatisticContainer(teacher, tec, statistic);
+			getStatisticContainer(teachers, tec, statistic);
 			sorted.add(statistic);
 
 		}

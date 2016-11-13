@@ -10,14 +10,12 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.TeacherDAO;
-import ro.bydl.domain.Teacher;;
+import ro.bydl.domain.Teacher;
+
 @Component
-public class JdbcTeamplateTeacherDAO implements TeacherDAO{
+public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	@Autowired
 	JdbcTemplate jdbcTeamplate;
-
-	
-	
 
 	private static class TeacherMapper implements RowMapper<Teacher> {
 
@@ -34,85 +32,79 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO{
 			teacher.setMedDate(rs.getString("med_date"));
 			teacher.setBirthDay(rs.getDate("birth_day"));
 			teacher.setHireDate(rs.getDate("hire_date"));
-			
-			
+
 			return teacher;
 		}
 	}
 
+	@Override
+	public Teacher findByEmail(String email) {
+		
+		return jdbcTeamplate.queryForObject(
+				"SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, " + "birth_day,id " +
 
-
+						"FROM public.teachers  WHERE email=? ;",
+				new String[] { email }, new TeacherMapper());
+	}
 
 	@Override
 	public Collection<Teacher> getAll() {
-		
-			return jdbcTeamplate.query("SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, "+
-       "birth_day, id "+
-			       "FROM public.teachers;",new TeacherMapper()) ;
+
+		return jdbcTeamplate.query("SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, "
+				+ "birth_day, id " + "FROM public.teachers;", new TeacherMapper());
 	}
-
-
-
 
 	@Override
 	public Teacher findById(long id) {
-		
-		return  jdbcTeamplate.queryForObject("SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, "+
-      "birth_day,id "+
 
-			       "FROM public.teachers  WHERE id=? ;",new Long [] {id}, new TeacherMapper()) ;
-		
-	 
+		return jdbcTeamplate.queryForObject(
+				"SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, " + "birth_day,id " +
+
+						"FROM public.teachers  WHERE id=? ;",
+				new Long[] { id }, new TeacherMapper());
+
 	}
 
+	@Override
+	public Teacher findByCnp(String cnp) {
+	
+		return jdbcTeamplate.queryForObject(
+				"SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, " + "birth_day,id " +
 
-
+						"FROM public.teachers  WHERE cnp=? ;",
+				new String[] { cnp }, new TeacherMapper());
+	}
 
 	@Override
 	public long insert(Teacher teacher) {
-		
-		return jdbcTeamplate.queryForObject("INSERT INTO public.teachers( name, sir_name, cnp, "
-				+ "hire_date, category, phone, email, med_date, "+
-            "birth_day) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",new Object[] { 
-		   teacher.getName(), teacher.getSirName(), teacher.getCnp(), teacher.getHireDate(),
-					 teacher.getCategory(),teacher.getPhoneNumber(),
-					teacher.getEmail(),teacher.getMedDate(),teacher.getBirthDay() },Long.class);
+
+		return jdbcTeamplate.queryForObject(
+				"INSERT INTO public.teachers( name, sir_name, cnp, " + "hire_date, category, phone, email, med_date, "
+						+ "birth_day) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+				new Object[] { teacher.getName(), teacher.getSirName(), teacher.getCnp(), teacher.getHireDate(),
+						teacher.getCategory(), teacher.getPhoneNumber(), teacher.getEmail(), teacher.getMedDate(),
+						teacher.getBirthDay() },
+				Long.class);
 	}
-
-
-
 
 	@Override
 	public int delete(Teacher model) {
-		
-		return jdbcTeamplate.update("DELETE FROM public.teachers "+
-		 "WHERE id=?;",model.getId());
+
+		return jdbcTeamplate.update("DELETE FROM public.teachers " + "WHERE id=?;", model.getId());
 
 	}
-
-
-
 
 	@Override
 	public long update(Teacher model) {
 		// TODO Auto-generated method stub
 		return 0L;
 	}
-
-
-
-
 	@Override
-	public Collection<Teacher> getByTeacher(int theacherId) {
-		// TODO Auto-generated method stub
-		return null;
+	public long find(String email) {
+	
+		return jdbcTeamplate.queryForObject(
+				"SELECT count(*) "+
+						"FROM public.teachers WHERE email=? ;",new String[] {email},  Long.class);
 	}
-
-
-
-
-
-
-
 	
 }

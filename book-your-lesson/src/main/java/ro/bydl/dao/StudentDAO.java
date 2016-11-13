@@ -18,6 +18,8 @@ public interface StudentDAO extends BaseDao <Student>  {
 
 	Student getByEmail(String email);
 
+	long find(String email);
+
 	
 
 }

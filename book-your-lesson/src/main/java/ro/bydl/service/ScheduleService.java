@@ -1,14 +1,12 @@
 package ro.bydl.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 import ro.bydl.service.errors.ValidationException;
@@ -26,19 +24,23 @@ public class ScheduleService {
 		return calHelp.getDays(week);
 	}
 
-	public int validate(Schedule schedule) throws ValidationException {
+	public void validate(Schedule schedule) throws ValidationException {
 
 		
-		Calendar cal = Calendar.getInstance();
+//	List errors= new LinkedList<>();
+//	if(isScheduleInThePast(schedule)){
+//		
+//		errors.add("you canot book lessons in the past :)");
+//	}
 
-		cal.setTime((schedule.getDate()));
-		if (cal.get(Calendar.YEAR) > Calendar.getInstance().get(Calendar.YEAR) + 1) {
-			System.out.println("error");
-		}
-
-		return Calendar.getInstance().get(Calendar.YEAR);
-
+		
 	}
+
+//	private boolean isScheduleInThePast(Schedule schedule) {
+//	Date date=new Date();
+//	
+//			return false;
+//	}
 
 	public Collection<Schedule> getScheduels() {
 

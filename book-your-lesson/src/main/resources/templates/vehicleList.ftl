@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Vehicles</title>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,8 @@
   <h1> Vehicle list</h1>
  
 	[#if permision??]
- 	<p><a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a></p>
+ 	<p><a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a>
+ 	<a href="/vehicle/list"><input class="btn btn-info" role="button" value="LIST ALL VEHICLES" type="submit"  readonly></a></p>
  	[#else]
  	 <h4> [#if teacher??]Instructor:  ${teacher.name!''} ${teacher.sirName!''}
  		<p><a href="/register/student"><input class="btn btn-info" role="button" value="Register"   readonly></a></p>
@@ -67,7 +68,9 @@
    	 <th>Chassis</th>
    	 <th> Vignettes</th>
   	<th> Insurance</th>
+  	<th> </th>
    	<th> ITP</th>
+   	<th>Instructor</th>
   	<th>Edit</th>
    	<th> Delete</th>
    [/#if]  	
@@ -91,13 +94,25 @@
 	  		<td >	 ${vehicle.insurance} </td>
 	  		<td >	 ${vehicle.ITP} </td>
 	  		<td >
+	  		 <form name="form1" action="/vehicle/list" >
+	  				 <input type="hidden" name="teacherId" value="${vehicle.teacherId}">
+	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">${vehicle.teacherId}</button>
+	  		</form>
+	  			</td>
+	  			<td >
+	  		 <form name="form1" action="/statistics/teacher" >
+	  				 <input type="hidden" name="teacherId" value="${vehicle.teacherId}">
+	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">See Teacher</button>
+	  		</form>
+	  			</td>
+	  		<td >
 	  			 <form name="form1" action="/vehicle/edit" method="POST">
 	  				 <input type="hidden" name="id" value="${vehicle.id}">
 	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
 	  		</form>
 	  		</td>
 	  		<td >
-	  		 <form name="form1" action="/register/vehicle/delete" method="POST">
+	  		 <form name="form1" action="/vehicle/delete" method="POST">
 	  				 <input type="hidden" name="id" value="${vehicle.id}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button>
 	  		</form>

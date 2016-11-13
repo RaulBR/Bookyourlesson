@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.StudentDAO;
+import ro.bydl.dao.UserDAO;
+import ro.bydl.domain.Person;
 import ro.bydl.domain.Student;
+import ro.bydl.domain.User;
 import ro.bydl.service.errors.ValidationException;
 
 @Service
@@ -18,11 +21,18 @@ public class StudentService extends PersonHelper {
 	@Autowired
 	private StudentDAO dao;
 
-	public long addStudent(Student student) throws ValidationException {
+
+	public void addStudent(Student student) throws ValidationException {
+		
 		refinePerson(student);
 		setRegistrationDate(student);
-		validateStudent(setRegistrationDate(student));
-		return dao.insert(student);
+		validateStudent(student);
+		validateUser(student);
+		student.setStudentId(dao.insert(student));
+		student.setPermision("student");
+		addUser(student);
+		
+		
 
 	}
 
@@ -37,20 +47,33 @@ public class StudentService extends PersonHelper {
 		}
 		if (cnpExists(student)) {
 			errors.add("data already exists");
+		}if(find(student.getEmail())>0){
+			errors.add("email exists");
 		}
-		// if (isInTheFuture(student)) {
-		// errors.add("you may be form the future /n go back in time to
-		// register");
-		// }
+		
 		if (isEmailUsed(student)) {
 			errors.add("email already exists");
 
+		}
+		if(isEmpty(student)){
+			errors.add("complete necesar fields");
 		}
 
 		if (!errors.isEmpty()) {
 			throw new ValidationException(errors.toArray(new String[] {}));
 		}
+		
 
+	}
+
+	
+
+	private long find(String email) {
+		if(email.equals("")){
+			return 0;
+		}else{
+		return dao.find(email);
+		}
 	}
 
 	private boolean isEmailUsed(Student student) {
@@ -65,6 +88,9 @@ public class StudentService extends PersonHelper {
 	}
 
 	private boolean cnpExists(Student student) {
+		if(student.getCnp().isEmpty()){
+			return false;
+		}
 		try {
 			String cnp = student.getCnp();
 			dao.getByCnp(cnp);
@@ -100,14 +126,6 @@ public class StudentService extends PersonHelper {
 
 	}
 
-	public boolean isCnpRightLength(Student student) {
-		String cnp = student.getCnp();
-		if (cnp.length() < 12) {
-			return false;
-		} else {
-			return true;
-		}
 
-	}
 
 }

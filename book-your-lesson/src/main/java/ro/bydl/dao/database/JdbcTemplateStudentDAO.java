@@ -104,6 +104,14 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 		}
 
 	}
+
+	@Override
+	public long find(String email) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.queryForObject(
+				"SELECT count(*) "+
+						"FROM public.students WHERE email=? ;",new String[] {email},  Long.class);
+	}
 	
 	
 

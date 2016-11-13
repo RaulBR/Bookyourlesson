@@ -26,11 +26,9 @@
   	</div>
 	</nav>
   <h1> Add vehicles</h1>
-  [#if erors??][#list errors as error]${error}[/#list][/#if]
-  	[#if message??]
-  		<h2><format color-"read">${message}</format></h2>
-  	[/#if]
   
+  	
+  [#if errors??][#list errors as error]<format color-"read"><p>${error}</p></format>[/#list][/#if]
   	<form action="/vehicle/save">
   		[#if vehicle??]
   			<input type="hidden" name="id" value="${vehicle.id}" />
@@ -75,16 +73,16 @@
 		</div>
  		<div class="form-group">
 		    <label for="text">vignettes </label>
-		    <input type="date"  class="form-control" name="vignettes" value="[#if vehicle??]${vehicle.vignettes?string('MM/dd/yyyy')}[/#if]">   
+		    <input type="date"  class="form-control" name="vignettes" value="[#if vehicle??]${vehicle.vignettes?string('yyyy-MM-dd')}[/#if]">   
 		</div>
 		<div class="form-group">
 		    <label for="text">insurance</label>
-		    <input type="date" class="form-control" name="insurance" value="[#if vehicle??]${vehicle.insurance?string('MM/dd/yyyy')}[/#if]">
+		    <input type="date" class="form-control" name="insurance" value="[#if vehicle??]${vehicle.insurance?string('yyyy-MM-dd')}[/#if]">
 		</div>
 		<div class="form-group">
 		    <label for="date">ITP</label>
 		    
-		    <input type="date" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP?string('MM/dd/yyyy')}[/#if]">
+		    <input type="date" format="dd MM yyyy" class="form-control" name="ITP" value="[#if vehicle??]${vehicle.ITP?string('yyyy-MM-dd')}[/#if]">
 		    
 		</div>
   

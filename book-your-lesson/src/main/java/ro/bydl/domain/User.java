@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class User extends AbstractModel{
 
+	
 	private String user;
 	private String pass;
 	private String pass2;

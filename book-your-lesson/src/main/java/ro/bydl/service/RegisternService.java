@@ -6,15 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ro.bydl.StudentDAO;
 import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
 import ro.bydl.service.errors.ValidationException;
 
 @Service
-public class RegisterService {
+public class RegisternService {
 
 	@Autowired
-	UserDAO dao;
+	private UserDAO dao;
 
 	public boolean checkUserUnique(User user) {
 		try {
@@ -28,12 +29,16 @@ public class RegisterService {
 
 	public void addUser(User user) throws ValidationException {
 
-		validation(user);
+		validateUser(user);
+
 		dao.insert(user);
 	}
 
-	private void validation(User user) throws ValidationException {
+	public void validateUser(User user) throws ValidationException {
 		List<String> errors = new LinkedList<String>();
+		if (isEmpty(user)) {
+			errors.add("user and password filends can't be empty");
+		}
 		if (!isPaswoardOk(user)) {
 			errors.add("passwoards dont mach");
 		}
@@ -43,6 +48,20 @@ public class RegisterService {
 		if (!errors.isEmpty()) {
 			throw new ValidationException(errors.toArray(new String[] {}));
 		}
+	}
+
+	private boolean isEmpty(User user) {
+		if (user.getUser().isEmpty()) {
+			return true;
+		}
+		if (user.getPass().isEmpty()) {
+			return true;
+		}
+		if (user.getPass2().isEmpty()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private boolean isPaswoardOk(User user) {

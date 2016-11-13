@@ -10,7 +10,7 @@ public interface VehicleDAO extends BaseDao<Vehicle> {
 
 	Collection<Vehicle> findByTeacherId(Long id);
 
-	 Vehicle findByChassis(String chassis);
+	Vehicle findByChassis(String chassis);
 
 	Vehicle findbyLicencePlate(String licensePlate);
 }

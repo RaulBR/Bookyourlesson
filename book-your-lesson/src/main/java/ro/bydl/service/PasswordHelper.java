@@ -20,7 +20,7 @@ import javax.crypto.spec.PBEKeySpec;
  * @author erickson
  * @see <a href="http://stackoverflow.com/a/2861125/3474">StackOverflow</a>
  */
-public final class PasswordService
+public final class PasswordHelper
 {
 
   /**
@@ -43,7 +43,7 @@ public final class PasswordService
 
   private final int cost;
 
-  public PasswordService()
+  public PasswordHelper()
   {
     this(DEFAULT_COST);
   }
@@ -53,7 +53,7 @@ public final class PasswordService
    * 
    * @param cost the exponential computational cost of hashing a password, 0 to 30
    */
-  public PasswordService(int cost)
+  public PasswordHelper(int cost)
   {
     iterations(cost); /* Validate cost */
     this.cost = cost;

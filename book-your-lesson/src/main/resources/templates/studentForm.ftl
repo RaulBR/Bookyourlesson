@@ -27,18 +27,29 @@
   	</div>
 	</nav>
   <h1> Register Student </h1>
-  <p>[#if error??][#list errors as error]${error}[/#list][/#if]</p>
+ [#if errors??]
+    <div>
+        <ul>
+            [#list errors as error]
+            <br>
+                <b style="color:red">
+                [#if error.field??]${error.field}: [/#if]${error.defaultMessage}
+                </b>
+            [/#list]
+        </ul>
+    </div>
+[/#if]
   <form action="/student/userSave" class="sexy-form"  method="POST" >
   
 
-  [#if errors??][#list errors as error]<p> ${error}</p>[/#list][/#if]
+  
 
 
   </div>
     <div class="form-group">
-    <label for="text">Name:</label>
-    <input type="text" class="form-control" name="name" [#if student??]value="${student.name}"[/#if]>
-  </div>
+    	<label for="text">Name:</label>
+    		<input type="text" class="form-control" name="name" [#if student??]value="${student.name}"[/#if]>
+ 	 </div>
    <div class="form-group">
     <label for="text">Sir Name</label>
     <input type="text" class="form-control" name="sirName" [#if student??]value="${student.sirName}"[/#if]>

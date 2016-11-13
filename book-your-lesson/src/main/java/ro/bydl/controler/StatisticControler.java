@@ -31,14 +31,14 @@ public class StatisticControler {
 		
 		
 	}
-	@RequestMapping("/students")
-	public ModelAndView StudentStatistics(HttpSession sesion){
+	@RequestMapping("/teacher")
+	public ModelAndView StudentStatistics(HttpSession sesion, long teacherId){
 	//	int week= (int) sesion.getAttribute("week");
 		ModelAndView result=new ModelAndView("teacherStatistics");
 		
 			
 		
-		result.addObject("teacherSchedules", studentStatisticService.howBusy());
+		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId));
 		
 		return result;
 		
