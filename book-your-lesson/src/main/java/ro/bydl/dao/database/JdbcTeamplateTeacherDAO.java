@@ -80,11 +80,11 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	public long insert(Teacher teacher) {
 
 		return jdbcTeamplate.queryForObject(
-				"INSERT INTO public.teachers( name, sir_name, cnp, " + "hire_date, category, phone, email, med_date, "
-						+ "birth_day) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
-				new Object[] { teacher.getName(), teacher.getSirName(), teacher.getCnp(), teacher.getHireDate(),
-						teacher.getCategory(), teacher.getPhoneNumber(), teacher.getEmail(), teacher.getMedDate(),
-						teacher.getBirthDay() },
+				"INSERT INTO public.teachers("
+						+ "name, sir_name, category, email, med_date, id, cnp, phone, birth_day,    hire_date)"
+						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, " + " ?) RETURNING id ;",
+				new Object[] { teacher.getName(), teacher.getSirName(), teacher.getCategory(), teacher.getEmail(),
+						teacher.getMedDate(), teacher.getCnp(), teacher.getPhoneNumber(), teacher.getBirthDay(), teacher.getHireDate()},
 				Long.class);
 	}
 
