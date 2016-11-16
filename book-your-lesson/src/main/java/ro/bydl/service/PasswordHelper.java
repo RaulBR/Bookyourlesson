@@ -94,6 +94,7 @@ public final class PasswordHelper
     Matcher m = layout.matcher(token);
     if (!m.matches())
       throw new IllegalArgumentException("Invalid token format");
+    
     int iterations = iterations(Integer.parseInt(m.group(1)));
     byte[] hash = Base64.getUrlDecoder().decode(m.group(2));
     byte[] salt = Arrays.copyOfRange(hash, 0, SIZE / 8);
@@ -119,31 +120,6 @@ public final class PasswordHelper
     }
   }
 
-  /**
-   * Hash a password in an immutable {@code String}. 
-   * 
-   * <p>Passwords should be stored in a {@code char[]} so that it can be filled 
-   * with zeros after use instead of lingering on the heap and elsewhere.
-   * 
-   * @deprecated Use {@link #hash(char[])} instead
-   */
-  @Deprecated
-  public String hash(String password)
-  {
-    return hash(password.toCharArray());
-  }
-
-  /**
-   * Authenticate with a password in an immutable {@code String} and a stored 
-   * password token. 
-   * 
-   * @deprecated Use {@link #authenticate(char[],String)} instead.
-   * @see #hash(String)
-   */
-  @Deprecated
-  public boolean authenticate(String password, String token)
-  {
-    return authenticate(password.toCharArray(), token);
-  }
+  
 
 }

@@ -50,9 +50,9 @@ public class JdbcTemplateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public long update(User model) {
+	public void update(User model) {
 
-		return jdbcTeamplate.update(
+		jdbcTeamplate.update(
 				"UPDATE public.users  SET users=?, pass=?, permision=?, student_id=?, teacher_id=?, id=? "
 						+ "WHERE id=?;",
 				new Object[] { model.getUser(), model.getPass(), model.getPermision(), model.getStudentId(),

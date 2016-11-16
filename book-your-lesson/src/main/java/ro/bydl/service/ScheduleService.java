@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
-import ro.bydl.service.errors.ValidationException;
+import ro.bydl.exceptions.ValidationException;
 
 @Service
 public class ScheduleService {
@@ -66,9 +66,9 @@ public class ScheduleService {
 
 	}
 
-	public long update(Schedule schedule) {
+	public void update(Schedule schedule) {
 
-		return (dao.update(schedule));
+		 dao.update(schedule);
 
 	}
 

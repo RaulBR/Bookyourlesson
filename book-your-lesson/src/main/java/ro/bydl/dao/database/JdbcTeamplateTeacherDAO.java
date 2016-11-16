@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.TeacherDAO;
+import ro.bydl.domain.Category;
 import ro.bydl.domain.Teacher;
 
 @Component
@@ -26,7 +27,7 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 			teacher.setName(rs.getString("name"));
 			teacher.setSirName(rs.getString("sir_name"));
 			teacher.setCnp(rs.getString("cnp"));
-			teacher.setCategory(rs.getString("category"));
+			teacher.setCategory(Category.valueOf(rs.getString("category")));
 			teacher.setEmail(rs.getString("email"));
 			teacher.setPhoneNumber(rs.getString("phone"));
 			teacher.setMedDate(rs.getString("med_date"));
@@ -39,7 +40,7 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 
 	@Override
 	public Teacher findByEmail(String email) {
-		
+
 		return jdbcTeamplate.queryForObject(
 				"SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, " + "birth_day,id " +
 
@@ -67,7 +68,7 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 
 	@Override
 	public Teacher findByCnp(String cnp) {
-	
+
 		return jdbcTeamplate.queryForObject(
 				"SELECT name, sir_name, cnp, hire_date, category, phone, email, med_date, " + "birth_day,id " +
 
@@ -95,16 +96,20 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	}
 
 	@Override
-	public long update(Teacher model) {
-		// TODO Auto-generated method stub
-		return 0L;
+	public void update(Teacher m) {
+		jdbcTeamplate.update(
+				"UPDATE public.teachers  SET name=?, sir_name=?, category=?, email=?, med_date=?, cnp=?, "
+						+ " phone=?, birth_day=?, hire_date=? WHERE id=?;",
+				m.getName(), m.getSirName(), m.getCategory(), m.getEmail(), m.getMedDate(), m.getCnp(),
+				m.getPhoneNumber(), m.getBirthDay(), m.getHireDate());
+
 	}
+
 	@Override
 	public long find(String email) {
-	
-		return jdbcTeamplate.queryForObject(
-				"SELECT count(*) "+
-						"FROM public.teachers WHERE email=? ;",new String[] {email},  Long.class);
+
+		return jdbcTeamplate.queryForObject("SELECT count(*) " + "FROM public.teachers WHERE email=? ;",
+				new String[] { email }, Long.class);
 	}
-	
+
 }

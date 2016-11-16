@@ -41,7 +41,9 @@
 [/#if]
   <form action="/student/userSave" class="sexy-form"  method="POST" >
   
-
+		[#if student??]
+  			<input type="hidden" name="id" value="${student.id}" />
+  		[/#if]
   
 
 
@@ -98,7 +100,7 @@
    
   </select>
   </div>
- 
+ [#if edit??][#else]
   
  	<div class="form-group" >
     <label for="text">User</label>
@@ -113,7 +115,7 @@
     <label for="text">Repede Password</label>
     <input type="password" class="form-control" name="pass2">
   </div>
-
+[/#if]
  
   <input class="btn btn-success" role="button" type="submit" value="Submit" >
 </form>

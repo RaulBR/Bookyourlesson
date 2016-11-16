@@ -13,4 +13,8 @@ public interface StudentDAO extends BaseDao<Student> {
 
 	Student getByCnp(long cnp);
 
+
+
+	long countByteacherId(long teahcerId);
+
 }

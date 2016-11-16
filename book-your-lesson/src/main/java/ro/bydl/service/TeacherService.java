@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.TeacherDAO;
 import ro.bydl.domain.Teacher;
-import ro.bydl.service.errors.ValidationException;
+import ro.bydl.exceptions.ValidationException;
 
 @Service
 
@@ -95,6 +95,11 @@ public class TeacherService extends PersonHelper {
 			return false;
 		}
 
+	}
+
+	public void delete(Teacher teacher) {
+		dao.delete(teacher);
+		
 	}
 
 }

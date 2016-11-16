@@ -40,7 +40,11 @@
 [/#if]
 
 
-  <form action="/student/userSave" class="sexy-form"  method="POST" >
+  <form action="/teacher/userSave" class="sexy-form"  method="POST" >
+  
+  [#if teacher??]
+  			<input type="hidden" name="id" value="${teacher.id}" />
+  		[/#if]
   </div>
     <div class="form-group">
     <label for="text">Name:</label>               
@@ -68,7 +72,7 @@
     <label for="text">category</label>
   
    
-    <select name="Category"  class="form-control" value=" [#if teacher??]${teacher.Category}[/#if]">
+    <select name="Category"  class="form-control" value=" [#if teacher??]${teacher.category}[/#if]">
      	<option value="B">Category <b>B</b></option>
     	<option value="A">Category <b>A</b></option>
    		<option value="C">Category <b>C</b></option>
@@ -87,7 +91,7 @@
   
  	<div class="form-group" >
     <label for="text">User</label>
-    <input type="text" class="form-control" name="user" value=" [#if user??]${user.user}[/#if]">
+    <input type="text" class="form-control" name="user" value=" ">
   </div>
   <div class="form-group">
     <label for="text">Pasword</label>
@@ -99,8 +103,7 @@
     <input type="password" class="form-control" name="pass2">
   </div>
 
- 
-  <input class="btn btn-success" role="button" type="submit" value="Submit" >
+  <input class="btn btn-success" role="button" type="submit" value="Submit" method="POST" >
 </form>
 
 

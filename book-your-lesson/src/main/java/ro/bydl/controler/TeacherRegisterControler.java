@@ -16,11 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Teacher;
+import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
+import ro.bydl.exceptions.ValidationException;
 import ro.bydl.service.RegisternService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
-import ro.bydl.service.errors.ValidationException;
 
 @Controller
 @RequestMapping("teacher")
@@ -40,7 +41,9 @@ public class TeacherRegisterControler {
 
 	@RequestMapping("")
 	public ModelAndView teacher(HttpSession session) throws Exception {
+		
 		ModelAndView result = new ModelAndView("teacherForm");
+		
 		return result;
 	}
 
@@ -100,6 +103,29 @@ public class TeacherRegisterControler {
 		}
 		result.addObject("teachers", teacherService.getAll());
 		return result;
+	}
+	@RequestMapping("/delete")
+	public ModelAndView delete(@Valid @ModelAttribute("save") Teacher student, BindingResult bindingResult,
+			HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("/teacherList");
+
+		modelAndView.addObject("students", teacherService.getAll());
+		teacherService.delete(student);
+		modelAndView.setView(new RedirectView("list"));
+
+		return modelAndView;
+	}
+
+	@RequestMapping("/edit")
+	public ModelAndView edit(@Valid @ModelAttribute("edit") Teacher teacher, BindingResult bindingResult,
+			HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("/teacher");
+		
+		modelAndView.addObject("teacher", teacherService.findById(teacher.getId()));
+		
+		
+
+		return modelAndView;
 	}
 
 }

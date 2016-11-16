@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ro.bydl.StudentDAO;
 import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
-import ro.bydl.service.errors.ValidationException;
+import ro.bydl.exceptions.ValidationException;
 
 @Service
 public class RegisternService {
@@ -28,10 +28,17 @@ public class RegisternService {
 	}
 
 	public void addUser(User user) throws ValidationException {
-
+		
 		validateUser(user);
 
-		dao.insert(user);
+		dao.insert(ajustUser(user));
+	}
+
+	private User ajustUser(User user) {
+		PasswordHelper ps=new PasswordHelper();
+	user.setPass(ps.hash(user.getPass().toCharArray()));
+	user.setPass2(ps.hash(user.getPass2().toCharArray()));
+		return user;
 	}
 
 	public void validateUser(User user) throws ValidationException {

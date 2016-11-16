@@ -5,6 +5,7 @@ import ro.bydl.domain.Teacher;
 public class TeacherStatisticalContainer extends PersonStatisticContainer<Teacher>  
 implements Comparable<TeacherStatisticalContainer>{
 	
+	private long numberOfStudents;
 	
 	@Override
 	public int compareTo(TeacherStatisticalContainer o) {
@@ -17,6 +18,12 @@ implements Comparable<TeacherStatisticalContainer>{
 		}else{
 		return 0;
 		}
+	}
+	public long getNumberOfStudents() {
+		return numberOfStudents;
+	}
+	public void setNumberOfStudents(long numberOfStudents) {
+		this.numberOfStudents = numberOfStudents;
 	}
 
 

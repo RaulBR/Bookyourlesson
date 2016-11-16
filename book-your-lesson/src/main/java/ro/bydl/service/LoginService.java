@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
-import ro.bydl.service.errors.ValidationException;
+import ro.bydl.exceptions.ValidationException;
 
 /**
  * This class checks the validity of users and passeords
@@ -33,10 +33,15 @@ public final class LoginService {
 	 * @return User
 	 */
 	public final User Permision(User user) throws ValidationException {
-		// TODO
+		PasswordHelper pasHelp = new PasswordHelper();
+
 		List<String> errors = new LinkedList<String>();
-		if (dao.getByUserAndPaswoard(user.getUser(), user.getPass()) != null) {
-			user = dao.getByUserAndPaswoard(user.getUser(), user.getPass());
+
+		if (dao.getByUser(user.getUser()) != null
+				&& pasHelp.authenticate(user.getPass().toCharArray(), dao.getByUser(user.getUser()).getPass())) {
+
+			
+			user = dao.getByUser(user.getUser());
 			user.setPass(null);
 
 		} else {

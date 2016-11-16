@@ -19,14 +19,17 @@
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		   <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white"> Schedule</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
 	</nav>
   <h1>Students</h1>
-  
+  [#if permision??]
+ 	<p><a href="/student"><input class="btn btn-info" role="button" value="ADD STUDENT" type="submit"  readonly></a>
+ 	<a href="/student/list"><input class="btn btn-info" role="button" value="LIST ALL STUDENTS" type="submit"  readonly></a></p>
+ 	[/#if]
  <table class="table">
   <thead>
      <tr >
@@ -38,7 +41,12 @@
     <th>Category</th>
     <th>Papers</th>
     <th>Register Date</th>
-   	
+   	[#if permision??]
+   	<th>Email</th>
+   	<th>CNP</th>
+   	<th>Edit</th>
+   	<th>Delete</th>
+   	[/#if]
 	 	  	 [#assign nr = 0]
 	  		[#if students??]
 	  		[#list students as student]
@@ -50,7 +58,24 @@
 	  		<td >${student.category}  </td>		
 	  		<td> ${student.medPaper?c}</td>
 	<td>  	${student.registrationDate}</td>
+	
+	  		[#if permision??]
+	  		<td >	 ${student.email} </td>
+	  		<td >	 ${student.cnp} </td>
 	  		
+	  		<td >
+	  			 <form name="form1" action="/student/edit" method="POST">
+	  				 <input type="hidden" name="id" value="${student.id}">
+	  			<button  type="submit" class="btn btn-info" value="${student.id}">EDIT</button>
+	  		</form>
+	  		</td>
+	  		<td >
+	  		 <form name="form1" action="/student/delete" method="POST">
+	  				 <input type="hidden" name="id" value="${student.id}">
+	  				 	<button  type="submit" class="btn btn-info" value="${student.id}">DEL</button>
+	  		</form>
+	  			</td>
+	  			[/#if]
 	  		
 	  			[/#list]
 	  			[/#if]

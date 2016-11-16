@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.VehicleDAO;
 import ro.bydl.domain.Vehicle;
-import ro.bydl.service.errors.ValidationException;
+import ro.bydl.exceptions.ValidationException;
 
 @Service
 public class VehicleService {

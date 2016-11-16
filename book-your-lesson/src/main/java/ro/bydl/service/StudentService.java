@@ -13,7 +13,7 @@ import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.Person;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.User;
-import ro.bydl.service.errors.ValidationException;
+import ro.bydl.exceptions.ValidationException;
 
 @Service
 public class StudentService extends PersonHelper {
@@ -25,12 +25,23 @@ public class StudentService extends PersonHelper {
 	public void addStudent(Student student) throws ValidationException {
 		
 		refinePerson(student);
-		setRegistrationDate(student);
-		validateStudent(student);
-		validateUser(student);
-		student.setStudentId(dao.insert(student));
-		student.setPermision("student");
-		addUser(student);
+		System.out.println(student.getId());
+		if (student.getId() == 0) {
+			
+			setRegistrationDate(student);
+			validateUser(student);
+			student.setStudentId(dao.insert(student));
+			student.setPermision("student");
+			addUser(student);
+
+		} else {
+			
+			student.setRegistrationDate(dao.findById(student.getId()).getRegistrationDate());
+			student.setCnp(student.getCnp());
+			dao.update(student);
+			
+		}
+		
 		
 		
 
@@ -124,6 +135,11 @@ public class StudentService extends PersonHelper {
 	public Student findById(long id) {
 		return dao.findById(id);
 
+	}
+
+	public void delete(Student student) {
+		dao.delete(student);
+		
 	}
 
 

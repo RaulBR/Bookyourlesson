@@ -14,10 +14,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
 import ro.bydl.domain.Vehicle;
+import ro.bydl.exceptions.ValidationException;
 import ro.bydl.service.RegisternService;
 import ro.bydl.service.TeacherService;
 import ro.bydl.service.VehicleService;
-import ro.bydl.service.errors.ValidationException;
 
 /**
  * This class is the model and view controller for the registration forms of the
@@ -94,10 +94,7 @@ public class VehicleRegisterControler {
 			result.addObject("permision", permison);
 			}
 				
-		}else {
-			
-			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
-			result.addObject("permision", ((User) session.getAttribute("user")).getPermision());
+		}else if (u.getTeacherId() > 0){result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
 		}
 		
 		return result;

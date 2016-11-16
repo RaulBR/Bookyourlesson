@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.StudentDAO;
+import ro.bydl.domain.Category;
 import ro.bydl.domain.Student;
 
 @Component
@@ -55,14 +56,13 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 	}
 
 	@Override
-	public long update(Student student) {
+	public void update(Student student) {
 		
-		return jdbcTemplate.update("UPDATE public.students  SET id=?, name=?, sir_name=?, cnp=?, register_date=?, category=?, "+
-       "teacher_id=?, med_paper=?, phone=?, email=?, birth_day=? WHERE <condition>;",
-       new Object[] { student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
-				student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
-				student.getEmail(),student.getBirthDay(),student.getId() },
-		 Long.class);
+		jdbcTemplate.update("UPDATE public.students  SET name=?, sir_name=?, cnp=?, register_date=?, category=?, "+
+       "teacher_id=?, med_paper=?, phone=?, email=?, birth_day=? WHERE id=?;",
+     student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
+		student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
+		student.getEmail(),student.getBirthDay(),  student.getId() );
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 			student.setRegistrationDate(rs.getDate("register_date"));
 			student.setMedPaper(rs.getBoolean("med_paper"));
 			student.setTeacherId(rs.getInt("teacher_id"));
-			student.setCategory(rs.getString("category"));
+			student.setCategory(Category.valueOf(rs.getString("category")));
 			student.setEmail(rs.getString("email"));
 			student.setPhoneNumber(rs.getString("phone"));
 			student.setBirthDay(rs.getDate("birth_day"));
@@ -112,6 +112,15 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 				"SELECT count(*) "+
 						"FROM public.students WHERE email=? ;",new String[] {email},  Long.class);
 	}
+
+	@Override
+	public long countByteacherId(long teacherId) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.queryForObject(
+				"SELECT count(*) "+
+						"FROM public.students WHERE teacher_id=? ;",new Long[] {teacherId},  Long.class);
+	}
+	
 	
 	
 

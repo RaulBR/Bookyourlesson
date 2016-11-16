@@ -14,11 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Student;
+import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
+import ro.bydl.domain.Vehicle;
+import ro.bydl.exceptions.ValidationException;
 import ro.bydl.service.RegisternService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
-import ro.bydl.service.errors.ValidationException;
 
 @Controller
 @RequestMapping("student")
@@ -39,7 +41,7 @@ public class StudentRegisterControler {
 	@RequestMapping("")
 	public ModelAndView student(HttpSession session) throws Exception {
 		ModelAndView result = new ModelAndView("studentForm");
-		result.addObject("teachers", teacherService.getAll());
+		result.addObject("students", studentService.getAll());
 		return result;
 	}
 
@@ -80,6 +82,7 @@ public class StudentRegisterControler {
 		if (hasErros) {
 			modelAndView = new ModelAndView("studentForm");
 			modelAndView.addObject("teachers", teacherService.getAll());
+			modelAndView.addObject("student", student);
 			modelAndView.addObject("errors", bindingResult.getAllErrors());
 		}
 
@@ -92,9 +95,40 @@ public class StudentRegisterControler {
 
 		String permison = ((User) session.getAttribute("user")).getPermision();
 		ModelAndView result = new ModelAndView("studentList");
-
+		result.addObject("students", studentService.getAll());
 		result.addObject("permision", permison);
 
 		return result;
+	}
+	@RequestMapping("/delete")
+	public ModelAndView delete(@Valid @ModelAttribute("save") Student student, BindingResult bindingResult,
+			HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("/studentList");
+
+		modelAndView.addObject("students", studentService.getAll());
+		studentService.delete(student);
+		modelAndView.setView(new RedirectView("list"));
+
+		return modelAndView;
+	}
+
+	@RequestMapping("/edit")
+	public ModelAndView edit(@Valid @ModelAttribute("edit") Student student, BindingResult bindingResult,
+			HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("/student");
+
+		modelAndView.addObject("student", studentService.findById(student.getId()));
+		String permision = ((User) session.getAttribute("user")).getPermision();
+		switch (permision) {
+		case "teacher":
+			Teacher teacherOBJ = (Teacher) session.getAttribute("teacheOBJ");
+			modelAndView.addObject("teacherOBJ", teacherOBJ);
+			break;
+		case "admin":
+			modelAndView.addObject("teachers", teacherService.getAll());
+			break;
+		}
+
+		return modelAndView;
 	}
 }

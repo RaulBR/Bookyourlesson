@@ -20,6 +20,8 @@ public interface StudentDAO extends BaseDao <Student>  {
 
 	long find(String email);
 
+	long countByteacherId(long teahcerId);
+
 	
 
 }

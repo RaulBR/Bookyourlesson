@@ -74,6 +74,7 @@ try{
 		if (loginService.Permision(user) != null) {
 			
 				session.setAttribute("user", loginService.Permision(user));
+				
 				modelandView.setView(new RedirectView("/schedule"));
 						
 

@@ -49,16 +49,18 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
   		</div>
   	</div>
 	</nav>
+	 [#if teacherSchedules??]
  <h1>Teachers </h1>
  
- <h2>Week:[#if week??]${week}[/#if]</h2>
+ 
 
- [#if teacherSchedules??]
+
+ <h2>Week:[#if week??]${week}[/#if]</h2>
  [#list  teacherSchedules as key]
  
  
@@ -121,64 +123,81 @@
  [/#if]
  [#if teacherSchedule??]
 
- 
+ <h2>Teacher: ${teacherSchedule.t.name} ${teacherSchedule.t.sirName}</h2>
  
  <ng ng-app="test">
-<div class="container" ng-controller="Ctrl">
+	<div class="container" ng-controller="Ctrl">
 
-  <h2>${teacherSchedule.t.name} ${teacherSchedule.t.sirName}</h2>
+ 	 
   
   
   <hr>
-  </th>
-  <div class="row">
+ 	 </th>
+  		<div class="row">
+  		 [#if teacherSchedule.total==0][#else]
+   			 Total number of lessons
+    		<div class="progress vertical" >
    
-    <div class="progress vertical" >
-    
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.total}%">
-    ${teacherSchedule.total}
-  </div>
-</div>
+ 				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
+  				aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.total}%">
+   				 ${teacherSchedule.total}
+  				</div>
+		</div>
 
- <div class="progress " >
-    
-  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.done}%">
-    ${teacherSchedule.done}
-  </div>
-</div>
 
- <div class="progress" >
-    
-  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.booked}%">
-    ${teacherSchedule.booked}
-  </div>
-</div>
-<div class="progress" >
-    
-  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.pending}%">
-    ${teacherSchedule.pending}
-  </div>
-</div>
+ 		[/#if]
+	 [#if teacherSchedule.done==0][#else]
+ 		Done
+ 			<div class="progress " >
+   
+ 				 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow=""
+  					aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.done}%">
+   					 ${teacherSchedule.done}
+ 				</div>
+  
+			</div>
+			
+	[/#if]
 
- <div class="progress" >
-    
-  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax=${teacherSchedule.total}" style="width:${teacherSchedule.absent}%">
-    ${teacherSchedule.absent}
-  </div>
-</div>
-    
+	[#if teacherSchedule.booked==0][#else]
+ 		Bookend
+ 			<div class="progress" >
+   
+  				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
+  				aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.booked}%">
+   				 ${teacherSchedule.booked}
+  				</div>
+		</div>
+	[/#if]
+	
+	[#if teacherSchedule.pending==0][#else]
+		Pending
+		<div class="progress" >
+   
+ 			 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
+  			aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.pending}%">
+   			 ${teacherSchedule.pending}
+			  </div>
+		</div>
+	[/#if]
+	
+	[#if teacherSchedule.absent==0][#else]
+ 	Absent student
+ 		<div class="progress" >
+   
+  			<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
+  				aria-valuemin="0" aria-valuemax=${teacherSchedule.total}" style="width:${teacherSchedule.absent}%">
+    			${teacherSchedule.absent}	
+			</div>
+		</div>
+    [/#if]
+
   
   </div>
-  
   
 </div>
 </ng>  
-
+<p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>
  [/#if]
  [#if teacherSchedules??]
  [#list  teacherSchedules as key]
