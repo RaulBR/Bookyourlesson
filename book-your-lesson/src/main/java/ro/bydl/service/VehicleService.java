@@ -205,7 +205,11 @@ public class VehicleService {
 	}
 
 	public Collection<Vehicle> findByTeacherId(long id) {
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> heroku
 		return dao.findByTeacherId(id);
 	}
 

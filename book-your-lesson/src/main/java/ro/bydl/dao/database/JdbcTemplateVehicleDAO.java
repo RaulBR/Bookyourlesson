@@ -32,7 +32,11 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
+<<<<<<< HEAD:book-your-lesson/src/main/java/ro/bydl/dao/database/JdbcTemplateVehicleDAO.java
 	public Vehicle findById(long id) {
+=======
+	public Vehicle findById(Long id) {
+>>>>>>> heroku:book-your-lesson/src/main/java/ro/bydl/dao/database/JdbcTemplateVehicleDao.java
 		
 		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
 				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  id=? ", new Long[] {id},new VehicleMapper());
@@ -48,10 +52,17 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
+<<<<<<< HEAD:book-your-lesson/src/main/java/ro/bydl/dao/database/JdbcTemplateVehicleDAO.java
 	public long insert(Vehicle model) {
 		
 		  
 		  return jdbcTeamplate.update("INSERT INTO public.vehicle("
+=======
+	public Vehicle update(Vehicle model) {
+		
+	
+		  jdbcTeamplate.update("INSERT INTO public.vehicle("
+>>>>>>> heroku:book-your-lesson/src/main/java/ro/bydl/dao/database/JdbcTemplateVehicleDao.java
 					+ " brand, model, fuel, chassis, engine, license_plate, vignettes, insurance, itp, year,teacher_id) " +
 
 					"VALUES ( ?, ?, ?, ?, ?, ?, ?,?, ?,?,? ) ;", model.getBrand(), model.getCarType(), model.getFuel(),
