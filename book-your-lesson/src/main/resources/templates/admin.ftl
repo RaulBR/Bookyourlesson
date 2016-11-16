@@ -28,8 +28,14 @@
  
  
  <p><a href="/vehicle/list"><input class="btn btn-info" role="button" value="cars"  readonly></a></p>
- <p><a href="/student/list"><input class="btn btn-info" role="button" value="students"  readonly></a></p>
- <p><a href="/teacher/list"><input class="btn btn-info" role="button" value="teachers"  readonly></a></p>
+ <p>
+ <a href="/student/list"><input class="btn btn-info" role="button" value="students"  readonly></a>
+
+ </p>
+ <p><a href="/teacher/list"><input class="btn btn-info" role="button" value="teachers"  readonly></a>
+  <a href="/statistics"><input class="btn btn-info" role="button" value="student Statistics"  readonly></a>
+  </p>
+  <p></p>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

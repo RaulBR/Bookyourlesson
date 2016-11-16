@@ -26,7 +26,10 @@
   	</div>
 	</nav>
   <h1> Instructors</h1>
-  
+   [#if permision??]
+ 	<p><a href="/teacher"><input class="btn btn-info" role="button" value="ADD INSTRUCTOR" type="submit"  readonly></a>
+ 	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
+ 	[/#if]
  <table class="table">
   <thead>
      <tr >
