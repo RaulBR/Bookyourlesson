@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.StudentDAO;
 import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;

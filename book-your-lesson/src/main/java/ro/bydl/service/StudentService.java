@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.StudentDAO;
-import ro.bydl.dao.UserDAO;
-import ro.bydl.domain.Person;
 import ro.bydl.domain.Student;
-import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;
 
 @Service
@@ -47,6 +44,7 @@ public class StudentService extends PersonHelper {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void validateStudent(Student student) throws ValidationException {
 		List<String> errors = new LinkedList<String>();
 

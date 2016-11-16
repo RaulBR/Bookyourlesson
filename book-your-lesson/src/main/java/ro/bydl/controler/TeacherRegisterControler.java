@@ -16,10 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ro.bydl.domain.Teacher;
-import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;
-import ro.bydl.service.RegisternService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
 

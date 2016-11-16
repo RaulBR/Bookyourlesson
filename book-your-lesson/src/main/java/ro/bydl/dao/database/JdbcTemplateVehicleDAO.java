@@ -32,9 +32,7 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
-
 	public Vehicle findById(long id) {
-
 		
 		return  jdbcTeamplate.queryForObject("SELECT id, brand, model, fuel, chassis, engine, license_plate, vignettes,"
 				+ "insurance, itp, year ,teacher_id  FROM public.vehicle WHERE  id=? ", new Long[] {id},new VehicleMapper());
@@ -50,7 +48,6 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
-
 	public long insert(Vehicle model) {
 		
 		  
@@ -68,7 +65,15 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 		return jdbcTeamplate.update("DELETE FROM public.vehicle " + "WHERE id=?;", model.getId());
 	}
 
-	
+	@Override
+	public void update(Vehicle m) {
+
+		 jdbcTeamplate.update(
+				"UPDATE public.vehicle " + "SET brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "
+						+ " vignettes=?, insurance=?, itp=?,year=?, teacher_id=?" + " WHERE id=?;",m.getBrand(),m.getCarType(),m.getFuel(),m.getChassis(),
+						m.getEngine(),m.getLicensePlate(),m.getVignettes(),m.getInsurance(),m.getITP(),m.getYear(),m.getTeacherId(),
+				m.getId());
+	}
 	@Override
 	public Vehicle findByChassis(String chassis) {
 		// TODO Auto-generated method stub
@@ -103,12 +108,6 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 			vehicle.setTeacherId(rs.getLong("teacher_id"));
 			return vehicle;
 		}
-	}
-
-	@Override
-	public void update(Vehicle model) {
-		
-		
 	}
 
 }

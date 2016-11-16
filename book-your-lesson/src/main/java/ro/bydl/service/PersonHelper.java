@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.validation.ValidationException;
-
 import ro.bydl.domain.Person;
 
 public class PersonHelper extends RegisternService  {

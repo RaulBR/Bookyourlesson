@@ -27,9 +27,9 @@ public class IMStudentDAO implements StudentDAO {
 	}
 
 	@Override
-	public long update(Student model) {
+	public void update(Student model) {
 		// TODO Auto-generated method stub
-		return 0;
+	
 	}
 
 	@Override
@@ -59,6 +59,14 @@ public class IMStudentDAO implements StudentDAO {
 	public Student getByCnp(long cnp) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	@Override
+	public long countByteacherId(long teahcerId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

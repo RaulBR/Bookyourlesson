@@ -20,9 +20,9 @@ public class IMScheduleDAO implements ScheduleDAO {
 	
 
 	@Override
-	public long update(Schedule model) {
+	public void update(Schedule model) {
 		// TODO Auto-generated method stub
-		return 0;
+	
 	}
 
 	@Override
