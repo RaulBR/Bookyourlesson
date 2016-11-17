@@ -43,7 +43,7 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			    	
 			 	</div>
-			 	[#if error??]<p>Error: ${error}</p>[/#if]
+			 	[#if error??]<p>Error: ${error}</p>[/#if]p
 			  	<div class="panel-body">
 			    	<form action="/login"  accept-charset="UTF-8" role="form" method="POST">
                     <fieldset>
