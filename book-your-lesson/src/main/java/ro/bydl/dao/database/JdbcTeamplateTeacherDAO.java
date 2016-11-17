@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.TeacherDAO;
-import ro.bydl.domain.Category;
 import ro.bydl.domain.Teacher;
 
 @Component
@@ -27,7 +26,7 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 			teacher.setName(rs.getString("name"));
 			teacher.setSirName(rs.getString("sir_name"));
 			teacher.setCnp(rs.getString("cnp"));
-			teacher.setCategory(Category.valueOf(rs.getString("category")));
+			teacher.setCategory((rs.getString("category")));
 			teacher.setEmail(rs.getString("email"));
 			teacher.setPhoneNumber(rs.getString("phone"));
 			teacher.setMedDate(rs.getString("med_date"));

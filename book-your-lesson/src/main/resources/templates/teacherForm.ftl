@@ -1,3 +1,4 @@
+
 [#ftl]
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
@@ -20,13 +21,14 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		
   		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
  		 
   		</div>
   	</div>
 	</nav>
-  <h1> Register Teacher </h1>
-  [#if errors??]
+  <h1> Register teacher </h1>
+ [#if errors??]
     <div>
         <ul>
             [#list errors as error]
@@ -38,35 +40,47 @@
         </ul>
     </div>
 [/#if]
-
-
   <form action="/teacher/userSave" class="sexy-form"  method="POST" >
   
-  [#if teacher??]
+		[#if teacher??]
   			<input type="hidden" name="id" value="${teacher.id}" />
   		[/#if]
+  
+
+
   </div>
     <div class="form-group">
-    <label for="text">Name:</label>               
-    <input type="text" class="form-control" name="name" value=" [#if teacher??]${teacher.name}[/#if]">
-  </div>
+    	<label for="text">Name:</label>
+    		<input type="text" class="form-control" name="name" [#if teacher??]value="${teacher.name}"[/#if]>
+ 	 </div>
    <div class="form-group">
     <label for="text">Sir Name</label>
-    <input type="text" class="form-control" name="sirName" value=" [#if teacher??]${teacher.sirName}[/#if]">
+    <input type="text" class="form-control" name="sirName" [#if teacher??]value="${teacher.sirName}"[/#if]>
   </div>
   </div>
    <div class="form-group">
     <label for="text">Email</label>
-    <input type="email" class="form-control" name="email" value=" [#if teacher??]${teacher.email}[/#if]">
+    <input type="email" class="form-control" name="email" [#if teacher??]value="${teacher.email}"[/#if]>
   </div>
     <div class="form-group">
     <label for="text">CNP</label>
-    <input type="text" class="form-control" name="cnp" value=" [#if teacher??]${teacher.cnp}[/#if]">
+    <input type="text" class="form-control" name="cnp"  [#if teacher??]value="${teacher.cnp}"[/#if]>
   </div>
    <div class="form-group">
     <label for="text">Phone Number</label>
-    <input type="text" class="form-control" name="phoneNumber" value=" [#if teacher??]${teacher.phoneNumber}[/#if]">
+    <input type="text" class="form-control" name="phoneNumber"  [#if teacher??]value="${teacher.phoneNumber}"[/#if]>
   </div>
+     [#if teachers??]
+        <div class="form-group">
+    <label for="text">Teacher</label> 
+    <select name="teacherId"  class="form-control">
+  [#list teachers as teacher]
+    <option value="${teacher.id!''}">${teacher.sirName!''} ${teacher.name!''}</option>
+  
+      [/#list]
+  </select>
+     </div>
+        [/#if]
   
    <div class="form-group">
     <label for="text">category</label>
@@ -87,11 +101,10 @@
    
   </select>
   </div>
- 
   
  	<div class="form-group" >
     <label for="text">User</label>
-    <input type="text" class="form-control" name="user" value=" ">
+    <input type="text" class="form-control" name="user" >
   </div>
   <div class="form-group">
     <label for="text">Pasword</label>
@@ -103,9 +116,8 @@
     <input type="password" class="form-control" name="pass2">
   </div>
 
-  <input class="btn btn-success" role="button" type="submit" value="Submit" method="POST" >
+  <input class="btn btn-success" role="button" type="submit" value="Submit" >
 </form>
-
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -117,3 +129,4 @@
   </body>
 </html>
 [/#escape]
+
