@@ -91,13 +91,19 @@ public class StudentRegisterControler {
 
 	
 	@RequestMapping("/list")
-	public ModelAndView studentList(HttpSession session) throws Exception {
-
+	public ModelAndView studentList(HttpSession session,long teacherId) throws Exception {
 		String permison = ((User) session.getAttribute("user")).getPermision();
 		ModelAndView result = new ModelAndView("studentList");
-		result.addObject("students", studentService.getAll());
 		result.addObject("permision", permison);
-
+		if(teacherId>0){
+			result.addObject("students", studentService.getByTeacherId(teacherId));
+			
+		}else{
+			
+		
+		result.addObject("students", studentService.getAll());
+		
+		}
 		return result;
 	}
 	@RequestMapping("/delete")

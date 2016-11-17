@@ -27,8 +27,17 @@ public class TeacherScheduleStatisticsService {
 	@Autowired
 	private StudentDAO studentDao;
 
-	
-	
+	public TeacherStatisticalContainer howBusy(long teahcerId, long id){
+		TeacherStatisticalContainer tsc=new TeacherStatisticalContainer();
+		tsc.setT(studentDao.findById(teahcerId));
+		tsc.setTotal(dao.cuntByTeacherId(teahcerId));
+		tsc.setDone(dao.coutTeacherStatus("done", teahcerId,id));
+		tsc.setAbsent(dao.coutTeacherStatus("absent", teahcerId,id));
+		tsc.setPending(dao.coutTeacherStatus("pending", teahcerId,id));
+		tsc.setBooked(dao.coutTeacherStatus("booked", teahcerId,id));
+		
+		return tsc;
+	}
 	public TeacherStatisticalContainer howBusy(long teahcerId){
 		TeacherStatisticalContainer tsc=new TeacherStatisticalContainer();
 		tsc.setT(teacherDao.findById(teahcerId));
