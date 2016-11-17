@@ -5,7 +5,7 @@
   <head>
    <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<title>bydl</title>
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <link href="/css/style.css" rel="stylesheet">
@@ -54,19 +54,17 @@
   		</div>
   	</div>
 	</nav>
-	 [#if teacherSchedule??]
- <h1>Teachers </h1>
- ${ teacherSchedulet.name} ${ teacherSchedule.t.sirName}
- 
+	
+ <h1> <a href="/statistics">Teachers</a> </h1>
+<h2> ${ teacherSchedule.t.name} ${ teacherSchedule.t.sirName}</h2>
+ <a href="/student/list?teacherId=${teacherSchedule.t.id}">students</a>
+ <p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>
+  <p> number Cars: ${teacherSchedule.numberOfCars}</p>
 
-
-
-
- <h2><a href="/statistics">Teachers</a></h2>
- 
- 
-
- 
+<p>
+   <div id="canvas-holder" style="width:50%">
+        <canvas id="chart-area" />
+    </div>
    
     <script>
   
@@ -80,11 +78,11 @@
             datasets: [{
                 data: [
                 
-                    ${ teacherSchedule.t.done},
-                    ${ teacherSchedule.t.absent},
-                    ${ teacherSchedule.t.pending},
-                    ${ teacherSchedule.t.booked},
-                    ${ teacherSchedule.t.done},
+                    ${teacherSchedule.done},
+                    ${ teacherSchedule.absent},
+                    ${teacherSchedule.pending},
+                    ${teacherSchedule.booked},
+                    ${teacherSchedule.done},
                 ],
                 backgroundColor: [
                     "#F7464A",
@@ -185,7 +183,8 @@
     </script>
     </p>
 
- [/#if]
+
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
