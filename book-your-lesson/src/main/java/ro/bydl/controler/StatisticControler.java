@@ -32,7 +32,7 @@ public class StatisticControler {
 		
 	}
 	@RequestMapping("/teacher")
-	public ModelAndView StudentStatistics(HttpSession sesion, long teacherId){
+	public ModelAndView teacherStatistics(HttpSession sesion, long teacherId){
 	//	int week= (int) sesion.getAttribute("week");
 		ModelAndView result=new ModelAndView("teacherStatistic");
 		
@@ -44,5 +44,19 @@ public class StatisticControler {
 		
 		
 	}
+	@RequestMapping("/student")
+	public ModelAndView StudentStatistics(HttpSession sesion, long teacherId ,long studentId){
+	//	int week= (int) sesion.getAttribute("week");
+		ModelAndView result=new ModelAndView("teacherStatistic");
+		
+			
+		
+		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId,studentId));
+		
+		return result;
+		
+		
+	}
+
 
 }
