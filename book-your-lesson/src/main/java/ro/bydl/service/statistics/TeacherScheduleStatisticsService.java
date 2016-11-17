@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.dao.TeacherDAO;
+import ro.bydl.dao.VehicleDAO;
 import ro.bydl.dao.StudentDAO;
 import ro.bydl.domain.Schedule;
 
@@ -26,7 +27,20 @@ public class TeacherScheduleStatisticsService {
 	private TeacherDAO teacherDao;
 	@Autowired
 	private StudentDAO studentDao;
+	@Autowired
+	private VehicleDAO vehicleDao;
 
+	public TeacherStatisticalContainer howBusy(long teahcerId, long id){
+		TeacherStatisticalContainer tsc=new TeacherStatisticalContainer();
+		tsc.setT(studentDao.findById(teahcerId));
+		tsc.setTotal(dao.cuntByTeacherId(teahcerId));
+		tsc.setDone(dao.coutTeacherStatus("done", teahcerId,id));
+		tsc.setAbsent(dao.coutTeacherStatus("absent", teahcerId,id));
+		tsc.setPending(dao.coutTeacherStatus("pending", teahcerId,id));
+		tsc.setBooked(dao.coutTeacherStatus("booked", teahcerId,id));
+		
+		return tsc;
+	}
 	
 	
 	public TeacherStatisticalContainer howBusy(long teahcerId){
@@ -38,6 +52,7 @@ public class TeacherScheduleStatisticsService {
 		tsc.setPending(dao.coutTeacherStatus("pending", teahcerId));
 		tsc.setBooked(dao.coutTeacherStatus("booked", teahcerId));
 		tsc.setNumberOfStudents(studentDao.countByteacherId(teahcerId));
+		tsc.setNumberOfCars(vehicleDao.countByteacherId(teahcerId));
 		return tsc;
 		
 	}

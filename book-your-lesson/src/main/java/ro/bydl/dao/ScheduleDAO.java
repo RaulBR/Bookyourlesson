@@ -33,6 +33,8 @@ public interface ScheduleDAO extends BaseDao<Schedule> {
 	long coutStudentStatus(int week, String status, long studentId);
 
 	int cuntByTeacherId(long teahcerId);
+
+	long coutTeacherStatus(String string, long teahcerId, long id);
 	
 	
 	
