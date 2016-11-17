@@ -12,7 +12,7 @@ public class Person extends User {
 	@NotEmpty
 	private String cnp;
 	@NotEmpty
-	private Category category;
+	private String category;
 	@NotEmpty
 	private String phoneNumber;
 	@NotEmpty
@@ -44,11 +44,11 @@ public class Person extends User {
 		this.email = email;
 	}
 
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 

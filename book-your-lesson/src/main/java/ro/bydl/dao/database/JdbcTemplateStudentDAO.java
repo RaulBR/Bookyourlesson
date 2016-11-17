@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import ro.bydl.dao.StudentDAO;
-import ro.bydl.domain.Category;
 import ro.bydl.domain.Student;
 
 @Component
@@ -96,7 +95,7 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 			student.setRegistrationDate(rs.getDate("register_date"));
 			student.setMedPaper(rs.getBoolean("med_paper"));
 			student.setTeacherId(rs.getInt("teacher_id"));
-			student.setCategory(Category.valueOf(rs.getString("category")));
+			student.setCategory((rs.getString("category")));
 			student.setEmail(rs.getString("email"));
 			student.setPhoneNumber(rs.getString("phone"));
 			student.setBirthDay(rs.getDate("birth_day"));
