@@ -20,13 +20,14 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		
   		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
  		 
   		</div>
   	</div>
 	</nav>
-  <h1> Register Teacher </h1>
-  [#if errors??]
+  <h1> Register Student </h1>
+ [#if errors??]
     <div>
         <ul>
             [#list errors as error]
@@ -38,40 +39,38 @@
         </ul>
     </div>
 [/#if]
-
-
   <form action="/teacher/userSave" class="sexy-form"  method="POST" >
   
-  [#if teacher??]
-  			<input type="hidden" name="id" value="${teacher.id}" />
+		[#if student??]
+  			<input type="hidden" name="id" value="${student.id}" />
   		[/#if]
+  
+
+
   </div>
     <div class="form-group">
-    <label for="text">Name:</label>               
-    <input type="text" class="form-control" name="name" value=" [#if teacher??]${teacher.name}[/#if]">
-  </div>
+    	<label for="text">Name:</label>
+    		<input type="text" class="form-control" name="name" value=" [#if teacher??]${teacher.name}[/#if]">
+ 	 </div>
    <div class="form-group">
     <label for="text">Sir Name</label>
-    <input type="text" class="form-control" name="sirName" value=" [#if teacher??]${teacher.sirName}[/#if]">
+    <input type="text" class="form-control" name="sirName" [#if teacher??]value="${teacher.sirName}"[/#if]>
   </div>
   </div>
    <div class="form-group">
     <label for="text">Email</label>
-    <input type="email" class="form-control" name="email" value=" [#if teacher??]${teacher.email}[/#if]">
+    <input type="email" class="form-control" name="email" [#if teacher??]value="${teacher.email}"[/#if]>
   </div>
     <div class="form-group">
     <label for="text">CNP</label>
-    <input type="text" class="form-control" name="cnp" value=" [#if teacher??]${teacher.cnp}[/#if]">
+    <input type="text" class="form-control" name="cnp"  [#if teacher??]value="${teacher.cnp}"[/#if]>
   </div>
    <div class="form-group">
     <label for="text">Phone Number</label>
-    <input type="text" class="form-control" name="phoneNumber" value=" [#if teacher??]${teacher.phoneNumber}[/#if]">
+    <input type="text" class="form-control" name="phoneNumber"  [#if teacher??]value="${teacher.phoneNumber}"[/#if]>
   </div>
-  
+     
    <div class="form-group">
-    <label for="text">category</label>
-  
-   
     <select name="Category"  class="form-control" value=" [#if teacher??]${teacher.category}[/#if]">
      	<option value="B">Category <b>B</b></option>
     	<option value="A">Category <b>A</b></option>
@@ -87,11 +86,11 @@
    
   </select>
   </div>
- 
+ [#if edit??][#else]
   
  	<div class="form-group" >
     <label for="text">User</label>
-    <input type="text" class="form-control" name="user" value=" ">
+    <input type="text" class="form-control" name="user" >
   </div>
   <div class="form-group">
     <label for="text">Pasword</label>
@@ -102,10 +101,10 @@
     <label for="text">Repede Password</label>
     <input type="password" class="form-control" name="pass2">
   </div>
-
-  <input class="btn btn-success" role="button" type="submit" value="Submit" method="POST" >
+[/#if]
+ 
+  <input class="btn btn-success" role="button" type="submit" value="Submit" >
 </form>
-
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -117,3 +116,12 @@
   </body>
 </html>
 [/#escape]
+
+
+
+
+
+
+
+
+
