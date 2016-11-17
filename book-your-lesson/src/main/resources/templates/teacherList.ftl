@@ -44,6 +44,9 @@
    	[#if permision??]
    	<th>Hire date</th>
    	<th>CNP</th>
+   	<th>Schedule status</th>
+   	<th></th>
+   	<th></th>
    	
    	[/#if]
 	 	  	 [#assign nr = 0]
@@ -60,7 +63,12 @@
 	  				[#if permision??]
 	  		<td >	 ${teacher.hireDate} </td>
 	  		<td >	 ${teacher.cnp} </td>
-	  		
+	  			<td >
+	  			 <form name="form1" action="/statistics/teacher" method="POST">
+	  				 <input type="hidden" name="teacherId" value="${teacher.id}">
+	  			<button  type="submit" class="btn btn-info" value="${teacher.id}"> :)</button>
+	  		</form>
+	  		</td>
 	  		<td >
 	  			 <form name="form1" action="/teacher/edit" method="POST">
 	  				 <input type="hidden" name="id" value="${teacher.id}">

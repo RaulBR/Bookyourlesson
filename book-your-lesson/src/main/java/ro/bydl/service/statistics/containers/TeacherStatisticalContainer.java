@@ -6,6 +6,7 @@ public class TeacherStatisticalContainer extends PersonStatisticContainer<Teache
 implements Comparable<TeacherStatisticalContainer>{
 	
 	private long numberOfStudents;
+	private long numberOfCars;
 	
 	@Override
 	public int compareTo(TeacherStatisticalContainer o) {
@@ -25,6 +26,13 @@ implements Comparable<TeacherStatisticalContainer>{
 	public void setNumberOfStudents(long numberOfStudents) {
 		this.numberOfStudents = numberOfStudents;
 	}
+	public long getNumberOfCars() {
+		return numberOfCars;
+	}
+	public void setNumberOfCars(long numberOfCars) {
+		this.numberOfCars = numberOfCars;
+	}
+	
 
 
 }

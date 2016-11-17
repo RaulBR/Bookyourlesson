@@ -68,8 +68,9 @@
    	 <th>Chassis</th>
    	 <th> Vignettes</th>
   	<th> Insurance</th>
+  		<th> ITP</th>
   	<th> </th>
-   	<th> ITP</th>
+   
    	<th>Instructor</th>
   	<th>Edit</th>
    	<th> Delete</th>

@@ -59,7 +59,7 @@
 <h2> ${ teacherSchedule.t.name} ${ teacherSchedule.t.sirName}</h2>
  <a href="/student/list?teacherId=${teacherSchedule.t.id}">students</a>
  <p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>
- 
+  <p> number Cars: ${teacherSchedule.numberOfCars}</p>
 
 <p>
    <div id="canvas-holder" style="width:50%">
