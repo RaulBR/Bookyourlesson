@@ -31,6 +31,18 @@ public class StudentSchedulesStatisticService {
 
 		return sorted;
 	}
+	public StudentStatisticalContainer howBusys(long studentId) {
+		StudentStatisticalContainer sorted = new StudentStatisticalContainer();
+		sorted.setT(studentDao.findById( studentId));
+		sorted.setTotal(studentId);
+		sorted.setDone(dao.coutStudentStatus("done", studentId));
+		sorted.setAbsent(dao.coutStudentStatus("absent", studentId));
+		sorted.setPending(dao.coutStudentStatus("pending", studentId));
+		sorted.setBooked(dao.coutStudentStatus("booked", studentId));
+		
+
+		return sorted;
+	}
 
 	public Collection<StudentStatisticalContainer> howBusy(int week) {
 		List<StudentStatisticalContainer> sorted = getBruteList(week);
