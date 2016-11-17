@@ -5,7 +5,7 @@
   <head>
    <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<title>bydl</title>
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <link href="/css/style.css" rel="stylesheet">
@@ -44,6 +44,9 @@
    	[#if permision??]
    	<th>Hire date</th>
    	<th>CNP</th>
+   	<th>Schedule status</th>
+   	<th></th>
+   	<th></th>
    	
    	[/#if]
 	 	  	 [#assign nr = 0]
@@ -51,7 +54,6 @@
 	  		[#list teachers as teacher]
 	  			 [#assign nr = nr +1 ]	
 	  		  <tr>		
-
 	  				<td > ${nr}  </td>		
 	  		<td > 		${teacher.name}   </td>
 	  		<td >	 ${teacher.sirName} </td>
@@ -61,7 +63,12 @@
 	  				[#if permision??]
 	  		<td >	 ${teacher.hireDate} </td>
 	  		<td >	 ${teacher.cnp} </td>
-	  		
+	  			<td >
+	  			 <form name="form1" action="/statistics/teacher" method="POST">
+	  				 <input type="hidden" name="teacherId" value="${teacher.id}">
+	  			<button  type="submit" class="btn btn-info" value="${teacher.id}"> :)</button>
+	  		</form>
+	  		</td>
 	  		<td >
 	  			 <form name="form1" action="/teacher/edit" method="POST">
 	  				 <input type="hidden" name="id" value="${teacher.id}">
@@ -75,7 +82,6 @@
 	  		</form>
 	  			</td>
 	  			[/#if]
-
 	  	
 	  		
 	  		
