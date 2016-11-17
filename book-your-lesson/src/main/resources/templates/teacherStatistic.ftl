@@ -35,7 +35,7 @@
       transform: translate(-50%, 0);
     }
 
-    .chartjs-tooltip-key {
+    .chartjs-tooltip-t {
       display: inline-block;
       width: 10px;
       height: 10px;
@@ -54,157 +54,19 @@
   		</div>
   	</div>
 	</nav>
-	 [#if teacherSchedules??]
+	 [#if teacherSchedule??]
  <h1>Teachers </h1>
+ ${ teacherSchedulet.name} ${ teacherSchedule.t.sirName}
+ 
+
+
+
+
+ <h2><a href="/statistics">Teachers</a></h2>
  
  
 
-
- <h2>Week:[#if week??]${week}[/#if]</h2>
- [#list  teacherSchedules as key]
  
- 
- <ng ng-app="test">
-<div class="container" ng-controller="Ctrl">
- <h2><a href="/statistics/teacher?${key.t.id}">${key.t.name} ${key.t.sirName}</a></h2>
- 
-  
-  
-  <hr>
-  </th>
-  <div class="row">
-   
-    <div class="progress vertical" >
-    
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${key.total}" style="width:${key.total}%">
-    ${key.total}
-  </div>
-</div>
-
- <div class="progress " >
-    
-  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${key.total}" style="width:${key.done}%">
-    ${key.done}
-  </div>
-</div>
-
- <div class="progress" >
-    
-  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${key.total}" style="width:${key.booked}%">
-    ${key.booked}
-  </div>
-</div>
-<div class="progress" >
-    
-  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax="${key.total}" style="width:${key.pending}%">
-    ${key.pending}
-  </div>
-</div>
-
- <div class="progress" >
-    
-  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
-  aria-valuemin="0" aria-valuemax=${key.total}" style="width:${key.absent}%">
-    ${key.absent}
-  </div>
-</div>
-    
-  
-  </div>
-  
-  
-</div>
-</ng>  
- [/#list]
- [/#if]
- [#if teacherSchedule??]
-
- <h2>Teacher: ${teacherSchedule.t.name} ${teacherSchedule.t.sirName}</h2>
- 
- <ng ng-app="test">
-	<div class="container" ng-controller="Ctrl">
-
- 	 
-  
-  
-  <hr>
- 	 </th>
-  		<div class="row">
-  		 [#if teacherSchedule.total==0][#else]
-   			 Total number of lessons
-    		<div class="progress vertical" >
-   
- 				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
-  				aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.total}%">
-   				 ${teacherSchedule.total}
-  				</div>
-		</div>
-
-
- 		[/#if]
-	 [#if teacherSchedule.done==0][#else]
- 		Done
- 			<div class="progress " >
-   
- 				 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow=""
-  					aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.done}%">
-   					 ${teacherSchedule.done}
- 				</div>
-  
-			</div>
-			
-	[/#if]
-
-	[#if teacherSchedule.booked==0][#else]
- 		Bookend
- 			<div class="progress" >
-   
-  				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
-  				aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.booked}%">
-   				 ${teacherSchedule.booked}
-  				</div>
-		</div>
-	[/#if]
-	
-	[#if teacherSchedule.pending==0][#else]
-		Pending
-		<div class="progress" >
-   
- 			 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow=""
-  			aria-valuemin="0" aria-valuemax="${teacherSchedule.total}" style="width:${teacherSchedule.pending}%">
-   			 ${teacherSchedule.pending}
-			  </div>
-		</div>
-	[/#if]
-	
-	[#if teacherSchedule.absent==0][#else]
- 	Absent student
- 		<div class="progress" >
-   
-  			<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
-  				aria-valuemin="0" aria-valuemax=${teacherSchedule.total}" style="width:${teacherSchedule.absent}%">
-    			${teacherSchedule.absent}	
-			</div>
-		</div>
-    [/#if]
-
-  
-  </div>
-  
-</div>
-</ng>  
-<p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>
- [/#if]
- [#if teacherSchedules??]
- [#list  teacherSchedules as key]
-<p>
-   <div id="canvas-holder" style="width:50%">
-        <canvas id="chart-area" />
-    </div>
    
     <script>
   
@@ -218,11 +80,11 @@
             datasets: [{
                 data: [
                 
-                    ${key.done},
-                    ${key.absent},
-                    ${key.pending},
-                    ${key.booked},
-                    ${key.done},
+                    ${ teacherSchedule.t.done},
+                    ${ teacherSchedule.t.absent},
+                    ${ teacherSchedule.t.pending},
+                    ${ teacherSchedule.t.booked},
+                    ${ teacherSchedule.t.done},
                 ],
                 backgroundColor: [
                     "#F7464A",
@@ -248,7 +110,7 @@
             },
             title: {
                 display: true,
-                text: ' ${key.t.name} ${key.t.sirName}'
+                text: ' '
             },
             animation: {
                 animateScale: true,
@@ -322,7 +184,7 @@
     });
     </script>
     </p>
-[/#list]
+
  [/#if]
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

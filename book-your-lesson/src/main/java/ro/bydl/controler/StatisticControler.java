@@ -34,7 +34,7 @@ public class StatisticControler {
 	@RequestMapping("/teacher")
 	public ModelAndView StudentStatistics(HttpSession sesion, long teacherId){
 	//	int week= (int) sesion.getAttribute("week");
-		ModelAndView result=new ModelAndView("teacherStatistics");
+		ModelAndView result=new ModelAndView("teacherStatistic");
 		
 			
 		
