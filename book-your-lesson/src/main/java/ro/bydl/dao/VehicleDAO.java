@@ -15,4 +15,6 @@ public interface VehicleDAO extends BaseDao<Vehicle> {
 
 	Vehicle findbyLicencePlate(String licensePlate);
 
+	long countByteacherId(long teahcerId);
+
 }

@@ -110,6 +110,14 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 		}
 	}
 
+	@Override
+	public long countByteacherId(long teahcerId) {
+		return jdbcTeamplate.queryForObject(
+				"SELECT count(*) " + "id " + "FROM public.vehicle WHERE vehicle.teacher_id=? ;",
+				new Object[] { teahcerId}, Long.class);
+		
+	}
+
 }
 
 	
