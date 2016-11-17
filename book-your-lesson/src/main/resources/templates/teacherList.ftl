@@ -51,7 +51,7 @@
 	  		[#list teachers as teacher]
 	  			 [#assign nr = nr +1 ]	
 	  		  <tr>		
-<<<<<<< HEAD:book-your-lesson/src/main/resources/templates/teacherList.ftl
+
 	  				<td > ${nr}  </td>		
 	  		<td > 		${teacher.name}   </td>
 	  		<td >	 ${teacher.sirName} </td>
@@ -75,14 +75,7 @@
 	  		</form>
 	  			</td>
 	  			[/#if]
-=======
-	  				<td > ${nr} </h3>  </td>		
-	  		<td > 		${teacher.name} </h3>  </td>
-	  		<td >	 ${teacher.sirName}</h3>  </td>
-	  		<td >	<a class="btn btn-primary" href="/cars?teacherId=${teacher.id}" role="button"> Cars </a>
-	  		<td >	 ${teacher.category}</h3>  </td>		
-	  			
->>>>>>> heroku:book-your-lesson/src/main/resources/templates/instructors.ftl
+
 	  	
 	  		
 	  		
