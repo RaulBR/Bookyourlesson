@@ -68,9 +68,9 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public Collection<Schedule> searchByWeek(int week) {
+	public Collection<Schedule> searchByWeek(long week) {
 		return jdbcTemplate.query("SELECT week, start_hour, end_hour, date, id, student_id, teacher_id, status "
-				+ "FROM public.schedule WHERE week=?", new Integer[] { week }, new ScheduleMapper());
+				+ "FROM public.schedule WHERE week=?", new Long[] { week }, new ScheduleMapper());
 	}
 
 	@Override

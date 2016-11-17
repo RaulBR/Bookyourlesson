@@ -31,9 +31,20 @@ public class StudentSchedulesStatisticService {
 
 		return sorted;
 	}
+	public StudentStatisticalContainer howBusys(long studentId) {
+		StudentStatisticalContainer sorted = new StudentStatisticalContainer();
+		sorted.setT(studentDao.findById( studentId));
+		sorted.setTotal(studentId);
+		sorted.setDone(dao.coutStudentStatus("done", studentId));
+		sorted.setAbsent(dao.coutStudentStatus("absent", studentId));
+		sorted.setPending(dao.coutStudentStatus("pending", studentId));
+		sorted.setBooked(dao.coutStudentStatus("booked", studentId));
+		
 
-	public Collection<StudentStatisticalContainer> howBusy(int week) {
-		List<StudentStatisticalContainer> sorted = getBruteList(week);
+		return sorted;
+	}
+	public Collection<StudentStatisticalContainer> howBusy(long studentId) {
+		List<StudentStatisticalContainer> sorted = getBruteList(studentId);
 
 		Collections.sort(sorted);
 
@@ -61,10 +72,10 @@ public class StudentSchedulesStatisticService {
 		return sorted;
 	}
 
-	private List<StudentStatisticalContainer> getBruteList(int week) {
+	private List<StudentStatisticalContainer> getBruteList(long studentId) {
 		List<StudentStatisticalContainer> sorted = new LinkedList<>();
 
-		for (Map.Entry<Long, Integer> student : scheduleCount(dao.searchByWeek(week)).entrySet()) {
+		for (Map.Entry<Long, Integer> student : scheduleCount(dao.searchByStudentId(studentId)).entrySet()) {
 
 			Student tec = studentDao.findById(student.getKey());
 			StudentStatisticalContainer statistic = new StudentStatisticalContainer();

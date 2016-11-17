@@ -65,7 +65,7 @@
 	  		<td >	 ${student.cnp} </td>
 	  		<td >
 	  			 <form name="form1" action="/statistics/student" method="POST">
-	  				 <input type="hidden" name="id" value="${student.id}">
+	  				 <input type="hidden" name="studentId" value="${student.id}">
 	  			<button  type="submit" class="btn btn-info" value="${student.id}">Situation</button>
 	  		</form>
 	  		</td>

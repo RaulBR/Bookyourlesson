@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ro.bydl.domain.Student;
 import ro.bydl.service.statistics.StudentSchedulesStatisticService;
 import ro.bydl.service.statistics.TeacherScheduleStatisticsService;
 @Controller
@@ -45,13 +46,13 @@ public class StatisticControler {
 		
 	}
 	@RequestMapping("/student")
-	public ModelAndView StudentStatistics(HttpSession sesion, long teacherId ,long studentId){
+	public ModelAndView studentStatistics(HttpSession sesion, long studentId){
 	//	int week= (int) sesion.getAttribute("week");
 		ModelAndView result=new ModelAndView("teacherStatistic");
 		
 			
 		
-		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId,studentId));
+		result.addObject("teacherSchedule", studentStatisticService.howBusys(studentId));
 		
 		return result;
 		

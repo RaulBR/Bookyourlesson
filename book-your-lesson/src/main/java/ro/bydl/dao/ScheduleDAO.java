@@ -10,7 +10,7 @@ import ro.bydl.domain.Schedule;
  */
 public interface ScheduleDAO extends BaseDao<Schedule> {
 
-	Collection<Schedule> searchByWeek(int week);
+	Collection<Schedule> searchByWeek(long studentId);
 
 	Collection<Schedule> searchSchedules(int startHour, int endHour, String date);
 
