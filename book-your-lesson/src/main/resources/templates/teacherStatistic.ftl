@@ -58,8 +58,8 @@
  <h1> <a href="/statistics">Teachers</a> </h1>
 <h2> ${ teacherSchedule.t.name} ${ teacherSchedule.t.sirName}</h2>
  <a href="/student/list?teacherId=${teacherSchedule.t.id}">students</a>
- <p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>
-  <p> number Cars: ${teacherSchedule.numberOfCars}</p>
+[#if teacherSchedule.numberOfStudents??] <p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>[/#if]
+  [#if teacherSchedule.numberOfCars??]<p> number Cars: ${teacherSchedule.numberOfCars}</p>[/#if]
 
 <p>
    <div id="canvas-holder" style="width:50%">
