@@ -39,10 +39,8 @@
   <h1> Vehicle list</h1>
  
 	[#if permision??]
-
  	<p><a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a>
  	<a href="/vehicle/list"><input class="btn btn-info" role="button" value="LIST ALL VEHICLES" type="submit"  readonly></a></p>
-
  	[#else]
  	 <h4> [#if teacher??]Instructor:  ${teacher.name!''} ${teacher.sirName!''}
  		<p><a href="/register/student"><input class="btn btn-info" role="button" value="Register"   readonly></a></p>
