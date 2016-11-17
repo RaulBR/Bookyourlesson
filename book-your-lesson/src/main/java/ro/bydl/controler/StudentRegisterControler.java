@@ -91,7 +91,7 @@ public class StudentRegisterControler {
 
 	
 	@RequestMapping("/list")
-	public ModelAndView studentList(HttpSession session,long teacherId) throws Exception {
+	public ModelAndView studentList(HttpSession session,long teacherId)  {
 		String permison = ((User) session.getAttribute("user")).getPermision();
 		ModelAndView result = new ModelAndView("studentList");
 		result.addObject("permision", permison);
