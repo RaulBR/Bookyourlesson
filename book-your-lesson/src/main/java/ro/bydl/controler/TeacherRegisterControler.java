@@ -56,7 +56,7 @@ public class TeacherRegisterControler {
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping("/userSave")
+	(value = "/userSave", method = RequestMethod.POST)
 	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") Teacher teacher, BindingResult bindingResult,
 			HttpSession session) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView("teahcerForm");
