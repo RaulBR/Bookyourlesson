@@ -26,7 +26,7 @@
   		</div>
   	</div>
 	</nav>
-  <h1> Register Student </h1>
+  <h1> Register Teacher </h1>
  [#if errors??]
     <div>
         <ul>
@@ -39,7 +39,7 @@
         </ul>
     </div>
 [/#if]
-  <form action="/teacher/userSave" class="sexy-form"  method="POST" >
+  <form action="/teacher/userSave" class="sexy-form" method="post" >
   
 		[#if student??]
   			<input type="hidden" name="id" value="${teacher.id}" />
