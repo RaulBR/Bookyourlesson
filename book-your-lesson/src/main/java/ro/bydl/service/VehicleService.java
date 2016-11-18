@@ -171,10 +171,10 @@ public class VehicleService {
 	}
 
 	private String removeSpace(String done) {
-
-		done = done.replaceAll(" ", "");
-		done = done.toLowerCase();
-
+		if (done != null) {
+			done = done.replaceAll(" ", "");
+			done = done.toLowerCase();
+		}
 		return done;
 	}
 
