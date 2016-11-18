@@ -30,9 +30,9 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		  <a class="navbar-brand" class="logout" color="white" href="/register/student/list"> <font color="white"> Students</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/progress"> <font color="white"> Progress</font></a>
-  		  <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white"> Schedulet</font></a>
+  		  <a class="navbar-brand" class="logout" color="white" href="/student/list"> <font color="white"> Students</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/statistics"> <font color="white"> Situation</font></a>
+  		  <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white"> Schedule</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
   		</div>
   	</div>
