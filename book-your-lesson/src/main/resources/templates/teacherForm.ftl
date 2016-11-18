@@ -39,7 +39,7 @@
         </ul>
     </div>
 [/#if]
-  <form action="/teacher/userSave" class="sexy-form"  >
+  <form action="/teacher/userSave" class="sexy-form" method="post" >
   
 		[#if student??]
   			<input type="hidden" name="id" value="${student.id}" />
