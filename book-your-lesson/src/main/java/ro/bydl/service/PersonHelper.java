@@ -5,12 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.validation.ValidationException;
-
 import ro.bydl.domain.Person;
-
+/**
+ * This class is a person heper class
+ * @author Raul
+ *
+ */
 public class PersonHelper extends RegisternService  {
-
+/**
+ * method checks if cnp is of correct format 
+ * @param person
+ * @return true/false
+ */
 	public boolean isCnpCorectFormat(Person person) {
 	
 		return 	person.getCnp().matches("[+-]?\\d*(\\.\\d+)?");
@@ -50,14 +56,17 @@ public class PersonHelper extends RegisternService  {
 		try {
 			date = formatter.parse(stringDate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
+			
 		}
 		}
 		return date;
 
 	}
-
+/**
+ * This methon refines the person characteristics ie first,Last name format to type: Aaaa
+ * and it sets the birthday of the person
+ */
 	protected void refinePerson(Person person) {
 		person.setBirthDay(birthDay(person));
 		StringHelper stringHelper=new StringHelper();
@@ -65,7 +74,10 @@ public class PersonHelper extends RegisternService  {
 		person.setSirName(stringHelper.formatFirstToUpeerOtherToLowerCase(person.getSirName()));
 	}
 
-	
+	/**
+	 * this methods checks if the cnp is the right length
+	 * @return true/false
+	 */
 	public boolean isCnpRightLength(Person person) {
 		String cnp = person.getCnp();
 		if (cnp.length() < 12) {
@@ -75,6 +87,11 @@ public class PersonHelper extends RegisternService  {
 		}
 
 	}
+	/**
+	 * chehcs if fields of tipe person are empty 
+	 * @param person
+	 * @return
+	 */
 	public boolean isEmpty(Person person) {
 		if(person.getName().equals("")){
 			return true;

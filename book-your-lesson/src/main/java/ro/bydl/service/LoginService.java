@@ -13,7 +13,7 @@ import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;
 
 /**
- * This class checks the validity of users and passeords
+ * This class checks the validity of users and passwords
  * 
  * @author Raul
  *

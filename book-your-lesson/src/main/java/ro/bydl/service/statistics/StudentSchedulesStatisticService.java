@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.dao.StudentDAO;
-
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.service.statistics.containers.StudentStatisticalContainer;

@@ -11,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.ScheduleDAO;
+import ro.bydl.dao.StudentDAO;
 import ro.bydl.dao.TeacherDAO;
 import ro.bydl.dao.VehicleDAO;
-import ro.bydl.dao.StudentDAO;
 import ro.bydl.domain.Schedule;
-
 import ro.bydl.domain.Teacher;
-import ro.bydl.domain.Vehicle;
 import ro.bydl.service.statistics.containers.TeacherStatisticalContainer;
 
 @Service

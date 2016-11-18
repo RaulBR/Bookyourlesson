@@ -6,17 +6,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ro.bydl.StudentDAO;
 import ro.bydl.dao.UserDAO;
 import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;
-
+/**
+ * Service class for user registration
+ * @author Raul
+ *
+ */
 @Service
 public class RegisternService {
 
 	@Autowired
 	private UserDAO dao;
-
+/**
+ * This method checks if the imput user is unique 
+ * @param user
+ * @return
+ */
 	public boolean checkUserUnique(User user) {
 		try {
 			dao.getByUser(user.getUser());
@@ -26,7 +33,11 @@ public class RegisternService {
 		}
 
 	}
-
+/**
+ * Method adds users to the DB and checks validation
+ * @param user
+ * @throws ValidationException
+ */
 	public void addUser(User user) throws ValidationException {
 		
 		validateUser(user);
@@ -40,7 +51,11 @@ public class RegisternService {
 	user.setPass2(ps.hash(user.getPass2().toCharArray()));
 		return user;
 	}
-
+/**
+ * method validates user
+ * @param user
+ * @throws ValidationException
+ */
 	public void validateUser(User user) throws ValidationException {
 		List<String> errors = new LinkedList<String>();
 		if (isEmpty(user)) {

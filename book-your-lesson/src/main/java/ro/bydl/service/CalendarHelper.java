@@ -3,10 +3,19 @@ package ro.bydl.service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
+/**
+ * This class is a helper class for geting the days of the week giving a suritain week
+ * 
+ * @author Raul
+ *
+ */
 
 public class CalendarHelper{
-
+/**
+ * Method returns date for money
+ * @param week
+ * @return
+ */
 	public String monday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -15,7 +24,11 @@ public class CalendarHelper{
 		
 		return sdf.format(cal.getTime());
 	}
-
+	/**
+	 * Method returns date for tuesday
+	 * @param week
+	 * @return String
+	 */
 	public String tuesday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -24,7 +37,11 @@ public class CalendarHelper{
 
 		return (sdf.format(cal.getTime()));
 	}
-
+	/**
+	 * Method returns date for Wednesday
+	 * @param week
+	 * @return
+	 */
 	public String wednesday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -33,7 +50,11 @@ public class CalendarHelper{
 
 		return (sdf.format(cal.getTime()));
 	}
-
+	/**
+	 * Method returns date for Thursday
+	 * @param week
+	 * @return
+	 */
 	public String thursday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -42,6 +63,11 @@ public class CalendarHelper{
 
 		return (sdf.format(cal.getTime()));
 	}
+	/**
+	 * Method returns date for Friday
+	 * @param week
+	 * @return
+	 */
 	public String friday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -50,7 +76,11 @@ public class CalendarHelper{
 
 		return (sdf.format(cal.getTime()));
 	}
-
+	/**
+	 * Method returns date for Saturday
+	 * @param week
+	 * @return
+	 */
 	public String saturday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();
@@ -59,7 +89,11 @@ public class CalendarHelper{
 
 		return (sdf.format(cal.getTime()));
 	}
-
+	/**
+	 * Method returns date for Sunday of next week
+	 * @param week
+	 * @return
+	 */
 	public String sunday(int week) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar cal = Calendar.getInstance();

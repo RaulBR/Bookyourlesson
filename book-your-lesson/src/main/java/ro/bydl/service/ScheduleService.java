@@ -11,6 +11,12 @@ import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 import ro.bydl.exceptions.ValidationException;
 
+/**
+ * Service class for schedules
+ * 
+ * @author Raul
+ *
+ */
 @Service
 public class ScheduleService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleService.class);
@@ -19,34 +25,42 @@ public class ScheduleService {
 
 	ScheduleDAO dao;
 
+	/**
+	 * Returners an arrey of strings format type dd.MM.yyyy
+	 * 
+	 * @param week
+	 * @return String[] week days
+	 */
 	public String[] getDays(int week) {
 		CalendarHelper calHelp = new CalendarHelper();
 		return calHelp.getDays(week);
 	}
 
+	/**
+	 * validation method for type schedule (empty)
+	 * 
+	 * @param schedule
+	 * @throws ValidationException
+	 */
 	public void validate(Schedule schedule) throws ValidationException {
 
-		
-//	List errors= new LinkedList<>();
-//	if(isScheduleInThePast(schedule)){
-//		
-//		errors.add("you canot book lessons in the past :)");
-//	}
-
-		
 	}
 
-//	private boolean isScheduleInThePast(Schedule schedule) {
-//	Date date=new Date();
-//	
-//			return false;
-//	}
-
+	/**
+	 * method gets all schedules form the DB.
+	 * 
+	 * @return Collection<Schedule>
+	 */
 	public Collection<Schedule> getScheduels() {
 
 		return dao.getAll();
 	}
 
+	/**
+	 * Method adds schedules to the Db
+	 * 
+	 * @param schedule
+	 */
 	public void save(Schedule schedule) {
 
 		LOGGER.debug("Saving: " + schedule);
@@ -54,29 +68,55 @@ public class ScheduleService {
 
 	}
 
+	/**
+	 * Method delletss schedules to the Db
+	 * 
+	 * @param schedule
+	 */
 	public void delete(Schedule schedule) {
 		LOGGER.debug("Deleting: " + schedule);
 		dao.delete(schedule);
 
 	}
 
+	/**
+	 * Method returns number of schedules form db.
+	 * 
+	 * @param id
+	 * @return int
+	 */
 	public int countSchedules(long id) {
 
 		return (dao.searchByStudentId(id).size() * 100 / 30);
 
 	}
 
+	/**
+	 * method updates schedule
+	 * 
+	 * @param schedule
+	 */
 	public void update(Schedule schedule) {
 
-		 dao.update(schedule);
+		dao.update(schedule);
 
 	}
 
+	/**
+	 * returnes schedules based on theacher id
+	 * 
+	 * @param teahcerId
+	 * @return Collection<Schedule>
+	 */
 	public Collection<Schedule> searchByTeacherId(long teahcerId) {
 
 		return dao.searchByTeacherId(teahcerId);
 	}
-
+/**
+ * returns scheduled based on student id
+ * @param id
+ * @return Collection<Schedule>
+ */
 	public Collection<Schedule> searchByStudentId(int id) {
 
 		return dao.searchByStudentId(id);

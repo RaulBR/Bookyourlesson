@@ -9,41 +9,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.bydl.dao.StudentDAO;
-import ro.bydl.dao.UserDAO;
-import ro.bydl.domain.Person;
 import ro.bydl.domain.Student;
-import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;
 
+/**
+ * Service class for students
+ * 
+ * @author Raul
+ *
+ */
 @Service
 public class StudentService extends PersonHelper {
 
 	@Autowired
 	private StudentDAO dao;
 
-
+	/**
+	 * this method adds a student to the database (via validation) *
+	 * <p>
+	 * Validates:
+	 * </p>
+	 * <ul>
+	 * <li>if fields are empty</li>
+	 * <li>if cnp is of correct length</li>
+	 * <li>if email is used</li>
+	 * <li>if user is used</li>
+	 * <li>if passwords match</li>
+	 * </ul>
+	 * 
+	 * @param student
+	 * @throws ValidationException
+	 */
 	public void addStudent(Student student) throws ValidationException {
-		
+
 		refinePerson(student);
-		System.out.println(student.getId());
+
 		if (student.getId() == 0) {
-			
+
 			setRegistrationDate(student);
 			validateUser(student);
+			validateStudent(student);
 			student.setStudentId(dao.insert(student));
 			student.setPermision("student");
 			addUser(student);
 
 		} else {
-			
+
 			student.setRegistrationDate(dao.findById(student.getId()).getRegistrationDate());
 			student.setCnp(student.getCnp());
 			dao.update(student);
-			
+
 		}
-		
-		
-		
 
 	}
 
@@ -58,32 +74,30 @@ public class StudentService extends PersonHelper {
 		}
 		if (cnpExists(student)) {
 			errors.add("data already exists");
-		}if(find(student.getEmail())>0){
+		}
+		if (find(student.getEmail()) > 0) {
 			errors.add("email exists");
 		}
-		
+
 		if (isEmailUsed(student)) {
 			errors.add("email already exists");
 
 		}
-		if(isEmpty(student)){
+		if (isEmpty(student)) {
 			errors.add("complete necesar fields");
 		}
 
 		if (!errors.isEmpty()) {
 			throw new ValidationException(errors.toArray(new String[] {}));
 		}
-		
 
 	}
 
-	
-
 	private long find(String email) {
-		if(email.equals("")){
+		if (email.equals("")) {
 			return 0;
-		}else{
-		return dao.find(email);
+		} else {
+			return dao.find(email);
 		}
 	}
 
@@ -99,7 +113,7 @@ public class StudentService extends PersonHelper {
 	}
 
 	private boolean cnpExists(Student student) {
-		if(student.getCnp().isEmpty()){
+		if (student.getCnp().isEmpty()) {
 			return false;
 		}
 		try {
@@ -120,28 +134,48 @@ public class StudentService extends PersonHelper {
 		return student;
 	}
 
+	/**
+	 * this method returns all students form the db
+	 * 
+	 * @return Collection<Student>
+	 */
 	public Collection<Student> getAll() {
 
 		return dao.getAll();
 
 	}
 
+	/**
+	 * this method returners all students from the DB based on teacher id
+	 * 
+	 * @param id
+	 * @return Collection<Student>
+	 */
 	public Collection<Student> getByTeacherId(long id) {
 
 		return dao.getByTeacher(id);
 
 	}
 
+	/**
+	 * This method returners student based on student id
+	 * 
+	 * @param id
+	 * @return Student
+	 */
 	public Student findById(long id) {
 		return dao.findById(id);
 
 	}
 
+	/**
+	 * this method deletes a student based on id
+	 * 
+	 * @param student
+	 */
 	public void delete(Student student) {
 		dao.delete(student);
-		
+
 	}
-
-
 
 }

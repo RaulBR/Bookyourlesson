@@ -12,12 +12,36 @@ import ro.bydl.dao.VehicleDAO;
 import ro.bydl.domain.Vehicle;
 import ro.bydl.exceptions.ValidationException;
 
+/**
+ * Service class for vehicles
+ * 
+ * @author Raul
+ *
+ */
 @Service
 public class VehicleService {
 
 	@Autowired
 	private VehicleDAO dao;
 
+	/**
+	 * this method saves a vehicle to the DB via validation
+	 * <p>
+	 * Validates:
+	 * <p>
+	 * <ul>
+	 * <li>if chases is already in db</li>
+	 * <li>if chases has unneeded symbols</li>
+	 * <li>if license plate is of correct length and format</li>
+	 * <li>if license plate already exists</li>
+	 * <li>if ITP is valid</li>
+	 * <li>if insurance is valid</li>
+	 * <li>if viniet is valid</li>
+	 * </ul>
+	 * 
+	 * @param vehicle
+	 * @throws ValidationException
+	 */
 	public void save(Vehicle vehicle) throws ValidationException {
 
 		refineVehicleContent(vehicle);
