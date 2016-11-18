@@ -61,6 +61,7 @@
 [#if teacherSchedule.numberOfStudents??] <p> number of enlisted students: ${teacherSchedule.numberOfStudents}</p>[/#if]
   [#if teacherSchedule.numberOfCars??]<p> number Cars: ${teacherSchedule.numberOfCars}</p>[/#if]
 
+
 <p>
    <div id="canvas-holder" style="width:50%">
         <canvas id="chart-area" />

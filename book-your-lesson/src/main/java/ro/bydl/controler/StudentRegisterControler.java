@@ -87,11 +87,11 @@ public class StudentRegisterControler {
 	}
 
 	@RequestMapping("/list")
-	public ModelAndView studentList(HttpSession session, long teacherId) {
+	public ModelAndView studentList(HttpSession session, Student s) {
 		String permison = ((User) session.getAttribute("user")).getPermision();
 		ModelAndView result = new ModelAndView("studentList");
-		if (teacherId > 0) {
-			result.addObject("students", studentService.getByTeacherId(teacherId));
+		if (s.getTeacherId() > 0) {
+			result.addObject("students", studentService.getByTeacherId(s.getTeacherId()));
 			
 		} else {
 			
