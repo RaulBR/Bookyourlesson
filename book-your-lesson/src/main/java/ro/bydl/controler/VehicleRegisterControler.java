@@ -15,7 +15,6 @@ import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
 import ro.bydl.domain.Vehicle;
 import ro.bydl.exceptions.ValidationException;
-import ro.bydl.service.RegisternService;
 import ro.bydl.service.TeacherService;
 import ro.bydl.service.VehicleService;
 
