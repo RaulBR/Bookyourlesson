@@ -6,7 +6,7 @@
   <head>
    <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<title>bydl</title>
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <link href="/css/style.css" rel="stylesheet">
@@ -27,7 +27,7 @@
   		</div>
   	</div>
 	</nav>
-  <h1> Register teacher </h1>
+  <h1> Register Teacher </h1>
  [#if errors??]
     <div>
         <ul>
@@ -70,37 +70,29 @@
     <label for="text">Phone Number</label>
     <input type="text" class="form-control" name="phoneNumber"  [#if teacher??]value="${teacher.phoneNumber}"[/#if]>
   </div>
-     [#if teachers??]
-        <div class="form-group">
-    <label for="text">Teacher</label> 
-    <select name="teacherId"  class="form-control">
-  [#list teachers as teacher]
-    <option value="${teacher.id!''}">${teacher.sirName!''} ${teacher.name!''}</option>
-  
-      [/#list]
-  </select>
-     </div>
-        [/#if]
+ 
+     
   
    <div class="form-group">
     <label for="text">category</label>
   
    
-    <select name="Category"  class="form-control" value=" [#if teacher??]${teacher.category}[/#if]">
-     	<option value="B">Category <b>B</b></option>
-    	<option value="A">Category <b>A</b></option>
-   		<option value="C">Category <b>C</b></option>
+    <select name="Category"  class="form-control">
+    <option value="B">Category <b>B</b></option>
+    <option value="A">Category <b>A</b></option>
+    <option value="C">Category <b>C</b></option>
   </select>
   </div>
   
    <div class="form-group">
     <label for="text">Medical Papers</label>  
-    <select name="medDate"  class="form-control" value=" [#if teacher??]${teacher.medDate}[/#if]">
+    <select name="medDate"  class="form-control" [#if teacher??]value="${teacher.medDate}"[/#if]>
     <option value="true"> <b>Yes</b></option>
     <option value="false"> <b>No</b></option>
    
   </select>
   </div>
+ [#if edit??][#else]
   
  	<div class="form-group" >
     <label for="text">User</label>
@@ -115,7 +107,8 @@
     <label for="text">Repede Password</label>
     <input type="password" class="form-control" name="pass2">
   </div>
-
+[/#if]
+ 
   <input class="btn btn-success" role="button" type="submit" value="Submit" >
 </form>
 
@@ -129,4 +122,5 @@
   </body>
 </html>
 [/#escape]
+
 

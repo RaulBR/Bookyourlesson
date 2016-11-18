@@ -80,6 +80,7 @@ public class StudentRegisterControler {
 			hasErros = true;
 		}
 		if (hasErros) {
+			
 			modelAndView = new ModelAndView("studentForm");
 			modelAndView.addObject("teachers", teacherService.getAll());
 			modelAndView.addObject("student", student);
