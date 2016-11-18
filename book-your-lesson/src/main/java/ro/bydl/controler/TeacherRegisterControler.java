@@ -56,36 +56,37 @@ public class TeacherRegisterControler {
 	 * @return
 	 * @throws ParseException
 	 */
+	
+
 	@RequestMapping(value = "/userSave", method = RequestMethod.POST)
-	public ModelAndView saveTeacher(@Valid @ModelAttribute("user") Teacher teacher, BindingResult bindingResult,
-			HttpSession session) throws ParseException {
-		ModelAndView modelAndView = new ModelAndView("teahcerForm");
+	public ModelAndView save(@Valid @ModelAttribute("user")  Teacher teacher, BindingResult bindingResult,
+			HttpSession session)  {
+		ModelAndView modelAndView = new ModelAndView("");
 
 		boolean hasErros = false;
-
 		if (!bindingResult.hasErrors()) {
-
 			try {
-
+				
 				teacherService.addTeacher(teacher);
-
-				modelAndView.setView(new RedirectView(""));
-
+				
+				
+				modelAndView.setViewName("");
+				
 			} catch (ValidationException ex) {
+				
 				for (String err : ex.getCauses()) {
-					bindingResult.addError(new ObjectError("teahcer", err));
+					bindingResult.addError(new ObjectError("teacher", err));
 				}
 				hasErros = true;
 			}
-
 		} else {
 			hasErros = true;
 		}
 		if (hasErros) {
-			modelAndView = new ModelAndView("teahcerForm");
-
+			
+			modelAndView = new ModelAndView("teacherForm");
+			
 			modelAndView.addObject("teacher", teacher);
-			// modelAndView.addObject("user", user);
 			modelAndView.addObject("errors", bindingResult.getAllErrors());
 		}
 

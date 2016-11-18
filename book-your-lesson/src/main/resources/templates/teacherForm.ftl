@@ -42,7 +42,7 @@
   <form action="/teacher/userSave" class="sexy-form"  method="POST" >
   
 		[#if student??]
-  			<input type="hidden" name="id" value="${student.id}" />
+  			<input type="hidden" name="id" value="${teacher.id}" />
   		[/#if]
   
 
