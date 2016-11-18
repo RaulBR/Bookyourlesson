@@ -2,31 +2,44 @@ package ro.bydl;
 
 import java.util.Collection;
 
+import ro.bydl.dao.ScheduleDAO;
 import ro.bydl.domain.Schedule;
 
 
 public class IMScheduleDAO implements ScheduleDAO {
-	//private Map<Long, Schedule> schedules = new HashMap<Long, Schedule>();
+
 	@Override
 	public Collection<Schedule> getAll() {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
-
-
-	
-	
+	@Override
+	public Schedule findById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
-	public long update(Schedule model) {
+	public long insert(Schedule model) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Collection<Schedule> searchByWeek(int week) {
+	public int delete(Schedule model) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void update(Schedule model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Collection<Schedule> searchByWeek(long studentId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -49,8 +62,6 @@ public class IMScheduleDAO implements ScheduleDAO {
 		return null;
 	}
 
-
-
 	@Override
 	public Collection<Schedule> searchByStudentId(long id, long teacherId) {
 		// TODO Auto-generated method stub
@@ -58,53 +69,50 @@ public class IMScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public int delete(Schedule model) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
-	@Override
-	public Schedule findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public long coutStudentStatus(String string, Long long1) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
-	@Override
-	public long coutTeacherStatus(String string, Long long1) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
-	@Override
 	public Collection<Schedule> selectDistinctTeacherId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
-
-
-
-
-
 	@Override
-	public long insert(Schedule model) {
+	public long coutStudentStatus(String status, long studentId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public long coutTeacherStatus(int week, String status, long techerId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long coutTeacherStatus(String status, long techerId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long coutTeacherStatus(String status, long techerId, long studentId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long coutStudentStatus(int week, String status, long studentId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int cuntByTeacherId(long teahcerId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	
+
 }
+	
+	

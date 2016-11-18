@@ -4,6 +4,8 @@ public class StringHelper {
 
 	public String formatFirstToUpeerOtherToLowerCase(String nameToDo) {
 		String name = "";
+		if(nameToDo!=null){
+		
 
 		String[] first = nameToDo.split("");
 
@@ -15,6 +17,9 @@ public class StringHelper {
 				name += s.toLowerCase();
 			}
 			count++;
+		}
+		}else{
+			name="";
 		}
 		return name;
 

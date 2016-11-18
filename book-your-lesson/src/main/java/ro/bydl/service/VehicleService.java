@@ -56,12 +56,13 @@ public class VehicleService {
 
 	}
 
-	private void refineVehicleContent(Vehicle vehicle) {
+	public void refineVehicleContent(Vehicle vehicle) {
 		StringHelper stringHelper = new StringHelper();
 		vehicle.setCarType(stringHelper.formatFirstToUpeerOtherToLowerCase(vehicle.getCarType()));
 		vehicle.setBrand(stringHelper.formatFirstToUpeerOtherToLowerCase(vehicle.getBrand()));
 
 		vehicle.setLicensePlate(removeSpace(vehicle.getLicensePlate()));
+		
 	}
 
 	private void validate(Vehicle vehicle) throws ValidationException {
@@ -79,20 +80,20 @@ public class VehicleService {
 		if (licencePlateIncorectLength(vehicle)) {
 			errors.add("licence is incorect lenght format is BM12MMM");
 		}
-		if (isLicenceIncrectFormat(vehicle)) {
+		if (isLicenceCrectFormat(vehicle)) {
 			errors.add("licence is incorect format is BM12MMM");
 
 		}
 		if (licencePlateExists(vehicle)) {
 			errors.add("Vehivle already enterd, licence plate exists ");
 		}
-		if (ItpInThePast(vehicle.getITP())) {
+		if (DareInThePast(vehicle.getITP())) {
 			errors.add("Itp is not valid ");
 		}
-		if (ItpInThePast(vehicle.getVignettes())) {
+		if (DareInThePast(vehicle.getVignettes())) {
 			errors.add("You need a valid viniet");
 		}
-		if (ItpInThePast(vehicle.getInsurance())) {
+		if (DareInThePast(vehicle.getInsurance())) {
 			errors.add("you need a valid insurance");
 		}
 		if (!errors.isEmpty()) {
@@ -101,14 +102,14 @@ public class VehicleService {
 
 	}
 
-	private boolean licencePlateIncorectLength(Vehicle vehicle) {
+	public boolean licencePlateIncorectLength(Vehicle vehicle) {
 		if (vehicle.getLicensePlate().length() > 8 || vehicle.getLicensePlate().length() < 6) {
 			return true;
 		}
 		return false;
 	}
 
-	private boolean isLicenceIncrectFormat(Vehicle vehicle) {
+	public boolean isLicenceCrectFormat(Vehicle vehicle) {
 		String[] e = vehicle.getLicensePlate().split("");
 		String[] countys = { "AB", "AR", "AG", "BC", "BH", "BN", "BT", "BV", "BR", "BZ", "CS", "CL", "CJ", "CT", "CV",
 				"DB", "DJ", "GL", "GR", "GJ", "HR", "HD", "IL", "IS", "IF", "MM", "MH", "MS", "NT", "OT", "PH", "SM",
@@ -161,7 +162,7 @@ public class VehicleService {
 		return true;
 	}
 
-	private boolean ItpInThePast(Date date) {
+	public boolean DareInThePast(Date date) {
 		Date vehilceDate = null;
 
 		Date todat = new Date();
@@ -176,7 +177,7 @@ public class VehicleService {
 		}
 	}
 
-	private boolean licencePlateExists(Vehicle vehicle) {
+	public boolean licencePlateExists(Vehicle vehicle) {
 		try {
 			dao.findbyLicencePlate(vehicle.getLicensePlate());
 			return true;
@@ -185,7 +186,7 @@ public class VehicleService {
 		}
 	}
 
-	private boolean chassisExists(Vehicle vehicle) {
+	public boolean chassisExists(Vehicle vehicle) {
 		try {
 			dao.findByChassis(vehicle.getChassis());
 			return true;
@@ -194,11 +195,11 @@ public class VehicleService {
 		}
 	}
 
-	private String removeSpace(String done) {
-
+	public String removeSpace(String done) {
+		if(done!=null){
 		done = done.replaceAll(" ", "");
 		done = done.toLowerCase();
-
+		}
 		return done;
 	}
 

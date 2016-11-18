@@ -11,15 +11,15 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import ro.bydl.domain.Student;
+import ro.bydl.domain.Teacher;
 
-public class StudentServiceTest {
+public class TeacherServiceTest {
 
 	@Test
 	public void dateTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("1880511240011");
-		StudentService studentService = new StudentService();
+		TeacherService studentService = new TeacherService();
 		DateFormat formatter;
 		Date date = null;
 		formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -33,61 +33,61 @@ public class StudentServiceTest {
 
 	@Test
 	public void CnpRightLenghtFalseTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("18845654");
 		;
-		StudentService studentService = new StudentService();
+		TeacherService studentService = new TeacherService();
 		assertFalse(studentService.isCnpRightLength(student));
 	}
 
 	@Test
 	public void CnpRightLenghtTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("1880511240011");
-		StudentService studentService = new StudentService();
+		TeacherService studentService = new TeacherService();
 		assertTrue(studentService.isCnpRightLength(student));
 	}
 	@Test
 	public void cnpFormatTrueTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("1880511240011");
 				
-		assertTrue(new StudentService().isCnpCorectFormat(student));
+		assertTrue(new TeacherService().isCnpCorectFormat(student));
 	}
 	@Test
 	public void cnpFormatFalseTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("188123d1240011");
 				
-		assertFalse(new StudentService().isCnpCorectFormat(student));
+		assertFalse(new TeacherService().isCnpCorectFormat(student));
 	}
 	@Test
 	public void cnpFormatFalse2Test() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("188123 1240011");
 				
-		assertFalse(new StudentService().isCnpCorectFormat(student));
+		assertFalse(new TeacherService().isCnpCorectFormat(student));
 	}
 	@Test
 	public void cnpFormatFalse3Test() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("188123-1240011");
 				
-		assertFalse(new StudentService().isCnpCorectFormat(student));
+		assertFalse(new TeacherService().isCnpCorectFormat(student));
 	}
 	@Test
 	public void cnplengthTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("18812301240011");
 				
-		assertTrue(new StudentService().isCnpRightLength(student));
+		assertTrue(new TeacherService().isCnpRightLength(student));
 	}
 	@Test
 	public void cnplengthTwoTest() {
-		Student student = new Student();
+		Teacher student = new Teacher();
 		student.setCnp("18011");
 				
-		assertFalse(new StudentService().isCnpRightLength(student));
+		assertFalse(new TeacherService().isCnpRightLength(student));
 	}
 	
 }
