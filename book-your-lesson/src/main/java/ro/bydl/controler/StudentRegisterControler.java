@@ -92,11 +92,11 @@ public class StudentRegisterControler {
 		ModelAndView result = new ModelAndView("studentList");
 		if (s.getTeacherId() > 0) {
 			result.addObject("students", studentService.getByTeacherId(s.getTeacherId()));
-			
+
 		} else {
-			
+
 			result.addObject("students", studentService.getAll());
-			
+
 		}
 		result.addObject("permision", permison);
 		return result;

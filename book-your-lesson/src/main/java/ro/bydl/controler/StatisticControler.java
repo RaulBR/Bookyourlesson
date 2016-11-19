@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ro.bydl.service.statistics.StudentSchedulesStatisticService;
 import ro.bydl.service.statistics.TeacherScheduleStatisticsService;
+
 @Controller
 @RequestMapping("statistics")
 public class StatisticControler {
@@ -16,47 +17,38 @@ public class StatisticControler {
 	TeacherScheduleStatisticsService teacherStatisticService;
 	@Autowired
 	StudentSchedulesStatisticService studentStatisticService;
-	
-	
+
 	@RequestMapping("")
-	public ModelAndView TeacherStatistics(HttpSession sesion){
-	//	int week= (int) sesion.getAttribute("week");
-		ModelAndView result=new ModelAndView("teacherStatistics");
-		
-			
-		
+	public ModelAndView TeacherStatistics(HttpSession sesion) {
+
+		ModelAndView result = new ModelAndView("teacherStatistics");
+
 		result.addObject("teacherSchedules", teacherStatisticService.howBusy());
-		
+
 		return result;
-		
-		
-	}
-	@RequestMapping("/teacher")
-	public ModelAndView teacherStatistics(HttpSession sesion, long teacherId){
-	//	int week= (int) sesion.getAttribute("week");
-		ModelAndView result=new ModelAndView("teacherStatistic");
-		
-			
-		
-		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId));
-		
-		return result;
-		
-		
-	}
-	@RequestMapping("/student")
-	public ModelAndView StudentStatistics(HttpSession sesion ,long studentId){
-	//	int week= (int) sesion.getAttribute("week");
-		ModelAndView result=new ModelAndView("teacherStatistic");
-		
-			
-		
-		result.addObject("teacherSchedule", studentStatisticService.howBusys(studentId));
-		
-		return result;
-		
-		
+
 	}
 
+	@RequestMapping("/teacher")
+	public ModelAndView teacherStatistics(HttpSession sesion, long teacherId) {
+
+		ModelAndView result = new ModelAndView("teacherStatistic");
+
+		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId));
+
+		return result;
+
+	}
+
+	@RequestMapping("/student")
+	public ModelAndView StudentStatistics(HttpSession sesion, long studentId) {
+
+		ModelAndView result = new ModelAndView("teacherStatistic");
+
+		result.addObject("teacherSchedule", studentStatisticService.howBusys(studentId));
+
+		return result;
+
+	}
 
 }

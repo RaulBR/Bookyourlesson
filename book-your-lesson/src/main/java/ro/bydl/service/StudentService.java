@@ -18,13 +18,12 @@ public class StudentService extends PersonHelper {
 	@Autowired
 	private StudentDAO dao;
 
-
 	public void addStudent(Student student) throws ValidationException {
-		
+
 		refinePerson(student);
-		System.out.println(student.getId());
+
 		if (student.getId() == 0) {
-			
+
 			setRegistrationDate(student);
 			validateUser(student);
 			student.setStudentId(dao.insert(student));
@@ -32,15 +31,12 @@ public class StudentService extends PersonHelper {
 			addUser(student);
 
 		} else {
-			
+
 			student.setRegistrationDate(dao.findById(student.getId()).getRegistrationDate());
 			student.setCnp(student.getCnp());
 			dao.update(student);
-			
+
 		}
-		
-		
-		
 
 	}
 
@@ -56,32 +52,30 @@ public class StudentService extends PersonHelper {
 		}
 		if (cnpExists(student)) {
 			errors.add("data already exists");
-		}if(find(student.getEmail())>0){
+		}
+		if (find(student.getEmail()) > 0) {
 			errors.add("email exists");
 		}
-		
+
 		if (isEmailUsed(student)) {
 			errors.add("email already exists");
 
 		}
-		if(isEmpty(student)){
+		if (isEmpty(student)) {
 			errors.add("complete necesar fields");
 		}
 
 		if (!errors.isEmpty()) {
 			throw new ValidationException(errors.toArray(new String[] {}));
 		}
-		
 
 	}
 
-	
-
 	private long find(String email) {
-		if(email.equals("")){
+		if (email.equals("")) {
 			return 0;
-		}else{
-		return dao.find(email);
+		} else {
+			return dao.find(email);
 		}
 	}
 
@@ -97,7 +91,7 @@ public class StudentService extends PersonHelper {
 	}
 
 	private boolean cnpExists(Student student) {
-		if(student.getCnp().isEmpty()){
+		if (student.getCnp().isEmpty()) {
 			return false;
 		}
 		try {
@@ -137,9 +131,7 @@ public class StudentService extends PersonHelper {
 
 	public void delete(Student student) {
 		dao.delete(student);
-		
+
 	}
-
-
 
 }
