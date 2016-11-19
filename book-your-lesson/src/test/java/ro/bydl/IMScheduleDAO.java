@@ -27,9 +27,9 @@ public class IMScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public int delete(Schedule model) {
+	public void delete(Schedule model) {
 		// TODO Auto-generated method stub
-		return 0;
+	
 	}
 
 	@Override

@@ -51,8 +51,8 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public int delete(Schedule schedule) {
-		return jdbcTemplate.update("DELETE FROM public.schedule " + "WHERE id=?", schedule.getId());
+	public void delete(Schedule schedule) {
+		 jdbcTemplate.update("DELETE FROM public.schedule " + "WHERE id=?", schedule.getId());
 	}
 
 	@Override

@@ -88,9 +88,8 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	}
 
 	@Override
-	public int delete(Teacher model) {
-
-		return jdbcTeamplate.update("DELETE FROM public.teachers " + "WHERE id=?;", model.getId());
+	public void delete(Teacher model) {
+ jdbcTeamplate.update("DELETE FROM public.teachers " + "WHERE id=?;", model.getId());
 
 	}
 

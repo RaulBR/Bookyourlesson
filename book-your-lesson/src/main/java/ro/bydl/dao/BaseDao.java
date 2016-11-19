@@ -19,7 +19,7 @@ public interface BaseDao<T extends AbstractModel> {
 	
 	long insert(T model);
 	
-	int delete(T model);
+	void delete(T model);
 
 	void update(T model);
 
