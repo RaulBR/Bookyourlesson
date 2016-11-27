@@ -1,7 +1,5 @@
 package ro.bydl.service;
 
-import org.junit.Test;
-
 public class ScheduleServiceTest {
 	
 	

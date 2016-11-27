@@ -4,42 +4,21 @@
 <html lang="en">
   <head>
    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<title>bydl</title>
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<link href="/css/style.css" rel="stylesheet">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>bydl</title>
+	<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link href="/css/style.css" rel="stylesheet">
+	<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     	<script type="text/javascript" src="./dist/Chart.bundle.js"></script>
   
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/dist/Chart.bundle.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
     <style>
-    #canvas-holder {
-        width: 100%;
-        margin-top: 50px;
-        text-align: center;
-    }
-    #chartjs-tooltip {
-      opacity: 1;
-      position: absolute;
-      background: rgba(0, 0, 0, .7);
-      color: white;
-      border-radius: 3px;
-      -webkit-transition: all .1s ease;
-      transition: all .1s ease;
-      pointer-events: none;
-      -webkit-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-    }
-
-    .chartjs-tooltip-t {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-    }
+    
     </style>
   </head>
   [#escape x as x?html]
@@ -68,9 +47,7 @@
    
     <script>
   
-    var randomColor = function(opacity) {
-        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
-    };
+  
 
     var config = {
         type: 'doughnut',
@@ -79,7 +56,7 @@
                 data: [
                 
                     ${teacherSchedule.done},
-                    ${ teacherSchedule.absent},
+                    ${teacherSchedule.absent},
                     ${teacherSchedule.pending},
                     ${teacherSchedule.booked},
                     ${teacherSchedule.done},
@@ -91,7 +68,7 @@
                     "#949FB1",
                     "#4D5360",
                 ],
-                label: 'Dataset 1'
+                label: 'Performace info'
             },],
             labels: [
                 "Done",

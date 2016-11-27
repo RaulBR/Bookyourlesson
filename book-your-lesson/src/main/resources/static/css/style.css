@@ -55,5 +55,27 @@ position: absolute;
   transition: height 0.6s ease;
 }
  
- 
+ #CANVAS-HOLDER {
+        WIDTH: 100%;
+        MARGIN-TOP: 50PX;
+        TEXT-ALIGN: CENTER;
+    }
+    #CHARTJS-TOOLTIP {
+      OPACITY: 1;
+      POSITION: ABSOLUTE;
+      BACKGROUND: RGBA(0, 0, 0, .7);
+      COLOR: WHITE;
+      BORDER-RADIUS: 3PX;
+      -WEBKIT-TRANSITION: ALL .1S EASE;
+      TRANSITION: ALL .1S EASE;
+      POINTER-EVENTS: NONE;
+      -WEBKIT-TRANSFORM: TRANSLATE(-50%, 0);
+      TRANSFORM: TRANSLATE(-50%, 0);
+    }
+
+    .CHARTJS-TOOLTIP-T {
+      DISPLAY: INLINE-BLOCK;
+      WIDTH: 10PX;
+      HEIGHT: 10PX;
+    }
  
