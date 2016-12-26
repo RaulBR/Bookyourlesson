@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -209,6 +210,20 @@ public class ScheduleControler {
 		modelAndView.setView(new RedirectView(""));
 
 		return modelAndView;
+
+	}
+	@RequestMapping(value="saveDated", method= RequestMethod.GET)
+	public @ResponseBody long search(HttpSession sesion, Schedule value) {
+		long v=scheduleService.save(value);
+		
+		return v;
+
+	}
+	@RequestMapping(value="remove", method= RequestMethod.GET)
+	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
+		long v=scheduleService.delete(value);
+	
+		return v;
 
 	}
 }
