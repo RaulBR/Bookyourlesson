@@ -228,7 +228,7 @@ System.err.println("aiciii");
 	@RequestMapping(value="remove", method= RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
 		long v=scheduleService.delete(value);
-		System.out.println(v);
+	
 		return v;
 
 	}
