@@ -205,7 +205,7 @@
 
 
 if($(currentForm).find('input[name="btn"]').val()=="Book Lesson"){
-$.getJSON("saveDated", $(currentForm).serialize() ,
+$.getJSON("schedule/saveDated", $(currentForm).serialize() ,
   function(data){
   if(data!=null){
   $(currentButton).html("");
@@ -225,7 +225,7 @@ $.getJSON("saveDated", $(currentForm).serialize() ,
 
 		else if($(currentForm).find('input[name="btn"]').val()=="Pending"){
 		
-		$.getJSON("remove", $(currentForm).serialize() ,
+		$.getJSON("schedule/remove", $(currentForm).serialize() ,
   function(data){
   if(data==1){
   	$(currentButton).html("");
