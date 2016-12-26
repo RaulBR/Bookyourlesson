@@ -1,6 +1,7 @@
 package ro.bydl.controler;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -12,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -77,7 +80,11 @@ public class ScheduleControler {
 			result.addObject("studentOBJ", currentStudent);
 			
 			result.addObject("schedules",
+					
 			scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
+			for(Schedule s:scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId())){
+			
+			}
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
 			
 			
@@ -184,7 +191,7 @@ public class ScheduleControler {
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-
+System.err.println("aiciii");
 		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
 
@@ -209,6 +216,20 @@ public class ScheduleControler {
 		modelAndView.setView(new RedirectView(""));
 
 		return modelAndView;
+
+	}
+	@RequestMapping(value="saveDated", method= RequestMethod.GET)
+	public @ResponseBody long search(HttpSession sesion, Schedule value) {
+		long v=scheduleService.save(value);
+		
+		return v;
+
+	}
+	@RequestMapping(value="remove", method= RequestMethod.GET)
+	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
+		long v=scheduleService.delete(value);
+		System.out.println(v);
+		return v;
 
 	}
 }

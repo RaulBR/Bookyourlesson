@@ -88,8 +88,8 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	}
 
 	@Override
-	public void delete(Teacher model) {
- jdbcTeamplate.update("DELETE FROM public.teachers " + "WHERE id=?;", model.getId());
+	public int delete(Teacher model) {
+ return jdbcTeamplate.update("DELETE FROM public.teachers " + "WHERE id=?;", model.getId());
 
 	}
 
@@ -108,6 +108,15 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 
 		return jdbcTeamplate.queryForObject("SELECT count(*) " + "FROM public.teachers WHERE email=? ;",
 				new String[] { email }, Long.class);
+	}
+
+	@Override
+	public Collection<Teacher> findByIncompletName(String value) {
+		// TODO Auto-generated method stub
+		return jdbcTeamplate.query(
+				"SELECT name, sir_name, category, email, med_date, id, cnp, phone, birth_day, hire_date "+
+    " FROM public.teachers   WHERE name LIKE ? OR sir_name LIKE ?;",
+				new String[] {"%"+ value +"%", "%"+ value +"%"}, new TeacherMapper()); 
 	}
 
 }

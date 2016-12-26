@@ -24,7 +24,7 @@
   </head>
   [#escape x as x?html]
   <body>
-<div id="result"></div>
+
 <nav class="navbar navbar-dark bg-primary">
  <div class="nav navbar-nav">
     <div class="container">
@@ -92,31 +92,34 @@
 	  					[#assign statut = 'notFree']
 	  				[/#if]
 	  			[/#if]
+	  			[#switch statut]
+	  			[#case 'pending']
 	  			
-	  			
-	  		
-	  	<td >	<form id="formBut" name="form1" >
-	  	
-	  	[#if curentSchedule??]<input type="hidden" name="id" value="${curentSchedule}">[/#if]
-				<input type="hidden" name="startHour" value="${hour}">
+	  		<td >  <form name="form1" action="/schedule/removeDate" method="POST">
+					<input type="hidden" name="startHour" value="${hour}">
+					<input type="hidden" name="endHour" value="${endHour}">
+					<input type="hidden" name="date" value="${day}">
+					<input type="hidden" name="week" value="${week?c}">
+					<input type="hidden" name="id" value="${curentSchedule}">
+					<input type="hidden" name="studentId" value="${studentOBJ.id}">
+					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
+					
+				<p><input class="btn btn-info" role="button" value="pending" type="submit"  readonly></p>
+					 </p></form>  </td>
+					 [#break]
+	  		[#case 'free']
+	  	<td >	<form name="form1" action="/schedule/saveDate" method="POST">
+					<input type="hidden" name="startHour" value="${hour}">
 					<input type="hidden" name="endHour" value="${endHour}">
 					<input type="hidden" name="date" value="${day}">
 					<input type="hidden" name="week" value="${week?c}">
 					<input type="hidden" name="studentId" value="${studentOBJ.id}">
 					<input type="hidden" name="teacherId" value="${studentOBJ.teacherId}">
-					<input type="hidden" id="sts" name="status" value="pending"> 
+					<input type="hidden" name="status" value="pending">
 					
-		[#switch statut]
-	  			
-	  			[#case 'pending']
-				
-					<div id="sand" >	<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  onClick="submitButton(this)" readonly /></p>
-	</div>			
-				[#break]
-	  		[#case 'free']
-			<div id="sand" >	<p><input  "id="setButton" class="btn btn-default" role="button" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/></p>
-</div>
-[#break]
+			<p><input class="btn btn-default" role="button" type="submit" value="Book Lesson" readonly></p>
+</form>  </td>
+			[#break]
 	  		[#case 'absent']	
 	  	<td><p><input class="btn btn-danger" role="button"type="submit" value="absent"  readonly></p></td>
 	  	  	[#break]
@@ -131,9 +134,6 @@
 	  		<td><p><input class="btn btn-primary" type="submit" role="button" value="booked"  readonly></p></td>
 	  		[#break]
 	  	  	  [/#switch]
-
-</form>  </td> 
-			
 	  [/#list]
 	  </tr>
   [/#list]
@@ -183,11 +183,9 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="js/bootstrap.js"></script> -->
+    <script src="js/bootstrap.js"></script>
     
     <script type="text/javascript">
-    
-   
     
     	jQuery(document).ready(function(){
     	//var test = "{$hourList}";
@@ -198,61 +196,8 @@
     			year = date.getFullYear();
     			
     		var currDate = (day < 10 ? '0' : '') + day + '.' + (month < 10 ? '0' : '') + month + '.' + year;
-    		//console.log(currDate);
+    		console.log(currDate);
     	});
-    	
-    	
-    	 function submitButton(objInput){
-    	 $(function(){
-  
- var currentButton = $(objInput).parents('div')[0];
- var currentForm = $(objInput).parents('form')[0];
-
-
-if($(currentForm).find('input[name="btn"]').val()=="Book Lesson"){
-$.getJSON("http://localhost:8080/schedule/saveDated", $(currentForm).serialize() ,
-  function(data){
-  if(data!=null){
-  $(currentButton).html("");
-  
- 	 $(currentForm).find('input[name="id"]').val(data);
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  onClick="submitButton(this)" readonly/></p>');
- 
- 	}else {
- 	$(currentButton).html("");
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  onClick="submitButton(this)" readonly/></p>');
- 		
- 	}
- 	
-  });
-}
-	
-
-		else if($(currentForm).find('input[name="btn"]').val()=="Pending"){
-		
-		$.getJSON("http://localhost:8080/schedule/remove", $(currentForm).serialize() ,
-  function(data){
-  if(data==1){
-  	$(currentButton).html("");
-  			$(currentButton).html('<p><input  "id="setButton" class="btn btn-default" role="button" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/></p>');
- 		
- 
- 	}else {
-  $(currentButton).html("");
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  onClick="submitButton(this)" readonly/></p>');
- 
- 	}
- 	 });
-}
- 		 
-console.log($(currentForm).serialize());
-console.log($(currentForm).find('input[name="btn"]').val());
-
-  });
-  
-    	 
-    	     
-    	 };
     </script>
   </body>
 </html>

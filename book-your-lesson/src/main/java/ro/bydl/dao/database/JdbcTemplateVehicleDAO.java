@@ -60,9 +60,9 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 		 }
 
 	@Override
-	public void delete(Vehicle model) {
+	public int delete(Vehicle model) {
 
-	 jdbcTeamplate.update("DELETE FROM public.vehicle " + "WHERE id=?;", model.getId());
+	 return jdbcTeamplate.update("DELETE FROM public.vehicle " + "WHERE id=?;", model.getId());
 	}
 
 	@Override

@@ -28,7 +28,8 @@ public class IMStudentDAO implements StudentDAO {
 	}
 
 	@Override
-	public void delete(Student model) {
+	public int delete(Student model) {
+		return 0;
 		// TODO Auto-generated method stub
 	
 	}

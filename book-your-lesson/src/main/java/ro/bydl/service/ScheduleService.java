@@ -61,10 +61,10 @@ public class ScheduleService {
 	 * 
 	 * @param schedule
 	 */
-	public void save(Schedule schedule) {
+	public long save(Schedule schedule) {
 
 		LOGGER.debug("Saving: " + schedule);
-		dao.insert(schedule);
+	return	dao.insert(schedule);
 
 	}
 
@@ -73,10 +73,10 @@ public class ScheduleService {
 	 * 
 	 * @param schedule
 	 */
-	public void delete(Schedule schedule) {
+	public long delete(Schedule schedule) {
 		LOGGER.debug("Deleting: " + schedule);
-		dao.delete(schedule);
-
+		
+		return dao.delete(schedule);
 	}
 
 	/**

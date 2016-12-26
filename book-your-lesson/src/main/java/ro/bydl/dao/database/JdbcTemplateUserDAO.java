@@ -44,9 +44,9 @@ public class JdbcTemplateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void delete(User model) {
+	public int delete(User model) {
 
-	jdbcTeamplate.update("DELETE FROM public.users WHERE id=?;", new Object[] { model.getId() });
+	return jdbcTeamplate.update("DELETE FROM public.users WHERE id=?;", new Object[] { model.getId() });
 	}
 
 	@Override

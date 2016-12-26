@@ -133,5 +133,13 @@ public class TeacherService extends PersonHelper {
 		dao.delete(teacher);
 
 	}
+	
+	public Collection<Teacher> findContaining(String value){
+		System.out.println("i am here");
+		for(Teacher t:dao.findByIncompletName(value)){
+			System.out.println(t.getName());
+		}
+		return dao.findByIncompletName(value);
+	};
 
 }
