@@ -144,12 +144,9 @@
   </ul>
 </nav>
 
+<div class="bars">
 [#if progress??]
 <p>Progress: </p>
-
-
-
-
 <div class="progress">
   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${done}" aria-valuemin="0" aria-valuemax="100" style="width: ${done}%">
     <span class="sr-only">${done}/30(success)</span>
@@ -174,7 +171,7 @@
   </div>
 </div>
 [/#if]
-
+</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
