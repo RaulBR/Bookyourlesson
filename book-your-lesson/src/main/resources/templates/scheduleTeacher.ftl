@@ -31,7 +31,7 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		  <a class="navbar-brand" class="logout" color="white" href="/register/student/list"> <font color="white"> Students</font></a>
+  		  <a class="navbar-brand" class="logout" color="white" href="/student/list?teacherId=${teacherOBJ.id}"> <font color="white"> Students</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/progress"> <font color="white"> Progress</font></a>
   		  <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white"> Schedulet</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
@@ -68,7 +68,7 @@
   [#list hourList as hour]
 	[#assign endHour = hour + 2]
   	  <tr>
-	  	<td ><strong>${hour} - ${endHour}</strong></td>
+	  	<td class="btn"  ><p><center><strong >${hour} - ${endHour}</strong></center></p> </td>
 	  	
 	  	[#list weekDays as day]
 	  	

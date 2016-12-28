@@ -6,13 +6,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+
     <title>bydl</title>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-	<link href="/js/sch.js" rel="sch">
+  
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,11 +21,12 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <base href="" />
-    
+      <link rel="stylesheet" type="text/css" href="/css/style.css">
   </head>
   [#escape x as x?html]
+  
   <body>
-<div id="result"></div>
+	
 <nav class="navbar navbar-dark bg-primary">
  <div class="nav navbar-nav">
     <div class="container">
@@ -60,7 +62,7 @@
   [#list hourList as hour]
 	  [#assign endHour = hour + 2]
   	  <tr>
-	  	<td ><strong>${hour} - ${endHour}</strong></td>
+	  	<td class="btn" ><p><center><strong >${hour} - ${endHour}</strong></center></p> </td>
 	  	
 	  	[#list weekDays as day]
 	  	
@@ -105,25 +107,25 @@
 	  			
 	  			[#case 'pending']
 				
-					<div id="sand" >	<p><input id="setButton" class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly /></p>
+					<div id="sand" >	<p><input id="setButton" class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly style="width:90%" /></p>
 					</div>			
 				[#break]
 	  		[#case 'free']
-				<div id="sand" >	<p><input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/></p>
+				<div id="sand" >	<p><input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" style="width:90%" readonly/></p>
 				</div>
 			[#break]
 	  		[#case 'absent']	
-	  			<p><input class="btn btn-danger" role="button"  name="btn" value="absent"  class="btns" readonly></p>
+	  			<p><input class="btn btn-danger" role="button"  name="btn" value="absent"  class="btns" style="width:90%"readonly></p>
 	  	  	[#break]
 	  	  		 
 	  	  	[#case 'notFree']	
-	  		<td><p><p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly></p></p></td>
+	  		<td><p><p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns"  style="width:90%"readonly></p></p></td>
 	  	  	[#break]
 	  	  		[#case 'done']	
-	  		<p><input class="btn btn-success" role="button"   name="btn" value="Done" class="btns" readonly></p>
+	  		<p><input class="btn btn-success" role="button"   name="btn" value="Done" class="btns"  style="width:90%" readonly></p>
 	  	  	[#break]
 	  	  		[#case 'booked']	
-	  		<p><input class="btn btn-primary"  role="button" name="btn" value="booked" class="btns" readonly></p>
+	  		<p><input class="btn btn-primary"  role="button" name="btn" value="booked" class="btns"  style="width:90%" readonly></p>
 	  		[#break]
 	  	  	  [/#switch]
 
@@ -211,11 +213,11 @@ $.getJSON("http://localhost:8080/schedule/saveDated", $(currentForm).serialize()
   $(currentButton).html("");
   
  	 $(currentForm).find('input[name="id"]').val(data);
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  class="btns" onClick="submitButton(this)" readonly/></p>');
+  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  style="width:90%" name="btn" value="Pending"  class="btns" onClick="submitButton(this)" readonly/></p>');
  
  	}else {
  	$(currentButton).html("");
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
+  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"   style="width:90%" name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
  		
  	}
  	
@@ -229,12 +231,12 @@ $.getJSON("http://localhost:8080/schedule/saveDated", $(currentForm).serialize()
   function(data){
   if(data==1){
   	$(currentButton).html("");
-  			$(currentButton).html('<p><input  "id="setButton" class="btn btn-default" role="button" name="btn" value="Book Lesson" class="btns" onClick="submitButton(this)" readonly/></p>');
+  			$(currentButton).html('<p><input  "id="setButton" class="btn btn-default" role="button" name="btn" style="width:90%" value="Book Lesson" class="btns" onClick="submitButton(this)" readonly/></p>');
  		
  
  	}else {
   $(currentButton).html("");
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
+  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  style="width:90%" onClick="submitButton(this)" readonly/></p>');
  
  	}
  	 });

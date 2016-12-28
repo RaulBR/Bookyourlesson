@@ -55,21 +55,20 @@ public class StudentRegisterControler {
 	 */
 
 	@RequestMapping(value = "/userSave", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute("user")  Student student, BindingResult bindingResult,
-			HttpSession session)  {
+	public ModelAndView save(@Valid @ModelAttribute("user") Student student, BindingResult bindingResult,
+			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("");
 
 		boolean hasErros = false;
 		if (!bindingResult.hasErrors()) {
 			try {
-				
+
 				studentService.addStudent(student);
-				
-				
+
 				modelAndView.setView(new RedirectView(""));
-				
+
 			} catch (ValidationException ex) {
-				
+
 				for (String err : ex.getCauses()) {
 					bindingResult.addError(new ObjectError("student", err));
 				}
@@ -79,7 +78,7 @@ public class StudentRegisterControler {
 			hasErros = true;
 		}
 		if (hasErros) {
-			
+
 			modelAndView = new ModelAndView("studentForm");
 			modelAndView.addObject("teachers", teacherService.getAll());
 			modelAndView.addObject("student", student);
@@ -89,23 +88,22 @@ public class StudentRegisterControler {
 		return modelAndView;
 	}
 
-	
 	@RequestMapping("/list")
-	public ModelAndView studentList(HttpSession session,long teacherId)  {
+	public ModelAndView studentList(HttpSession session, Long teacherId) {
 		String permison = ((User) session.getAttribute("user")).getPermision();
 		ModelAndView result = new ModelAndView("studentList");
 		result.addObject("permision", permison);
-		if(teacherId>0){
+		if (teacherId !=null) {
 			result.addObject("students", studentService.getByTeacherId(teacherId));
-			
-		}else{
-			
-		
-		result.addObject("students", studentService.getAll());
-		
+
+		} else {
+
+			result.addObject("students", studentService.getAll());
+
 		}
 		return result;
 	}
+
 	@RequestMapping("/delete")
 	public ModelAndView delete(@Valid @ModelAttribute("save") Student student, BindingResult bindingResult,
 			HttpSession session) {
