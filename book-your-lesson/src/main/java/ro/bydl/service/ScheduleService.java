@@ -1,6 +1,7 @@
 package ro.bydl.service;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,7 @@ public class ScheduleService {
 	public long save(Schedule schedule) {
 
 		LOGGER.debug("Saving: " + schedule);
-	return	dao.insert(schedule);
+		return dao.insert(schedule);
 
 	}
 
@@ -75,8 +76,12 @@ public class ScheduleService {
 	 */
 	public long delete(Schedule schedule) {
 		LOGGER.debug("Deleting: " + schedule);
-		
+		if(dateHasPased(schedule)){
+			return 2;
+		}else{
 		return dao.delete(schedule);
+		}
+		
 	}
 
 	/**
@@ -112,11 +117,13 @@ public class ScheduleService {
 
 		return dao.searchByTeacherId(teahcerId);
 	}
-/**
- * returns scheduled based on student id
- * @param id
- * @return Collection<Schedule>
- */
+
+	/**
+	 * returns scheduled based on student id
+	 * 
+	 * @param id
+	 * @return Collection<Schedule>
+	 */
 	public Collection<Schedule> searchByStudentId(int id) {
 
 		return dao.searchByStudentId(id);
@@ -158,6 +165,19 @@ public class ScheduleService {
 	public Collection<Schedule> searchByStudentId(long l, long teacherId) {
 
 		return dao.searchByStudentId(l, teacherId);
+	}
+
+	
+	private boolean dateHasPased(Schedule schedule) {
+		Date date = new Date();
+
+		if (schedule.getDate().before(date)) {
+			return true;
+
+		}
+
+		return false;
+
 	}
 
 }
