@@ -67,7 +67,7 @@
   [#list hourList as hour]
 	[#assign endHour = hour + 2]
   	  <tr>
-	  	<td ><strong>${hour} - ${endHour}</strong></td>
+	  	<td class="btn"><center><strong>${hour} - ${endHour}</strong></center></td>
 	  	
 	  	[#list weekDays as day]
 	  	
