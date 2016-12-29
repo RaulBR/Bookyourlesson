@@ -1,11 +1,9 @@
 package ro.bydl.controler;
 
 import java.util.Calendar;
-import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,16 +11,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import ro.bydl.domain.User;
 import ro.bydl.domain.Schedule;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
+import ro.bydl.domain.User;
 import ro.bydl.service.ScheduleService;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
@@ -78,17 +75,16 @@ public class ScheduleControler {
 
 			result = new ModelAndView("scheduleStudent");
 			result.addObject("studentOBJ", currentStudent);
-			
+
 			result.addObject("schedules",
-					
-			scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
-			for(Schedule s:scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId())){
-			
+
+					scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
+			for (Schedule s : scheduleService.searchByStudentId(currentStudent.getId(),
+					currentStudent.getTeacherId())) {
+
 			}
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
-			
-			
-			
+
 			result.addObject("progress", scheduleService.pending(currentStudent.getId()));
 			result.addObject("absent", scheduleService.absent(currentStudent.getId()));
 			result.addObject("done", scheduleService.done(currentStudent.getId()));
@@ -191,7 +187,6 @@ public class ScheduleControler {
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-System.err.println("aiciii");
 		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
 
@@ -218,30 +213,23 @@ System.err.println("aiciii");
 		return modelAndView;
 
 	}
-	@RequestMapping(value="saveDated", method= RequestMethod.GET)
+
+	@RequestMapping(value = "saveDated", method = RequestMethod.GET)
 	public @ResponseBody long search(HttpSession session, Schedule value) {
 		User user = (User) session.getAttribute("user");
 		String permison = user.getPermision();
-		if(permison.equals("teahcer")){
+		if (permison.equals("teahcer")) {
 			return scheduleService.save(value);
-		}
-		else if(permison.equals("student")){
+		} else if (permison.equals("student")) {
 			if (scheduleService.dateHasPased(value)) {
 				return -1;
 			} else {
 
-				
 				return scheduleService.save(value);
 			}
 		}
 		return 0;
-		
-		}
-	@RequestMapping(value="remove", method= RequestMethod.GET)
-	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
-		long v=scheduleService.delete(value);
-	
-		return v;
 
 	}
+
 }

@@ -175,9 +175,9 @@
 											<select class="form-control sel-schedule-option" name="status">
 							         			<option value="free" >Free</option>
 							        			<option value="notFree">Not free</option>
-							        			<option value="booked">Accept</option>
-							        			<option value="absent">Absent</option>
-							        			<option value="pending">Pending</option>
+							        			<option value="booked"  >Accept</option>
+							        			<option value="absent" >Absent</option>
+							        			<option value="pending" >Pending</option>
 							        			<option value="done">Done</option>
 											</select>
 											<br/>
