@@ -1,6 +1,7 @@
 package ro.bydl.controler;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -78,7 +80,11 @@ public class ScheduleControler {
 			result.addObject("studentOBJ", currentStudent);
 			
 			result.addObject("schedules",
+					
 			scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
+			for(Schedule s:scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId())){
+			
+			}
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
 			
 			
@@ -185,7 +191,7 @@ public class ScheduleControler {
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-
+System.err.println("aiciii");
 		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
 
@@ -213,12 +219,24 @@ public class ScheduleControler {
 
 	}
 	@RequestMapping(value="saveDated", method= RequestMethod.GET)
-	public @ResponseBody long search(HttpSession sesion, Schedule value) {
-		long v=scheduleService.save(value);
-		
-		return v;
+	public @ResponseBody long search(HttpSession session, Schedule value) {
+		User user = (User) session.getAttribute("user");
+		String permison = user.getPermision();
+		if(permison.equals("teahcer")){
+			return scheduleService.save(value);
+		}
+		else if(permison.equals("student")){
+			if (scheduleService.dateHasPased(value)) {
+				return -1;
+			} else {
 
-	}
+				
+				return scheduleService.save(value);
+			}
+		}
+		return 0;
+		
+		}
 	@RequestMapping(value="remove", method= RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
 		long v=scheduleService.delete(value);
