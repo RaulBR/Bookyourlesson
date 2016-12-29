@@ -260,6 +260,12 @@
     		$(btnCancel).parents('div.wrap-schedule-option').hide();
     	}
     </script>
+    
+    <style>
+    .btn{
+    width:90%;
+    }
+    </style>
   </body>
 </html>
 [/#escape]
