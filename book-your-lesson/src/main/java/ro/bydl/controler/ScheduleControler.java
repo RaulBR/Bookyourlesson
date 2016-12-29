@@ -219,12 +219,24 @@ System.err.println("aiciii");
 
 	}
 	@RequestMapping(value="saveDated", method= RequestMethod.GET)
-	public @ResponseBody long search(HttpSession sesion, Schedule value) {
-		long v=scheduleService.save(value);
-		
-		return v;
+	public @ResponseBody long search(HttpSession session, Schedule value) {
+		User user = (User) session.getAttribute("user");
+		String permison = user.getPermision();
+		if(permison.equals("teahcer")){
+			return scheduleService.save(value);
+		}
+		else if(permison.equals("student")){
+			if (scheduleService.dateHasPased(value)) {
+				return -1;
+			} else {
 
-	}
+				
+				return scheduleService.save(value);
+			}
+		}
+		return 0;
+		
+		}
 	@RequestMapping(value="remove", method= RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
 		long v=scheduleService.delete(value);

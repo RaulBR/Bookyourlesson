@@ -1,5 +1,8 @@
 package ro.bydl.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -76,12 +79,8 @@ public class ScheduleService {
 	 */
 	public long delete(Schedule schedule) {
 		LOGGER.debug("Deleting: " + schedule);
-		if(dateHasPased(schedule)){
-			return 2;
-		}else{
+
 		return dao.delete(schedule);
-		}
-		
 	}
 
 	/**
@@ -167,17 +166,27 @@ public class ScheduleService {
 		return dao.searchByStudentId(l, teacherId);
 	}
 
-	
-	private boolean dateHasPased(Schedule schedule) {
+	public boolean dateHasPased(Schedule schedule) {
+
 		Date date = new Date();
 
-		if (schedule.getDate().before(date)) {
+		if (setTime(schedule).before(date)) {
 			return true;
 
 		}
 
 		return false;
 
+	}
+
+	private Date setTime(Schedule schedule) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(schedule.getDate());
+		cal.set(Calendar.HOUR_OF_DAY, schedule.getStartHour());
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime();
 	}
 
 }
