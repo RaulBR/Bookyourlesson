@@ -30,12 +30,16 @@ public class StatisticControler {
 	}
 
 	@RequestMapping("/teacher")
-	public ModelAndView teacherStatistics(HttpSession sesion, long teacherId) {
+	public ModelAndView teacherStatistics(HttpSession sesion, Long teacherId) {
 
 		ModelAndView result = new ModelAndView("teacherStatistic");
-
+		
+		if(teacherId==null){
+		result.addObject("teacherSchedule", teacherStatisticService.howBusy());
+		}else{
+		
 		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId));
-
+		}
 		return result;
 
 	}
