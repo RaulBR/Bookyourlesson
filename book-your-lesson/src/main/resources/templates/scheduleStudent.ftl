@@ -60,7 +60,7 @@
   [#list hourList as hour]
 	  [#assign endHour = hour + 2]
   	  <tr>
-	  	<td ><strong>${hour} - ${endHour}</strong></td>
+	  	<td class="btn"><center><strong>${hour} - ${endHour}</strong></center></td>
 	  	
 	  	[#list weekDays as day]
 	  	
@@ -145,6 +145,25 @@
 </nav>
 
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Booking info</h4>
+      </div>
+      <div class="modal-body">
+      <center>  <p>You can't book a lesson in the past :)</p>
+        <p>Contact your teacher for more info</p></center>
+      </div>
+      <div class="modal-footer">
+     <center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 [#if progress??]
 <p>Progress: </p>
 
@@ -176,10 +195,11 @@
 </div>
 [/#if]
 
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="js/bootstrap.js"></script> -->
+    <script src="js/bootstrap.js"></script> 
     
     <script type="text/javascript">
     
@@ -206,15 +226,18 @@
 
 
 if($(currentForm).find('input[name="btn"]').val()=="Book Lesson"){
-$.getJSON("schedule/saveDated", $(currentForm).serialize() ,
+$.getJSON("/schedule/saveDated", $(currentForm).serialize() ,
   function(data){
-  if(data!=null){
+  if(data>0){
   $(currentButton).html("");
   
  	 $(currentForm).find('input[name="id"]').val(data);
   			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  class="btns" onClick="submitButton(this)" readonly/></p>');
  
- 	}else {
+ 	}else if(data<0){
+ 	$('#myModal').modal('show');   
+ 	}
+ 	else {
  	$(currentButton).html("");
   			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
  		
@@ -226,7 +249,7 @@ $.getJSON("schedule/saveDated", $(currentForm).serialize() ,
 
 		else if($(currentForm).find('input[name="btn"]').val()=="Pending"){
 		
-		$.getJSON("schedule/remove", $(currentForm).serialize() ,
+		$.getJSON("/schedule/remove", $(currentForm).serialize() ,
   function(data){
   if(data==1){
   	$(currentButton).html("");
@@ -246,9 +269,15 @@ $.getJSON("schedule/saveDated", $(currentForm).serialize() ,
   });
   
     	 
-    	     
+    
     	 };
+    	 
     </script>
+    <style>
+    .btn{
+    width:90%;
+    }
+    </style>
   </body>
 </html>
 [/#escape]
