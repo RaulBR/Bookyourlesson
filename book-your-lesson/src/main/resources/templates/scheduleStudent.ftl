@@ -117,7 +117,7 @@
 	  	  	[#break]
 	  	  		 
 	  	  	[#case 'notFree']	
-	  		<td><p><p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly></p></p></td>
+	  		<p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly></p>
 	  	  	[#break]
 	  	  		[#case 'done']	
 	  		<p><input class="btn btn-success" role="button"   name="btn" value="Done" class="btns" readonly></p>
