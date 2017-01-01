@@ -11,7 +11,7 @@
 <link href="/css/style.css" rel="stylesheet">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
+    <link rel="icon" type="image/png" href="images/snail.png">
   </head>
   [#escape x as x?html]
   <body>

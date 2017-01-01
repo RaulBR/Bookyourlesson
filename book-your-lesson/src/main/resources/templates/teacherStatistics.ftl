@@ -18,7 +18,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/dist/Chart.bundle.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-   
+  	 <link rel="icon" type="image/png" href="images/snail.png">
   </head>
   
   
@@ -94,7 +94,7 @@
 </div>
 [/#if]
  [#if key.absent>0]
- Students where absent
+ Students were absent
  <div class="progress" >
     
   <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""

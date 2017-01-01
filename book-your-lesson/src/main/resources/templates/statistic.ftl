@@ -22,7 +22,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <base href="" />
-    
+    <link rel="icon" type="image/png" href="images/snail.png">
   </head>
   [#escape x as x?html]
   <body>

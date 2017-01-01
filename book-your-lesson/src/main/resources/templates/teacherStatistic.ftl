@@ -20,6 +20,7 @@
     <style>
     
     </style>
+    <link rel="icon" type="image/png" href="images/snail.png">
   </head>
   [#escape x as x?html]
   <body>

@@ -43,7 +43,7 @@
 });
 });
   </script>
-  
+  <link rel="icon" type="image/png" href="images/snail.png">
   </head>
   <body>
   
