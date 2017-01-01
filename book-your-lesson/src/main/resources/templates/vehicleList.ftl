@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   
     <title>bydl</title>
- 	<link rel="icon" type="image/png" href="images/snail.png">
+ 	<link rel="icon" type="image/png" href="images/negru.png">
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">

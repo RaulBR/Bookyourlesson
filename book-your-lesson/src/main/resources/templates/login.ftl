@@ -9,7 +9,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<link rel="icon" type="image/png" href="images/snail.png">
+<link rel="icon" type="image/png" href="images/negru.png">
  </head>
  
 <body>
@@ -17,6 +17,9 @@
  <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
+<a class="navbar-brand" class="logout" color="white" href="/logout"><img  src="images/alb.png" alt="Mountain View" style="width:30px;height:30px;"></a></center>
+  		 
+
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 

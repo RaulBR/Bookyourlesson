@@ -43,7 +43,7 @@
 });
 });
   </script>
-  <link rel="icon" type="image/png" href="images/snail.png">
+  <link rel="icon" type="image/png" href="images/negru.png">
   </head>
   <body>
   
