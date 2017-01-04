@@ -231,5 +231,12 @@ public class ScheduleControler {
 		return 0;
 
 	}
+	@RequestMapping(value="remove", method= RequestMethod.GET)
+	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
+		long v=scheduleService.delete(value);
+	
+		return v;
+
+	}
 
 }

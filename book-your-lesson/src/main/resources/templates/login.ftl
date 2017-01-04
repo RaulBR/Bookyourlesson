@@ -2,6 +2,7 @@
 <html>
 <head>
 <!-- Latest compiled and minified CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <title>bydl</title>
 <!-- Optional theme -->
@@ -17,7 +18,7 @@
  <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
-<a class="navbar-brand" class="logout" color="white" href="/logout"><img  src="images/alb.png" alt="Mountain View" style="width:30px;height:30px;"></a></center>
+   <a class="navbar-brand" class="logout" color="white" href="/logout"><img  src="images/alb.png" alt="Mountain View" style="width:30px;height:30px;"></a></center>
   		 
 
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
@@ -78,13 +79,11 @@
 		</div>
 	</div>
 </div>
-
-<script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
-<!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
-	    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.js"></script>
+<style>
+.body{
+padding-top:20px;
+}
+</style>
 </body>
 </html>
 
