@@ -1,3 +1,4 @@
+
 [#ftl]
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
@@ -24,6 +25,33 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <base href="" />
+    <script type="text/javascript">
+  
+  function doSearch(){
+  
+  $.getJSON("http://localhost:8080/teacher/search",{ CHARS:$('#searchBox').val() },
+  function(data){
+ 	
+ 	$('#result').text('');
+ 	for(var index in data){
+ 	$('#result').append('<p>' +data[index].name +' '+data[index].sirName+ '</p>');
+ 	}
+  });
+  }
+  $(function(){
+  $("#submit").click(function(){
+  var txt =$("#textbox").val();
+  
+  $("#display").html(txt);
+  $("#textbox").val("");
+  
+  
+  });
+  
+  
+  });
+   
+  </script>
   </head>
   [#escape x as x?html]
   <body>
@@ -45,8 +73,9 @@
  	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
     
     <div class="search">	
-    	<p>Search: <input type="text"/></p>
+    	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/></p>
     </div>
+   <div class="result">d</div>
     
  	[/#if]
  <table class="table">
@@ -117,8 +146,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.js"></script>
-    <script>
-    </script>
+    
+    
+    
     
   </body>
 </html>
