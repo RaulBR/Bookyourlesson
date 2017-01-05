@@ -25,17 +25,62 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <base href="" />
-    <script type="text/javascript">
+      <script type="text/javascript">
   
   function doSearch(){
   
-  $.getJSON("http://localhost:8080/teacher/search",{ CHARS:$('#searchBox').val() },
+  $.getJSON("/teacher/search",{ CHARS:$('#searchBox').val() },
   function(data){
  	
- 	$('#result').text('');
+ 	$('#dddd').html('');
+ 	var a=1;
+ 		$('#dddd').append(
+   '<thead>'+
+ 	'<tr >'+
+ 	'<th>Number</th>'+
+    '<th>Name</th>'+
+  	'<th>Sir Name</th>'+
+    '<th>Car</th>'+
+   	'<th>Category</th>'+
+   	'<th>Email</th>'+
+   	'<th>Hire date</th>'+
+   	'<th>CNP</th>'+
+   	'<th>Schedule status</th>'+
+   	'<th></th>'+
+   	'<th></th>'+
+   	'</thead>');
+   	
  	for(var index in data){
- 	$('#result').append('<p>' +data[index].name +' '+data[index].sirName+ '</p>');
+ 	$('#dddd').append('<tr>' +
+ 	
+ 	'<td>'+        a++                +'</td>'+
+ 	'<td>'+   data[index].name        +'</td>'+
+ 	'<td>'+   data[index].sirName     +'</td>'+
+ 	'<td>'+   data[index].category    +'</td>'+
+ 	'<td>'+   '<a class="btn btn-primary" href="/vehicle/list?teacherId='+   data[index].id      +'" role="button">Cars</a>'        +'</td>'+
+ 	'<td>'+   data[index].email       +'</td>'+
+ 	'<td>'+   data[index].hireDate    +'</td>'+
+ 	'<td>'+   data[index].cnp         +'</td>'+
+ 	
+ 	'<td > <form name="form1" action="/statistics/teacher" method="POST">'+
+	  	   '<input type="hidden" name="teacherId" value="'+data[index].id+'">'+
+	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'"> :)</button>'+
+	  		'</form></td>'+
+	  		
+	'<td ><form name="form1" action="/teacher/edit" method="POST">'+
+	
+	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
+	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">EDIT</button>'+
+	  		'</form></td>'+
+	  		
+	'<td ><form name="form1" action="/teacher/delete" method="POST">'+
+	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
+	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">DEL</button>'+
+	  		'</form></td>'+
+ 	 '</tr>');
+ 	 
  	}
+ 	
   });
   }
   $(function(){
@@ -50,7 +95,7 @@
   
   
   });
-   
+  
   </script>
   </head>
   [#escape x as x?html]
@@ -72,13 +117,14 @@
  	<p><a href="/teacher"><input class="btn btn-info" role="button" value="ADD INSTRUCTOR" type="submit"  readonly></a>
  	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
     
-    <div class="search">	
-    	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/></p>
-    </div>
-   <div class="result">d</div>
+    	
+    	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/>
+ 
+   
+  
     
  	[/#if]
- <table class="table">
+ <table class="table" id="dddd">
   <thead>
      <tr >
   
@@ -95,13 +141,13 @@
    	<th>Schedule status</th>
    	<th></th>
    	<th></th>
-   	
+   	</thead>
    	[/#if]
 	 	  	 [#assign nr = 0]
 	  		[#if teachers??]
 	  		[#list teachers as teacher]
 	  			 [#assign nr = nr +1 ]	
-	  		<div class="teble-resoult">  <tr>		
+	  		  <tr>		
 	  				<td > ${nr}  </td>		
 	  		<td > 		${teacher.name}   </td>
 	  		<td >	 ${teacher.sirName} </td>
@@ -136,7 +182,7 @@
 	  			[/#list]
 	  			[/#if]
 	  			 </tr>
-	  </div >
+	 
  
   
   </tbody>

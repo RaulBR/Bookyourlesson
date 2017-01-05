@@ -32,7 +32,7 @@
   
   function doSearch(){
   
-  $.getJSON("http://localhost:8080/teacher/search",{ CHARS:$('#searchBox').val() },
+  $.getJSON("/teacher/search",{ CHARS:$('#searchBox').val() },
   function(data){
  	
  	$('#result').text('');
