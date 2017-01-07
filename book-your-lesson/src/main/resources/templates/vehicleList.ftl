@@ -34,18 +34,26 @@
    <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
+   		 	[#if permision??]
  		 <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white">Home</font></a>
- 		  <a class="navbar-brand" class="logout" color="white" href="/student/list"> <font color="white"> Students</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/student/list"> <font color="white"> Students</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+ 		    [#else]
+ 		  <a class="navbar-brand" class="logout" color="white" href="/"> <font color="white">Home</font></a>
+ 		  <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		  <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
+ 		 
+ 		 [/#if]
+ 		 
   		</div>
   	</div>
 	</nav>
   <h1> Vehicle list</h1>
  
 	[#if permision??]
- 	<p><a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a>
+ 	<a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a>
  	<a href="/vehicle/list"><input class="btn btn-info" role="button" value="LIST ALL VEHICLES" type="submit"  readonly></a></p>
  	[#else]
  	 <h4> [#if teacher??]Instructor:  ${teacher.name!''} ${teacher.sirName!''}
@@ -69,17 +77,19 @@
    
     <th>Engine (cm^3)</th>
     <th>LicensePlate</th>
-    
+    <th>   </th>
    	[#if permision??]
-   	 <th>Chassis</th>
-   	 <th> Vignettes</th>
-  	<th> Insurance</th>
+   		 <th>Chassis</th>
+   	 	<th> Vignettes</th>
+  		<th> Insurance</th>
   		<th> ITP</th>
-  	<th> </th>
+  		
    
-   	<th>Instructor</th>
-  	<th>Edit</th>
-   	<th> Delete</th>
+   		<th>Instructor</th>
+  		<th>Edit</th>
+   		<th> Delete</th>
+   	[#else]
+   	<th>Rregister</th>
    [/#if]  	
 	 	  [#assign nr = 0]
 	  		[#if vehicles??]
@@ -93,6 +103,7 @@
 	  		<td >	 ${vehicle.fuel} </td>
 	  		<td >	 ${vehicle.engine} </td>	
 	  		<td >	 ${vehicle.licensePlate} </td>
+	  		<td ><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId})">See Teacher</button> </td>
 	  		
 	  		
 	  	[#if permision??]
@@ -124,6 +135,14 @@
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button>
 	  		</form>
 	  			</td>
+	  			[#else]
+	  			<td >
+	  		 <form name="form1" action="/student" method="POST">
+	  					 <input type="hidden" name="vehicle" value="vehicle">
+	  				 	<input type="hidden" name="id" value="${vehicle.id}">
+	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">Register with this vehilce</button>
+	  		</form>
+	  			</td>
 	  			[/#if]
 	  			[/#list]
 	  			[/#if]
@@ -149,5 +168,14 @@
     
     
   </body>
+  <script>
+  function getTeacher(){
+  
+  
+  
+  alert(d.serialize());
+  
+  }
+  </script>
 </html>
 [/#escape]

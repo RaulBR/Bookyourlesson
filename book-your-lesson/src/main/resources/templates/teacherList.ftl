@@ -115,6 +115,7 @@
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
  		 [#else]
  		 <a class="navbar-brand" class="logout" color="white" href="/"> <font color="white">Home</font></a>
+ 		  <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		  [/#if]
   		</div>
@@ -123,6 +124,7 @@
   <h1> Instructors</h1>
    [#if permision??]
  	<p><a href="/teacher"><input class="btn btn-info" role="button" value="ADD INSTRUCTOR" type="submit"  readonly></a>
+ 	
  	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
     
     	

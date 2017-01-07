@@ -136,9 +136,6 @@ public class TeacherService extends PersonHelper {
 
 	public Collection<Teacher> findContaining(String value) {
 
-		for (Teacher t : dao.findByIncompletName(value)) {
-		
-		}
 		return dao.findByIncompletName(value);
 	};
 

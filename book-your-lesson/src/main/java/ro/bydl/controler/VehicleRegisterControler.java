@@ -88,8 +88,12 @@ public class VehicleRegisterControler {
 
 		} else if (u.getTeacherId() > 0) {
 			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+		}else if(u.getTeacherId()==0){
+			result.addObject("vehicles", vehicleService.getAll());
 		}
-
+			
+			
+		
 		return result;
 
 	}

@@ -16,9 +16,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import ro.bydl.domain.Student;
 import ro.bydl.domain.Teacher;
 import ro.bydl.domain.User;
+import ro.bydl.domain.Vehicle;
 import ro.bydl.exceptions.ValidationException;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
+import ro.bydl.service.VehicleService;
 
 @Controller
 @RequestMapping("student")
@@ -27,6 +29,8 @@ public class StudentRegisterControler {
 	TeacherService teacherService;
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	VehicleService vehicleService;
 
 	/**
 	 * Returners a Model and view object for the "student" mapping.
@@ -37,13 +41,19 @@ public class StudentRegisterControler {
 	 */
 
 	@RequestMapping("")
-	public ModelAndView student(HttpSession session, Integer id) {
+	public ModelAndView student(HttpSession session,String vehicle, Integer id) {
 		ModelAndView result = new ModelAndView("studentForm");
-		result.addObject("students", studentService.getAll());
-		result.addObject("teachers", teacherService.getAll());
-		if(id!=null){
-		result.addObject("teacherFromList",teacherService.findById(id));
-		}
+		
+		
+		if(vehicle.equals("vehicle")){
+			
+			result.addObject("teacherFromList",teacherService.findById(vehicleService.findById(id).getTeacherId()));
+		} else if(id!=null){
+			result.addObject("teacherFromList",teacherService.findById(id));
+			}else{
+				result.addObject("teachers", teacherService.getAll());
+			}
+		
 		return result;
 	}
 

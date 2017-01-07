@@ -138,5 +138,12 @@ public class TeacherRegisterControler {
 		return teacherService.findContaining(value);
 
 	}
+	@RequestMapping("/searchByID")
+	public @ResponseBody Teacher search(HttpSession sesion, Long id) {
+		
+		
+		return teacherService.findById(id);
+
+	}
 
 }
