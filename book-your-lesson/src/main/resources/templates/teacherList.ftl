@@ -1,27 +1,114 @@
+
 [#ftl]
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
 <html lang="en">
   <head>
-   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<title>bydl</title>
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<link href="/css/style.css" rel="stylesheet">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   
+  	
+    <title>bydl</title>
+	<link rel="icon" type="image/png" href="/images/negru.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+	<link href="/js/sch.js" rel="sch">
     
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <base href="" />
+      <script type="text/javascript">
+  
+  function doSearch(){
+  
+  $.getJSON("/teacher/search",{ CHARS:$('#searchBox').val() },
+  function(data){
+ 	
+ 	$('#dddd').html('');
+ 	var a=1;
+ 		$('#dddd').append(
+   '<thead>'+
+ 	'<tr >'+
+ 	'<th>Number</th>'+
+    '<th>Name</th>'+
+  	'<th>Sir Name</th>'+
+    '<th>Car</th>'+
+   	'<th>Category</th>'+
+   	'<th>Email</th>'+
+   	'<th>Hire date</th>'+
+   	'<th>CNP</th>'+
+   	'<th>Schedule status</th>'+
+   	'<th></th>'+
+   	'<th></th>'+
+   	'</thead>');
+   	
+ 	for(var index in data){
+ 	$('#dddd').append('<tr>' +
+ 	
+ 	'<td>'+        a++                +'</td>'+
+ 	'<td>'+   data[index].name        +'</td>'+
+ 	'<td>'+   data[index].sirName     +'</td>'+
+ 	'<td>'+   data[index].category    +'</td>'+
+ 	'<td>'+   '<a class="btn btn-primary" href="/vehicle/list?teacherId='+   data[index].id      +'" role="button">Cars</a>'        +'</td>'+
+ 	'<td>'+   data[index].email       +'</td>'+
+ 	'<td>'+   data[index].hireDate    +'</td>'+
+ 	'<td>'+   data[index].cnp         +'</td>'+
+ 	
+ 	'<td > <form name="form1" action="/statistics/teacher" method="POST">'+
+	  	   '<input type="hidden" name="teacherId" value="'+data[index].id+'">'+
+	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'"> :)</button>'+
+	  		'</form></td>'+
+	  		
+	'<td ><form name="form1" action="/teacher/edit" method="POST">'+
+	
+	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
+	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">EDIT</button>'+
+	  		'</form></td>'+
+	  		
+	'<td ><form name="form1" action="/teacher/delete" method="POST">'+
+	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
+	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">DEL</button>'+
+	  		'</form></td>'+
+ 	 '</tr>');
+ 	 
+ 	}
+ 	
+  });
+  }
+  $(function(){
+  $("#submit").click(function(){
+  var txt =$("#textbox").val();
+  
+  $("#display").html(txt);
+  $("#textbox").val("");
+  
+  
+  });
+  
+  
+  });
+  
+  </script>
   </head>
   [#escape x as x?html]
   <body>
   <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
- 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
- 		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white">Home</font></a>
+ 		  <a class="navbar-brand" class="logout" color="white" href="/student/list?teacherId"> <font color="white"> Students</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
  		 
- 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogIn</font></a>
   		</div>
   	</div>
 	</nav>
@@ -29,8 +116,15 @@
    [#if permision??]
  	<p><a href="/teacher"><input class="btn btn-info" role="button" value="ADD INSTRUCTOR" type="submit"  readonly></a>
  	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
+    
+    	
+    	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/>
+ 
+   
+  
+    
  	[/#if]
- <table class="table">
+ <table class="table" id="dddd">
   <thead>
      <tr >
   
@@ -47,7 +141,7 @@
    	<th>Schedule status</th>
    	<th></th>
    	<th></th>
-   	
+   	</thead>
    	[/#if]
 	 	  	 [#assign nr = 0]
 	  		[#if teachers??]
@@ -88,15 +182,18 @@
 	  			[/#list]
 	  			[/#if]
 	  			 </tr>
+	 
  
   
   </tbody>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    
+    
     
     
   </body>
