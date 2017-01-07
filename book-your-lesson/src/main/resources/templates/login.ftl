@@ -18,10 +18,7 @@
  <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
-   <a class="navbar-brand" class="logout" color="white" href="/logout"><img  src="/images/alb.png" alt="Mountain View" style="width:30px;height:30px;"></a></center>
-  		 
-
- 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
+   		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 
   		</div>
