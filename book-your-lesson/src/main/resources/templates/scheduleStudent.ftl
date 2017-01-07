@@ -20,7 +20,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <base href="" />
-    
+    <link rel="icon" type="image/png" href="images/negru.png">
   </head>
   [#escape x as x?html]
   <body>
@@ -103,27 +103,27 @@
 					
 		[#switch statut]
 	  			
-	  			[#case 'pending']
+	  		[#case 'pending']
 				
 					<div id="sand" >	<p><input id="setButton" class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly /></p>
 					</div>			
-				[#break]
+			[#break]
 	  		[#case 'free']
-				<div id="sand" >	<p><input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/></p>
-				</div>
+					<div id="sand" >	<p><input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/></p>
+					</div>
 			[#break]
 	  		[#case 'absent']	
-	  			<p><input class="btn btn-danger" role="button"  name="btn" value="absent"  class="btns" readonly></p>
+	  									<p><input class="btn btn-danger" role="button"  name="btn" value="absent"  class="btns" readonly></p>
 	  	  	[#break]
 	  	  		 
 	  	  	[#case 'notFree']	
-	  		<p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly></p>
+	  									<p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly></p>
 	  	  	[#break]
 	  	  		[#case 'done']	
-	  		<p><input class="btn btn-success" role="button"   name="btn" value="Done" class="btns" readonly></p>
+	  									<p><input class="btn btn-success" role="button"   name="btn" value="Done" class="btns" readonly></p>
 	  	  	[#break]
 	  	  		[#case 'booked']	
-	  		<p><input class="btn btn-primary"  role="button" name="btn" value="booked" class="btns" readonly></p>
+	  									<p><input class="btn btn-primary"  role="button" name="btn" value="booked" class="btns" readonly></p>
 	  		[#break]
 	  	  	  [/#switch]
 
@@ -149,7 +149,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Booking info</h4>
       </div>
       <div class="modal-body">
