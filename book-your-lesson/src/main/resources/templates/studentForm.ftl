@@ -33,7 +33,7 @@
    		 <div class="container" lass="logout">
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/teacherList"> <font color="white"> Instructors</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 
   		</div>
   	</div>
@@ -81,10 +81,21 @@
     <label for="text">Phone Number</label>
     <input type="text" class="form-control" name="phoneNumber"  [#if student??]value="${student.phoneNumber}"[/#if]>
   </div>
-     [#if teachers??]
+  [#if teacherFromList??]
+  <div class="form-group" style="color:green;">
+    <label for="text">Teacher</label> 
+    <select name="teacherId"  class="form-control" style="color:green;">
+ 
+    <option value="${teacherFromList.id!''}">${teacherFromList.sirName!''} ${teacherFromList.name!''}</option>
+  
+      
+  </select>
+     </div>
+  
+     [#elseif teachers??]
         <div class="form-group">
     <label for="text">Teacher</label> 
-    <select name="teacherId"  class="form-control">
+    <select name="teacherId"  class="form-control" >
   [#list teachers as teacher]
     <option value="${teacher.id!''}">${teacher.sirName!''} ${teacher.name!''}</option>
   

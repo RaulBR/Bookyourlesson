@@ -37,10 +37,13 @@ public class StudentRegisterControler {
 	 */
 
 	@RequestMapping("")
-	public ModelAndView student(HttpSession session) throws Exception {
+	public ModelAndView student(HttpSession session, Integer id) {
 		ModelAndView result = new ModelAndView("studentForm");
 		result.addObject("students", studentService.getAll());
 		result.addObject("teachers", teacherService.getAll());
+		if(id!=null){
+		result.addObject("teacherFromList",teacherService.findById(id));
+		}
 		return result;
 	}
 
