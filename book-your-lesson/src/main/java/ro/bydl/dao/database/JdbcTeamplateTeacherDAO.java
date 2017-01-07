@@ -115,7 +115,10 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	@Override
 	public Collection<Teacher> findByIncompletName(String value) {
 		// TODO Auto-generated method stub
-		return null;
+		return jdbcTeamplate.query(
+				"SELECT name, sir_name, category, email, med_date, id, cnp, phone, birth_day, hire_date "+
+    " FROM public.teachers   WHERE name LIKE ? OR sir_name LIKE ?;",
+				new String[] {"%"+ value +"%", "%"+ value +"%"}, new TeacherMapper()); 
 	}
 
 }
