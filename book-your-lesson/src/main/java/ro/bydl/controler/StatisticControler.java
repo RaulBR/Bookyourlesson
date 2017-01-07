@@ -21,7 +21,7 @@ public class StatisticControler {
 	@RequestMapping("")
 	public ModelAndView TeacherStatistics(HttpSession sesion) {
 
-		ModelAndView result = new ModelAndView("teacherStatistics");
+		ModelAndView result = new ModelAndView("teacherBarStatistic");
 
 		result.addObject("teacherSchedules", teacherStatisticService.howBusy());
 
