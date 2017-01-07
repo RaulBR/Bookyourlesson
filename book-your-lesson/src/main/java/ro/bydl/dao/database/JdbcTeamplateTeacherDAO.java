@@ -112,4 +112,10 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 				new String[] { email }, Long.class);
 	}
 
+	@Override
+	public Collection<Teacher> findByIncompletName(String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
