@@ -1,6 +1,7 @@
 package ro.bydl.controler;
 
 import java.text.ParseException;
+import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -12,6 +13,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -126,5 +129,11 @@ public class TeacherRegisterControler {
 
 		return modelAndView;
 	}
+	@RequestMapping("/search")
+	public @ResponseBody Collection<Teacher> search(HttpSession sesion,@RequestParam("CHARS") 	String value) {
+		
+		
+		return teacherService.findContaining(value);
 
+	}
 }
