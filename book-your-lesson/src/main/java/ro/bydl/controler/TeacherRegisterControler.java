@@ -130,16 +130,6 @@ public class TeacherRegisterControler {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/doSearch")
-	public ModelAndView sarma( 
-			HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("test");
-	
-		
-		
-
-		return modelAndView;
-	}	
 	
 	@RequestMapping("/search")
 	public @ResponseBody Collection<Teacher> search(HttpSession sesion,@RequestParam("CHARS") 	String value) {

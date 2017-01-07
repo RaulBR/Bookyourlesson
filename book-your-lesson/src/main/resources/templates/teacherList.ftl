@@ -43,11 +43,13 @@
     '<th>Car</th>'+
    	'<th>Category</th>'+
    	'<th>Email</th>'+
+   	[#if permision??]
    	'<th>Hire date</th>'+
    	'<th>CNP</th>'+
    	'<th>Schedule status</th>'+
    	'<th></th>'+
    	'<th></th>'+
+   	[/#if]
    	'</thead>');
    	
  	for(var index in data){
@@ -59,6 +61,7 @@
  	'<td>'+   data[index].category    +'</td>'+
  	'<td>'+   '<a class="btn btn-primary" href="/vehicle/list?teacherId='+   data[index].id      +'" role="button">Cars</a>'        +'</td>'+
  	'<td>'+   data[index].email       +'</td>'+
+ 				[#if permision??]
  	'<td>'+   data[index].hireDate    +'</td>'+
  	'<td>'+   data[index].cnp         +'</td>'+
  	
@@ -77,6 +80,7 @@
 	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
 	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">DEL</button>'+
 	  		'</form></td>'+
+	  		[/#if]
  	 '</tr>');
  	 
  	}
@@ -118,12 +122,13 @@
  	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
     
     	
-    	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/>
+    	
  
    
   
     
  	[/#if]
+ 	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/>
  <table class="table" id="dddd">
   <thead>
      <tr >
