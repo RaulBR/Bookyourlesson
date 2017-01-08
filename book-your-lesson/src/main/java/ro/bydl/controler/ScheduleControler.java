@@ -79,10 +79,7 @@ public class ScheduleControler {
 			result.addObject("schedules",
 
 					scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
-			for (Schedule s : scheduleService.searchByStudentId(currentStudent.getId(),
-					currentStudent.getTeacherId())) {
-
-			}
+		
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
 
 			result.addObject("progress", scheduleService.pending(currentStudent.getId()));
