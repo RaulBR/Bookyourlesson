@@ -36,19 +36,21 @@ public class StudentRegisterControler {
 	 * 
 	 * @param session
 	 * @return
-	 * @throws Exception
+	
 	 */
 
 	@RequestMapping("")
-	public ModelAndView student(HttpSession session,String vehicle, Long id) {
+	public ModelAndView student(HttpSession session,Long vehicleId, Long id) {
 		ModelAndView result = new ModelAndView("studentForm");
-		result.addObject("teachers", teacherService.getAll());
 		
-		if(vehicle.equals("vehicle")){
+		
+		if(vehicleId!=null){
 			
-			result.addObject("teacherFromList",teacherService.findById(vehicleService.findById(id).getTeacherId()));
+			result.addObject("teacherFromList",teacherService.findById(vehicleService.findById(vehicleId).getTeacherId()));
 		} else if(id!=null){
 			result.addObject("teacherFromList",teacherService.findById(id));
+			} else{
+				result.addObject("teachers", teacherService.getAll());
 			}
 		return result;
 	}

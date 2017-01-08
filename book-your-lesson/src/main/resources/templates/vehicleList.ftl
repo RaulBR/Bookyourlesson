@@ -141,8 +141,7 @@
 	  		<td ><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId})">See Teacher</button> </td>
 	  		<td >
 	  				 <form name="form1" action="/student" method="POST">
-	  					 <input type="hidden" name="vehicle" value="vehicle">
-	  				 	<input type="hidden" name="id" value="${vehicle.id}">
+	  					<input type="hidden" name="vehicleId" value="${vehicle.id}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">Register with this vehilce</button>
 	  				</form>
 	  		</td>
