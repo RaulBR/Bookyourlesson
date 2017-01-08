@@ -60,8 +60,8 @@
  	'<td>'+        a++                +'</td>'+
  	'<td>'+   data[index].name        +'</td>'+
  	'<td>'+   data[index].sirName     +'</td>'+
- 	'<td>'+   data[index].category    +'</td>'+
  	'<td>'+   '<a class="btn btn-primary" href="/vehicle/list?teacherId='+   data[index].id      +'" role="button">Cars</a>'        +'</td>'+
+ 	'<td>'+   data[index].category    +'</td>'+
  	'<td>'+   data[index].email       +'</td>'+
  				[#if permision??]
  	'<td>'+   data[index].hireDate    +'</td>'+
