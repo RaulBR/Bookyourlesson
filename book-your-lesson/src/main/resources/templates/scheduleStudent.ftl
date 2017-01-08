@@ -138,9 +138,10 @@
 </table> </div>
 <nav aria-label="...">
   <ul class="pager">
-    <li><a href="/schedule/previousWeek?week=${week?c}" data-toggle='modal' id='2'a >Previous week</a></li>
+    <li><a href="/schedule/previousWeek?week=${week?c}"  >Previous week</a></li>
     <li><a href="/schedule/thisWeek">This week</a></li>
     <li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
+    
   </ul>
 </nav>
 
