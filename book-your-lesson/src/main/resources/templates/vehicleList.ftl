@@ -88,7 +88,7 @@
   		<th> Edit      	</th>
    		<th> Delete   	</th>
    	[#else]
-   	    <th>            </th>
+   	    <th>Teacher     </th>
     	<th>Rregister	</th>
     [/#if]  	
 	 	  [#assign nr = 0]
