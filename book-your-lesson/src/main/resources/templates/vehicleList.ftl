@@ -34,18 +34,26 @@
    <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
+   		 	[#if permision??]
  		 <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white">Home</font></a>
- 		  <a class="navbar-brand" class="logout" color="white" href="/student/list"> <font color="white"> Students</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/student/list"> <font color="white"> Students</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+ 		    [#else]
+ 		  <a class="navbar-brand" class="logout" color="white" href="/"> <font color="white">Home</font></a>
+ 		  <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		  <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
+ 		 
+ 		 [/#if]
+ 		 
   		</div>
   	</div>
 	</nav>
   <h1> Vehicle list</h1>
  
 	[#if permision??]
- 	<p><a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a>
+ 	<a href="/vehicle"><input class="btn btn-info" role="button" value="ADD VEHICLE" type="submit"  readonly></a>
  	<a href="/vehicle/list"><input class="btn btn-info" role="button" value="LIST ALL VEHICLES" type="submit"  readonly></a></p>
  	[#else]
  	 <h4> [#if teacher??]Instructor:  ${teacher.name!''} ${teacher.sirName!''}
@@ -61,86 +69,95 @@
      <tr >
   
   
-    <th>Number</th>
-    <th>Brand</th>
-    <th>Model</th>
-    <th>Year</th>
-    <th>Fuel</th>
-   
-    <th>Engine (cm^3)</th>
-    <th>LicensePlate</th>
-    
+    	<th>	Number			</th>
+    	<th>	Brand			</th>
+    	<th>	Model			</th>
+    	<th>	Year			</th>
+    	<th>	Fuel			</th>
+    	<th>	Engine (cm^3) 	</th>
+    	<th>	LicensePlate  	</th>
+  
    	[#if permision??]
-   	 <th>Chassis</th>
-   	 <th> Vignettes</th>
-  	<th> Insurance</th>
-  		<th> ITP</th>
-  	<th> </th>
-   
-   	<th>Instructor</th>
-  	<th>Edit</th>
-   	<th> Delete</th>
-   [/#if]  	
+   	
+   		<th> Chassis  	</th>
+   	 	<th> Vignettes	</th>
+  		<th> Insurance	</th>
+  		<th> ITP     	</th>
+        <th>         	</th>
+   		<th> Instructor	</th>
+  		<th> Edit      	</th>
+   		<th> Delete   	</th>
+   	[#else]
+   	    <th>            </th>
+    	<th>Rregister	</th>
+    [/#if]  	
 	 	  [#assign nr = 0]
 	  		[#if vehicles??]
 	  		[#list vehicles as vehicle]
 	  			 [#assign nr = nr +1 ]	
-	  		  <tr>		
-	  				<td > ${nr}  </td>		
-	  		<td > 		${vehicle.brand}  </td>
-	  		<td >	 ${vehicle.carType} </td>
-	  		<td >	 ${vehicle.year} </td>
-	  		<td >	 ${vehicle.fuel} </td>
-	  		<td >	 ${vehicle.engine} </td>	
+	<tr>		
+	  		<td >	 ${nr}                   </td>		
+	  		<td > 	 ${vehicle.brand}        </td>
+	  		<td >	 ${vehicle.carType}      </td>
+	  		<td >	 ${vehicle.year}         </td>
+	  		<td >	 ${vehicle.fuel}         </td>
+	  		<td >	 ${vehicle.engine}       </td>	
 	  		<td >	 ${vehicle.licensePlate} </td>
 	  		
 	  		
+	  		
 	  	[#if permision??]
-	  		<td >	 ${vehicle.chassis} </td>
-	  		<td >	 ${vehicle.vignettes} </td>
-	  		<td >	 ${vehicle.insurance} </td>
-	  		<td >	 ${vehicle.ITP} </td>
+	  	
+	  		<td >	 ${vehicle.chassis}      </td>
+	  		<td >	 ${vehicle.vignettes}    </td>
+	  		<td >	 ${vehicle.insurance}    </td>
+	  		<td >	 ${vehicle.ITP}          </td>
 	  		<td >
-	  		 <form name="form1" action="/vehicle/list" >
-	  				 <input type="hidden" name="teacherId" value="${vehicle.teacherId}">
+	  		 		<form name="form1" action="/vehicle/list" >
+	  				 	<input type="hidden" name="teacherId" value="${vehicle.teacherId}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">${vehicle.teacherId}</button>
-	  		</form>
-	  			</td>
-	  			<td >
-	  		 <form name="form1" action="/statistics/teacher" >
-	  				 <input type="hidden" name="teacherId" value="${vehicle.teacherId}">
-	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">See Teacher</button>
-	  		</form>
-	  			</td>
-	  		<td >
-	  			 <form name="form1" action="/vehicle/edit" method="POST">
-	  				 <input type="hidden" name="id" value="${vehicle.id}">
-	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
-	  		</form>
+	  				</form>
 	  		</td>
 	  		<td >
-	  		 <form name="form1" action="/vehicle/delete" method="POST">
-	  				 <input type="hidden" name="id" value="${vehicle.id}">
+	  		 		<form name="form1" action="/statistics/teacher" >
+	  					<input type="hidden" name="teacherId" value="${vehicle.teacherId}">
+	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">See Teacher</button>
+	  				</form>
+	  		</td>
+	  		<td >
+	  			 	<form name="form1" action="/vehicle/edit" method="POST">
+	  					<input type="hidden" name="id" value="${vehicle.id}">
+	  					<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
+	  				</form>
+	  		</td>
+	  		<td >
+	  				 <form name="form1" action="/vehicle/delete" method="POST">
+	  					<input type="hidden" name="id" value="${vehicle.id}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button>
-	  		</form>
-	  			</td>
+	  				</form>
+	  		</td>
+	  			[#else]
+	  			
+	  		<td id="modif${nr}" value=><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId},${nr} )">See Teacher</button> </td>
+	  		<td >
+	  				 <form name="form1" action="/student" method="POST">
+	  					<input type="hidden" name="vehicleId" value="${vehicle.id}">
+	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">Register with this vehilce</button>
+	  				</form>
+	  		</td>
+	  		
+	  		
 	  			[/#if]
 	  			[/#list]
 	  			[/#if]
-	  			
-	  			
-	  	
-	  		
-	  	  		
-	  	  	  
-
-	  </tr>
+	</tr>
  
   
   </tbody>
 
 </table>
 
+	
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -149,5 +166,18 @@
     
     
   </body>
+  <script>
+  function getTeacher(id, nr){
+  var tag='#modif'+nr
+ $.getJSON("/teacher/searchByID",{id},
+  function(data){
+ $(tag).text('');
+ $(tag).append(data.sirName+" " + data.name);
+
+  
+  });
+  
+  }
+  </script>
 </html>
 [/#escape]
