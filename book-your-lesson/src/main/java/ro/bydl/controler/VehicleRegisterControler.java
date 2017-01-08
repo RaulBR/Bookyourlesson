@@ -32,7 +32,7 @@ public class VehicleRegisterControler {
 	@Autowired
 	TeacherService teacherService;
 	@Autowired
-	
+
 	VehicleService vehicleService;
 
 	@RequestMapping("")
@@ -54,50 +54,48 @@ public class VehicleRegisterControler {
 		return result;
 	}
 
-	
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, User u) {
 		ModelAndView result = new ModelAndView("vehicleList");
 
-		
-			if(session.getAttribute("user")!=null){
-				User user = (User) session.getAttribute("user");
-				String permison=user.getPermision();
-				if (u.getTeacherId() > 0) {
-				
-				
+		if (session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			String permison = user.getPermision();
+			if (u.getTeacherId() > 0) {
+
 				result.addObject("permision", user.getPermision());
 				switch (permison) {
 				case "teacher":
-					result.addObject("vehicles",
-							vehicleService.findByTeacherId(user.getTeacherId()));
+					result.addObject("vehicles", vehicleService.findByTeacherId(user.getTeacherId()));
 					result.addObject("permision", permison);
 					break;
 				case "admin":
 					result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
 					result.addObject("permision", permison);
 					break;
-				
+
 				default:
 					result.addObject("vehicles", vehicleService.getAll());
 					result.addObject("permision", permison);
 					break;
-				
-				}
-			
 
-		
-			
-		} else{
-			result.addObject("vehicles", vehicleService.getAll());
-			result.addObject("permision", permison);
+				}
+
+			} else {
+				result.addObject("vehicles", vehicleService.getAll());
+				result.addObject("permision", permison);
 			}
-				
-		}else if (u.getTeacherId() > 0){result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+
+		} else if (u.getTeacherId() > 0) {
+			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+		}else if(u.getTeacherId()==0){
+			result.addObject("vehicles", vehicleService.getAll());
 		}
+			
+			
 		
 		return result;
-		
+
 	}
 
 	@RequestMapping("/save")
@@ -113,9 +111,7 @@ public class VehicleRegisterControler {
 			modelAndView = new ModelAndView("/vehicle");
 			modelAndView.addObject("errors", e.getCauses());
 
-
 		}
-		 
 
 		return modelAndView;
 	}
