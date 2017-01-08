@@ -49,6 +49,8 @@
    	'<th>Schedule status</th>'+
    	'<th></th>'+
    	'<th></th>'+
+   	[#else]
+   		'<th> Register with this teacher</th>'+
    	[/#if]
    	'</thead>');
    	
@@ -80,6 +82,13 @@
 	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
 	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">DEL</button>'+
 	  		'</form></td>'+
+	  		[#else]
+	  			'<td >'+
+	  		 '<form name="form1" action="/student" method="POST">'+
+	  				 '<input type="hidden" name="id" value="'+data[index].id+'">'+
+	  				 	'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">Register with this teacher</button>'+
+	  		'</form>'+
+	  			'</td>'+
 	  		[/#if]
  	 '</tr>');
  	 
