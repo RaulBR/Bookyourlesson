@@ -43,11 +43,13 @@
     '<th>Car</th>'+
    	'<th>Category</th>'+
    	'<th>Email</th>'+
+   	[#if permision??]
    	'<th>Hire date</th>'+
    	'<th>CNP</th>'+
    	'<th>Schedule status</th>'+
    	'<th></th>'+
    	'<th></th>'+
+   	[/#if]
    	'</thead>');
    	
  	for(var index in data){
@@ -59,6 +61,7 @@
  	'<td>'+   data[index].category    +'</td>'+
  	'<td>'+   '<a class="btn btn-primary" href="/vehicle/list?teacherId='+   data[index].id      +'" role="button">Cars</a>'        +'</td>'+
  	'<td>'+   data[index].email       +'</td>'+
+ 				[#if permision??]
  	'<td>'+   data[index].hireDate    +'</td>'+
  	'<td>'+   data[index].cnp         +'</td>'+
  	
@@ -77,6 +80,7 @@
 	  		'<input type="hidden" name="id" value="'+data[index].id+'">'+
 	  		'<button  type="submit" class="btn btn-info" value="'+data[index].id+'">DEL</button>'+
 	  		'</form></td>'+
+	  		[/#if]
  	 '</tr>');
  	 
  	}
@@ -103,27 +107,34 @@
   <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
+   		 [#if permision??]
  		 <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white">Home</font></a>
  		  <a class="navbar-brand" class="logout" color="white" href="/student/list?teacherId"> <font color="white"> Students</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
   		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
- 		 
+ 		 [#else]
+ 		 <a class="navbar-brand" class="logout" color="white" href="/"> <font color="white">Home</font></a>
+ 		  <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
+ 		  [/#if]
   		</div>
   	</div>
 	</nav>
   <h1> Instructors</h1>
    [#if permision??]
  	<p><a href="/teacher"><input class="btn btn-info" role="button" value="ADD INSTRUCTOR" type="submit"  readonly></a>
+ 	
  	<a href="/teacher/list"><input class="btn btn-info" role="button" value="LIST ALL INSTRUCTOR" type="submit"  readonly></a></p>
     
     	
-    	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/>
+    	
  
    
   
     
  	[/#if]
+ 	<p>Search:<input type="text" onKeyUp="doSearch();" id="searchBox"/>
  <table class="table" id="dddd">
   <thead>
      <tr >
@@ -135,15 +146,18 @@
     <th>Car</th>
     <th>Category</th>
     <th>Email</th>
+  
    	[#if permision??]
    	<th>Hire date</th>
    	<th>CNP</th>
    	<th>Schedule status</th>
    	<th></th>
    	<th></th>
-   	</thead>
+   	[#else]
+   	<th> Register with this teacher</th>
    	[/#if]
-	 	  	 [#assign nr = 0]
+	 </thead>	
+	 [#assign nr = 0]
 	  		[#if teachers??]
 	  		[#list teachers as teacher]
 	  			 [#assign nr = nr +1 ]	
@@ -173,6 +187,13 @@
 	  		 <form name="form1" action="/teacher/delete" method="POST">
 	  				 <input type="hidden" name="id" value="${teacher.id}">
 	  				 	<button  type="submit" class="btn btn-info" value="${teacher.id}">DEL</button>
+	  		</form>
+	  			</td>
+	  			[#else]
+	  			<td >
+	  		 <form name="form1" action="/student" method="POST">
+	  				 <input type="hidden" name="id" value="${teacher.id}">
+	  				 	<button  type="submit" class="btn btn-info" value="${teacher.id}">Register with this teacher</button>
 	  		</form>
 	  			</td>
 	  			[/#if]
