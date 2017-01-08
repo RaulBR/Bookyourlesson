@@ -79,17 +79,17 @@
   
    	[#if permision??]
    	
-   		<th>Chassis   </th>
-   	 	<th> Vignettes</th>
-  		<th> Insurance</th>
-  		<th> ITP      </th>
-        <th>          </th>
-   		<th>Instructor</th>
-  		<th>Edit      </th>
-   		<th> Delete   </th>
+   		<th> Chassis  	</th>
+   	 	<th> Vignettes	</th>
+  		<th> Insurance	</th>
+  		<th> ITP     	</th>
+        <th>         	</th>
+   		<th> Instructor	</th>
+  		<th> Edit      	</th>
+   		<th> Delete   	</th>
    	[#else]
-   	     <th>         </th>
-    	<th>Rregister</th>
+   	    <th>            </th>
+    	<th>Rregister	</th>
     [/#if]  	
 	 	  [#assign nr = 0]
 	  		[#if vehicles??]
@@ -138,7 +138,7 @@
 	  		</td>
 	  			[#else]
 	  			
-	  		<td ><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId})">See Teacher</button> </td>
+	  		<td id="modif${nr}" value=><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId},${nr} )">See Teacher</button> </td>
 	  		<td >
 	  				 <form name="form1" action="/student" method="POST">
 	  					<input type="hidden" name="vehicleId" value="${vehicle.id}">
@@ -157,24 +157,7 @@
 
 </table>
 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Booking info</h4>
-	      </div>
-	      <div class="modal-body">
-	      <center>  <p>You can't book a lesson in the past :)</p>
-	        <p>Contact your teacher for more info</p></center>
-	      </div>
-	      <div class="modal-footer">
-	    		 <center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
-		        
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -184,17 +167,13 @@
     
   </body>
   <script>
-  function getTeacher(id){
-  
+  function getTeacher(id, nr){
+  var tag='#modif'+nr
  $.getJSON("/teacher/searchByID",{id},
   function(data){
- $("#modal-body").text('');
- $("#modal-body").append(
- '<center>  <p>'+data.name+' '+data.sirName+'</p>'+
-     '   <p>Contact your teacher for more info: '+data.email+'</p></center>'
- 
- );
-  $('#myModal').modal('show');
+ $(tag).text('');
+ $(tag).append(data.sirName+" " + data.name);
+
   
   });
   
