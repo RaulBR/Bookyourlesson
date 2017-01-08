@@ -79,9 +79,7 @@ public class ScheduleControler {
 			result.addObject("schedules",
 					
 			scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
-			for(Schedule s:scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId())){
 			
-			}
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
 			
 			
@@ -188,7 +186,7 @@ public class ScheduleControler {
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-System.err.println("aiciii");
+
 		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
 

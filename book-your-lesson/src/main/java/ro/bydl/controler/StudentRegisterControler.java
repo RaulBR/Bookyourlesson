@@ -19,6 +19,7 @@ import ro.bydl.domain.User;
 import ro.bydl.exceptions.ValidationException;
 import ro.bydl.service.StudentService;
 import ro.bydl.service.TeacherService;
+import ro.bydl.service.VehicleService;
 
 @Controller
 @RequestMapping("student")
@@ -27,6 +28,8 @@ public class StudentRegisterControler {
 	TeacherService teacherService;
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	VehicleService vehicleService;
 
 	/**
 	 * Returners a Model and view object for the "student" mapping.
