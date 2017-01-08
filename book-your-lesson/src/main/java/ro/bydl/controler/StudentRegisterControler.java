@@ -40,19 +40,16 @@ public class StudentRegisterControler {
 	 */
 
 	@RequestMapping("")
-	public ModelAndView student(HttpSession session,String vehicle, Integer id) {
+	public ModelAndView student(HttpSession session,String vehicle, Long id) {
 		ModelAndView result = new ModelAndView("studentForm");
-		
+		result.addObject("teachers", teacherService.getAll());
 		
 		if(vehicle.equals("vehicle")){
 			
 			result.addObject("teacherFromList",teacherService.findById(vehicleService.findById(id).getTeacherId()));
 		} else if(id!=null){
 			result.addObject("teacherFromList",teacherService.findById(id));
-			}else{
-				result.addObject("teachers", teacherService.getAll());
 			}
-		
 		return result;
 	}
 

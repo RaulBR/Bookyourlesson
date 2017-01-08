@@ -69,97 +69,113 @@
      <tr >
   
   
-    <th>Number</th>
-    <th>Brand</th>
-    <th>Model</th>
-    <th>Year</th>
-    <th>Fuel</th>
-   
-    <th>Engine (cm^3)</th>
-    <th>LicensePlate</th>
-    <th>   </th>
+    	<th>	Number			</th>
+    	<th>	Brand			</th>
+    	<th>	Model			</th>
+    	<th>	Year			</th>
+    	<th>	Fuel			</th>
+    	<th>	Engine (cm^3) 	</th>
+    	<th>	LicensePlate  	</th>
+  
    	[#if permision??]
-   		 <th>Chassis</th>
+   	
+   		<th>Chassis   </th>
    	 	<th> Vignettes</th>
   		<th> Insurance</th>
-  		<th> ITP</th>
-  		
-   
+  		<th> ITP      </th>
+        <th>          </th>
    		<th>Instructor</th>
-  		<th>Edit</th>
-   		<th> Delete</th>
+  		<th>Edit      </th>
+   		<th> Delete   </th>
    	[#else]
-   	<th>Rregister</th>
-   [/#if]  	
+   	     <th>         </th>
+    	<th>Rregister</th>
+    [/#if]  	
 	 	  [#assign nr = 0]
 	  		[#if vehicles??]
 	  		[#list vehicles as vehicle]
 	  			 [#assign nr = nr +1 ]	
-	  		  <tr>		
-	  				<td > ${nr}  </td>		
-	  		<td > 		${vehicle.brand}  </td>
-	  		<td >	 ${vehicle.carType} </td>
-	  		<td >	 ${vehicle.year} </td>
-	  		<td >	 ${vehicle.fuel} </td>
-	  		<td >	 ${vehicle.engine} </td>	
+	<tr>		
+	  		<td >	 ${nr}                   </td>		
+	  		<td > 	 ${vehicle.brand}        </td>
+	  		<td >	 ${vehicle.carType}      </td>
+	  		<td >	 ${vehicle.year}         </td>
+	  		<td >	 ${vehicle.fuel}         </td>
+	  		<td >	 ${vehicle.engine}       </td>	
 	  		<td >	 ${vehicle.licensePlate} </td>
-	  		<td ><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId})">See Teacher</button> </td>
+	  		
 	  		
 	  		
 	  	[#if permision??]
-	  		<td >	 ${vehicle.chassis} </td>
-	  		<td >	 ${vehicle.vignettes} </td>
-	  		<td >	 ${vehicle.insurance} </td>
-	  		<td >	 ${vehicle.ITP} </td>
+	  	
+	  		<td >	 ${vehicle.chassis}      </td>
+	  		<td >	 ${vehicle.vignettes}    </td>
+	  		<td >	 ${vehicle.insurance}    </td>
+	  		<td >	 ${vehicle.ITP}          </td>
 	  		<td >
-	  		 <form name="form1" action="/vehicle/list" >
-	  				 <input type="hidden" name="teacherId" value="${vehicle.teacherId}">
+	  		 		<form name="form1" action="/vehicle/list" >
+	  				 	<input type="hidden" name="teacherId" value="${vehicle.teacherId}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">${vehicle.teacherId}</button>
-	  		</form>
-	  			</td>
-	  			<td >
-	  		 <form name="form1" action="/statistics/teacher" >
-	  				 <input type="hidden" name="teacherId" value="${vehicle.teacherId}">
-	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">See Teacher</button>
-	  		</form>
-	  			</td>
-	  		<td >
-	  			 <form name="form1" action="/vehicle/edit" method="POST">
-	  				 <input type="hidden" name="id" value="${vehicle.id}">
-	  			<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
-	  		</form>
+	  				</form>
 	  		</td>
 	  		<td >
-	  		 <form name="form1" action="/vehicle/delete" method="POST">
-	  				 <input type="hidden" name="id" value="${vehicle.id}">
+	  		 		<form name="form1" action="/statistics/teacher" >
+	  					<input type="hidden" name="teacherId" value="${vehicle.teacherId}">
+	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.teacherId}">See Teacher</button>
+	  				</form>
+	  		</td>
+	  		<td >
+	  			 	<form name="form1" action="/vehicle/edit" method="POST">
+	  					<input type="hidden" name="id" value="${vehicle.id}">
+	  					<button  type="submit" class="btn btn-info" value="${vehicle.id}">EDIT</button>
+	  				</form>
+	  		</td>
+	  		<td >
+	  				 <form name="form1" action="/vehicle/delete" method="POST">
+	  					<input type="hidden" name="id" value="${vehicle.id}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">DEL</button>
-	  		</form>
-	  			</td>
+	  				</form>
+	  		</td>
 	  			[#else]
-	  			<td >
-	  		 <form name="form1" action="/student" method="POST">
+	  			
+	  		<td ><button class="btn btn-default" role="button" name="teacherId" value="${vehicle.teacherId}"  readonly onClick="getTeacher(${vehicle.teacherId})">See Teacher</button> </td>
+	  		<td >
+	  				 <form name="form1" action="/student" method="POST">
 	  					 <input type="hidden" name="vehicle" value="vehicle">
 	  				 	<input type="hidden" name="id" value="${vehicle.id}">
 	  				 	<button  type="submit" class="btn btn-info" value="${vehicle.id}">Register with this vehilce</button>
-	  		</form>
-	  			</td>
+	  				</form>
+	  		</td>
+	  		
+	  		
 	  			[/#if]
 	  			[/#list]
 	  			[/#if]
-	  			
-	  			
-	  	
-	  		
-	  	  		
-	  	  	  
-
-	  </tr>
+	</tr>
  
   
   </tbody>
 
 </table>
 
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Booking info</h4>
+	      </div>
+	      <div class="modal-body">
+	      <center>  <p>You can't book a lesson in the past :)</p>
+	        <p>Contact your teacher for more info</p></center>
+	      </div>
+	      <div class="modal-footer">
+	    		 <center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
+		        
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -169,11 +185,19 @@
     
   </body>
   <script>
-  function getTeacher(){
+  function getTeacher(id){
   
+ $.getJSON("/teacher/searchByID",{id},
+  function(data){
+ $("#modal-body").text('');
+ $("#modal-body").append(
+ '<center>  <p>'+data.name+' '+data.sirName+'</p>'+
+     '   <p>Contact your teacher for more info: '+data.email+'</p></center>'
+ 
+ );
+  $('#myModal').modal('show');
   
-  
-  alert(d.serialize());
+  });
   
   }
   </script>

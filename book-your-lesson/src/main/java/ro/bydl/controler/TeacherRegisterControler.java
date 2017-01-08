@@ -139,10 +139,9 @@ public class TeacherRegisterControler {
 
 	}
 	@RequestMapping("/searchByID")
-	public @ResponseBody Teacher search(HttpSession sesion, Long id) {
+	public @ResponseBody Teacher searching(HttpSession sesion, Long id) {
 		
-		
-		return teacherService.findById(id);
+		return teacherService.findById((id));
 
 	}
 
