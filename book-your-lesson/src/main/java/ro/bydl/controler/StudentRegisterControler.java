@@ -23,6 +23,7 @@ import ro.bydl.service.VehicleService;
 
 @Controller
 @RequestMapping("student")
+
 public class StudentRegisterControler {
 	@Autowired
 	TeacherService teacherService;
@@ -101,17 +102,57 @@ public class StudentRegisterControler {
 
 	@RequestMapping("/list")
 	public ModelAndView studentList(HttpSession session, Long teacherId) {
-		String permison = ((User) session.getAttribute("user")).getPermision();
+	
+		
 		ModelAndView result = new ModelAndView("studentList");
-		result.addObject("permision", permison);
-		if (teacherId !=null) {
-			result.addObject("students", studentService.getByTeacherId(teacherId));
+		if (session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			String permison = user.getPermision();
+			
+			
+				result.addObject("permision", user.getPermision());
+				
+				switch (permison) {
+				case "teacher":
+					if(teacherId==null){
+					result.addObject("students", studentService.getByTeacherId(user.getTeacherId()));
+					result.addObject("permision", permison);
+					}else{
+						result.addObject("students",studentService.getByTeacherId(teacherId));
+						result.addObject("permision", permison);
+					}
+					
+					break;
+				case "admin":
+					if(teacherId==null){
+						result.addObject("students", studentService.getAll());
+						result.addObject("permision", permison);
+					}else {
+					result.addObject("students", studentService.getByTeacherId(teacherId));
+					result.addObject("permision", permison);
+				}
+					break;
+				
+					
+				default:
+					if (teacherId !=null) {
+						result.addObject("students", studentService.getByTeacherId(teacherId));
+					}else {
+						result.addObject("students", studentService.getAll());
+					}
+					break;
 
-		} else {
+				
 
+			
+			}
+
+		}  else {
 			result.addObject("students", studentService.getAll());
-
 		}
+		
+			
+		
 		return result;
 	}
 

@@ -99,7 +99,9 @@ public class VehicleRegisterControler {
 			
 			}
 
-		}  else {
+		} else if (teacherId !=null) {
+			result.addObject("vehicles", vehicleService.findByTeacherId(teacherId));
+		} else {
 			result.addObject("vehicles", vehicleService.getAll());
 		}
 		

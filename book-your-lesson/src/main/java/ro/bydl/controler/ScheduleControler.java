@@ -33,6 +33,7 @@ import ro.bydl.service.TeacherService;
  */
 @Controller
 @RequestMapping("/schedule")
+
 @SessionAttributes({ "week" })
 
 public class ScheduleControler {
