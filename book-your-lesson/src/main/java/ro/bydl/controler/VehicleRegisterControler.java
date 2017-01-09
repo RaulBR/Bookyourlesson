@@ -64,7 +64,7 @@ public class VehicleRegisterControler {
 			
 			
 				result.addObject("permision", user.getPermision());
-				System.err.println("here it is " +permison);
+				
 				switch (permison) {
 				case "teacher":
 					if(teacherId==null){
