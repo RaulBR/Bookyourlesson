@@ -19,40 +19,52 @@ public class StatisticControler {
 	StudentSchedulesStatisticService studentStatisticService;
 
 	@RequestMapping("")
-	public ModelAndView TeacherStatistics(HttpSession sesion) {
-
+	public ModelAndView TeacherStatistics(HttpSession session) {
+		if(session.getAttribute("user")!=null){
+		//User user= (User) session.getAttribute("user");
 		ModelAndView result = new ModelAndView("teacherBarStatistic");
-
 		result.addObject("teacherSchedules", teacherStatisticService.howBusy());
-
 		return result;
+		}else{
+			
+			return new ModelAndView("login");
+		
+		}
+		
+		
 
 	}
 
 	@RequestMapping("/teacher")
-	public ModelAndView teacherStatistics(HttpSession sesion, Long teacherId) {
-
-		ModelAndView result = new ModelAndView("teacherStatistic");
-		
-		if(teacherId==null){
-		result.addObject("teacherSchedule", teacherStatisticService.howBusy());
-		}else{
-		
+	public ModelAndView teacherStatistics(HttpSession session, Long teacherId) {
+		ModelAndView result;
+	if(teacherId!=null){
+			 result = new ModelAndView("teacherStatistic");
 		result.addObject("teacherSchedule", teacherStatisticService.howBusy(teacherId));
-		}
+	}else{
+		return new ModelAndView("login");
+	}
 		return result;
 
 	}
 
 	@RequestMapping("/student")
-	public ModelAndView StudentStatistics(HttpSession sesion, long studentId) {
+	public ModelAndView studentStatistics(HttpSession session, Long studentId) {
+		ModelAndView result;
+		if(session.getAttribute("user")!=null){
+		if(studentId!=null){
+				 result =  new ModelAndView("teacherStatistic");
 
-		ModelAndView result = new ModelAndView("teacherStatistic");
-
-		result.addObject("teacherSchedule", studentStatisticService.howBusys(studentId));
-
-		return result;
+		 result.addObject("teacherSchedule", studentStatisticService.howBusys(studentId));
+		}else{
+			return new ModelAndView("login");
+		}
+		}else{
+			return new ModelAndView("login");
+		}
+			return result;
 
 	}
+	
 
 }
