@@ -52,7 +52,8 @@ public class ScheduleControler {
 	 * @throws Exception
 	 */
 	@RequestMapping("")
-	public ModelAndView schedule(HttpSession session) throws Exception {
+	public ModelAndView schedule(HttpSession session)  {
+		if(session.getAttribute("user")!=null){
 		User user = (User) session.getAttribute("user");
 		String permison = user.getPermision();
 
@@ -75,15 +76,13 @@ public class ScheduleControler {
 
 			result = new ModelAndView("scheduleStudent");
 			result.addObject("studentOBJ", currentStudent);
-			
+
 			result.addObject("schedules",
-					
-			scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
-			
+
+					scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
+		
 			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
-			
-			
-			
+
 			result.addObject("progress", scheduleService.pending(currentStudent.getId()));
 			result.addObject("absent", scheduleService.absent(currentStudent.getId()));
 			result.addObject("done", scheduleService.done(currentStudent.getId()));
@@ -91,11 +90,12 @@ public class ScheduleControler {
 		if (permison.equals("admin")) {
 			result = new ModelAndView("admin");
 
-		}
-
-		result.addObject("week", week);
+		}result.addObject("week", week);
 		result.addObject("weekDays", scheduleService.getDays(week));
 		return result;
+		}
+
+		return new ModelAndView("login");
 	}
 
 	/**
@@ -186,7 +186,6 @@ public class ScheduleControler {
 	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-
 		scheduleService.delete(schedule);
 		modelAndView.setView(new RedirectView(""));
 
@@ -213,25 +212,24 @@ public class ScheduleControler {
 		return modelAndView;
 
 	}
-	@RequestMapping(value="saveDated", method= RequestMethod.GET)
+
+	@RequestMapping(value = "saveDated", method = RequestMethod.GET)
 	public @ResponseBody long search(HttpSession session, Schedule value) {
 		User user = (User) session.getAttribute("user");
 		String permison = user.getPermision();
-		if(permison.equals("teahcer")){
+		if (permison.equals("teahcer")) {
 			return scheduleService.save(value);
-		}
-		else if(permison.equals("student")){
+		} else if (permison.equals("student")) {
 			if (scheduleService.dateHasPased(value)) {
 				return -1;
 			} else {
 
-				
 				return scheduleService.save(value);
 			}
 		}
 		return 0;
-		
-		}
+
+	}
 	@RequestMapping(value="remove", method= RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
 		long v=scheduleService.delete(value);
@@ -239,4 +237,5 @@ public class ScheduleControler {
 		return v;
 
 	}
+
 }
