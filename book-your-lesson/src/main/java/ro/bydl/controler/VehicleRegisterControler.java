@@ -72,6 +72,7 @@ public class VehicleRegisterControler {
 					result.addObject("permision", permison);
 					}else{
 						result.addObject("vehicles", vehicleService.findByTeacherId(teacherId));
+						result.addObject("permision", permison);
 					}
 					
 					break;
@@ -98,7 +99,9 @@ public class VehicleRegisterControler {
 			
 			}
 
-		}  
+		}  else {
+			result.addObject("vehicles", vehicleService.getAll());
+		}
 		
 			
 		
