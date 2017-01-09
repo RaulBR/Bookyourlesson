@@ -52,7 +52,8 @@ public class ScheduleControler {
 	 * @throws Exception
 	 */
 	@RequestMapping("")
-	public ModelAndView schedule(HttpSession session) throws Exception {
+	public ModelAndView schedule(HttpSession session)  {
+		if(session.getAttribute("user")!=null){
 		User user = (User) session.getAttribute("user");
 		String permison = user.getPermision();
 
@@ -89,11 +90,12 @@ public class ScheduleControler {
 		if (permison.equals("admin")) {
 			result = new ModelAndView("admin");
 
-		}
-
-		result.addObject("week", week);
+		}result.addObject("week", week);
 		result.addObject("weekDays", scheduleService.getDays(week));
 		return result;
+		}
+
+		return new ModelAndView("login");
 	}
 
 	/**
