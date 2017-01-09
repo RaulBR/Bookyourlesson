@@ -55,43 +55,51 @@ public class VehicleRegisterControler {
 	}
 
 	@RequestMapping("/list")
-	public ModelAndView list(HttpSession session, User u) {
+	public ModelAndView list(HttpSession session, Long teacherId) {
 		ModelAndView result = new ModelAndView("vehicleList");
 
 		if (session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			String permison = user.getPermision();
-			if (u.getTeacherId() > 0) {
-
+			
+			
 				result.addObject("permision", user.getPermision());
+				System.err.println("here it is " +permison);
 				switch (permison) {
 				case "teacher":
+					if(teacherId==null){
 					result.addObject("vehicles", vehicleService.findByTeacherId(user.getTeacherId()));
 					result.addObject("permision", permison);
+					}else{
+						result.addObject("vehicles", vehicleService.findByTeacherId(teacherId));
+					}
+					
 					break;
 				case "admin":
-					result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
+					if(teacherId==null){
+						result.addObject("vehicles", vehicleService.getAll());
+						result.addObject("permision", permison);
+					}else {
+					result.addObject("vehicles", vehicleService.findByTeacherId(teacherId));
 					result.addObject("permision", permison);
+				}
 					break;
 
 				default:
-					result.addObject("vehicles", vehicleService.getAll());
-					result.addObject("permision", permison);
+					if (teacherId !=null) {
+						result.addObject("vehicles", vehicleService.findByTeacherId(teacherId));
+					}else {
+						result.addObject("vehicles", vehicleService.getAll());
+					}
 					break;
 
-				}
+				
 
-			} else {
-				result.addObject("vehicles", vehicleService.getAll());
-				result.addObject("permision", permison);
+			
 			}
 
-		} else if (u.getTeacherId() > 0) {
-			result.addObject("vehicles", vehicleService.findByTeacherId(u.getTeacherId()));
-		}else if(u.getTeacherId()==0){
-			result.addObject("vehicles", vehicleService.getAll());
-		}
-			
+		}  
+		
 			
 		
 		return result;
