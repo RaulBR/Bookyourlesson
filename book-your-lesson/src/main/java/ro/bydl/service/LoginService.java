@@ -51,7 +51,7 @@ public final class LoginService {
 			throw new ValidationException(errors.toArray(new String[] {}));
 		}
 
-		return user;
+		 return user;
 	}
 
 }
