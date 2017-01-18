@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -49,13 +48,13 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("")
-	public ModelAndView mainPage(HttpSession session,  SessionStatus status) {
+	public ModelAndView mainPage(HttpSession session) {
 		 session.invalidate();
-		ModelAndView mav = new ModelAndView("login");
+		ModelAndView modelandView = new ModelAndView("login");
 
-		mav.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+		modelandView.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 		
-		return mav;
+		return modelandView;
 	}
 
 	/**
@@ -74,7 +73,7 @@ try{
 		if (loginService.Permision(user) != null) {
 			
 				session.setAttribute("user", loginService.Permision(user));
-				
+				modelandView.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 				modelandView.setView(new RedirectView("/schedule"));
 						
 
