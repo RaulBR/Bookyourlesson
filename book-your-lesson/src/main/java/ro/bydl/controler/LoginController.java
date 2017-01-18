@@ -50,10 +50,9 @@ public class LoginController {
 	 */
 	@RequestMapping("")
 	public ModelAndView mainPage(HttpSession session,  SessionStatus status) {
-		 session.invalidate();
+		
 		ModelAndView mav = new ModelAndView("login");
 
-		mav.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 		
 		return mav;
 	}
@@ -70,6 +69,8 @@ public class LoginController {
 	public ModelAndView add(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelandView = new ModelAndView("login");
+		session.setAttribute("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+	
 try{
 		if (loginService.Permision(user) != null) {
 			
