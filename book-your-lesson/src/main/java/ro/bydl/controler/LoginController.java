@@ -73,7 +73,7 @@ try{
 		if (loginService.Permision(user) != null) {
 			
 				session.setAttribute("user", loginService.Permision(user));
-				modelandView.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+				//modelandView.addObject("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 				modelandView.setView(new RedirectView("/schedule"));
 						
 
