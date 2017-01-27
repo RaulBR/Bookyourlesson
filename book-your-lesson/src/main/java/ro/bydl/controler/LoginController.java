@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -49,10 +48,10 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("")
-	public ModelAndView mainPage(HttpSession session,  SessionStatus status) {
+	public ModelAndView mainPage(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView("login");
-
+		System.out.println(mav.toString());
 		
 		return mav;
 	}
