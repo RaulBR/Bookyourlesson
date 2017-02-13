@@ -21,48 +21,49 @@
     <![endif]-->
     <base href="" />
     <link rel="icon" type="image/png" href="/images/negru.png">
+    <script type="text/javascript" src="js/schedule.js"></script>
+    
   </head>
+  
   [#escape x as x?html]
+  
   <body>
 <div id="result"></div>
-<nav class="navbar navbar-dark bg-primary">
- <div class="nav navbar-nav">
-    <div class="container">
-  <a class="navbar-brand" color="white" href="/logout"> <font color="white"> LogOut</font></a>
-  </div>
-</nav>
+
+	<nav class="navbar navbar-dark bg-primary">
+		<div class="nav navbar-nav">
+   		<div class="container">
+  			<a class="navbar-brand" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+  		</div>
+	</nav>
 
   <h1> Schedule leson</h1>
   
-  	<h3>[#if studentOBJ??]${studentOBJ.name!''} ${studentOBJ.sirName!''}[#else]Vizitator[/#if] </h3>
-  <h4> [#if instructor??]Instructor:  ${instructor.name!''} ${instructor.sirName!''}[#else]No theacher[/#if] </h4>
+  		<h3>[#if studentOBJ??]${studentOBJ.name!''} ${studentOBJ.sirName!''}[#else]Vizitator[/#if] </h3>
+ 		<h4> [#if instructor??]Instructor:  ${instructor.name!''} ${instructor.sirName!''}[#else]No theacher[/#if] </h4>
  
 
-[#assign dayName= ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
- [#assign hourList = [8, 10, 12, 14, 16, 18]]
+	[#assign dayName= ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
+ 	[#assign hourList = [8, 10, 12, 14, 16, 18]]
  <div class="tableContainer"> <table class="table">
   <thead>
-     <tr >
-    <th >Hour
-    <p> </p>
-    
-    </th>
-    [#assign a=0]
- 		[#list weekDays as  day]
- 			[#assign dayn=dayName[a]]
-			 <th>${dayn}  <p>${day}</p></th>
-			[#assign a++]
-		 [/#list]
+     <tr>
+    <th >Hour</th>
+        
+    	[#assign a=0]
+ 			[#list weekDays as  day]
+ 				[#assign dayn=dayName[a]]
+				 <th>${dayn}  <p>${day}</p></th>
+		[#assign a++]
+			[/#list]
   
   	</tr>
-  
-  
-  [#list hourList as hour]
-	  [#assign endHour = hour + 2]
-  	  <tr>
-	  	<td class="btn"><center><strong>${hour} - ${endHour}</strong></center></td>
+  	 	 [#list hourList as hour]
+	 	[#assign endHour = hour + 2]
+  	<tr>
+	  		<td class="btn"><center><strong>${hour} - ${endHour}</strong></center></td>
 	  	
-	  	[#list weekDays as day]
+	 	 [#list weekDays as day]
 	  	
 	  	[#assign curentSchedule= 0]
 	  	[#assign statut = 'free']
@@ -104,45 +105,64 @@
 		[#switch statut]
 	  			
 	  		[#case 'pending']
+				<div id="sand" >
+				<p>
+					<input id="setButton" class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly />
+				</p>
+				</div>			
+				[#break]
 				
-					<div id="sand" >	<p><input id="setButton" class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly /></p>
-					</div>			
-			[#break]
 	  		[#case 'free']
-					<div id="sand" >	<p><input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/></p>
-					</div>
-			[#break]
+				<div id="sand" >
+				<p>
+					<input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/>
+				</p>
+				</div>
+				[#break]
+			
 	  		[#case 'absent']	
-	  									<p><input class="btn btn-danger" role="button"  name="btn" value="absent"  class="btns" readonly></p>
-	  	  	[#break]
+	  			<p>
+	  				<input class="btn btn-danger" role="button"  name="btn" value="absent"  class="btns" readonly>
+	  			</p>
+	  	  		[#break]
 	  	  		 
 	  	  	[#case 'notFree']	
-	  									<p><input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly></p>
+	  			<p>
+	  				<input class="btn" role="text"  value="NOT FREE" name="btn"class="btns" readonly>
+	  			</p>
+	  	  		[#break]
+	  	  		
+	  	  	[#case 'done']	
+	  			<p>
+	  				<input class="btn btn-success" role="button"   name="btn" value="Done" class="btns" readonly>
+	  			</p>
 	  	  	[#break]
-	  	  		[#case 'done']	
-	  									<p><input class="btn btn-success" role="button"   name="btn" value="Done" class="btns" readonly></p>
-	  	  	[#break]
-	  	  		[#case 'booked']	
-	  									<p><input class="btn btn-primary"  role="button" name="btn" value="booked" class="btns" readonly></p>
+	  	  	
+	  	  	[#case 'booked']	
+	  			<p>
+	  				<input class="btn btn-primary"  role="button" name="btn" value="booked" class="btns" readonly>
+	  			</p>
 	  		[#break]
+	  		
 	  	  	  [/#switch]
 
-</form>  </td> 
+		</form>  </td> 
 			
 	  [/#list]
 	  </tr>
-  [/#list]
+[/#list]
   
   </tbody>
 
-</table> </div>
-<nav aria-label="...">
-  <ul class="pager">
-   <li><a href="/schedule/previousWeek?week=${week?c}"  >Previous week</a></li>
-    <li><a href="/schedule/thisWeek">This week</a></li>
-    <li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
-  </ul>
-</nav>
+</table> 
+</div>
+	<nav aria-label="...">
+  		<ul class="pager">
+  	 		<li><a href="/schedule/previousWeek?week=${week?c}"  >Previous week</a></li>
+   	 		<li><a href="/schedule/thisWeek">This week</a></li>
+   			<li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
+  		</ul>
+	</nav>
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -152,12 +172,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Booking info</h4>
       </div>
-      <div class="modal-body">
-      <center>  <p>You can't book a lesson in the past :)</p>
-        <p>Contact your teacher for more info</p></center>
-      </div>
-      <div class="modal-footer">
-     <center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
+      	<div class="modal-body">
+      	<center>  <p>You can't book a lesson in the past :)</p>
+     	   <p>Contact your teacher for more info</p></center>
+     	 </div>
+     	 <div class="modal-footer">
+     	<center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
         
       </div>
     </div>
@@ -200,78 +220,8 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
     
-    <script type="text/javascript">
     
-   
     
-    	jQuery(document).ready(function(){
-    	//var test = "{$hourList}";
-    	// console.log(test);
-    		var date = new Date();
-    		var day = date.getDate(),
-    			month = date.getMonth(),
-    			year = date.getFullYear();
-    			
-    		var currDate = (day < 10 ? '0' : '') + day + '.' + (month < 10 ? '0' : '') + month + '.' + year;
-    		//console.log(currDate);
-    	});
-    	
-    	
-    	 function submitButton(objInput){
-    	 $(function(){
-  
- var currentButton = $(objInput).parents('div')[0];
- var currentForm = $(objInput).parents('form')[0];
-
-
-if($(currentForm).find('input[name="btn"]').val()=="Book Lesson"){
-$.getJSON("/schedule/saveDated", $(currentForm).serialize() ,
-  function(data){
-  if(data>0){
-  $(currentButton).html("");
-  
- 	 $(currentForm).find('input[name="id"]').val(data);
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending"  class="btns" onClick="submitButton(this)" readonly/></p>');
- 
- 	}else if(data<0){
- 	$('#myModal').modal('show');   
- 	}
- 	else {
- 	$(currentButton).html("");
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
- 		
- 	}
- 	
-  });
-}
-	
-
-		else if($(currentForm).find('input[name="btn"]').val()=="Pending"){
-		
-		$.getJSON("/schedule/remove", $(currentForm).serialize() ,
-  function(data){
-  if(data==1){
-  	$(currentButton).html("");
-  			$(currentButton).html('<p><input  "id="setButton" class="btn btn-default" role="button" name="btn" value="Book Lesson" class="btns" onClick="submitButton(this)" readonly/></p>');
- 		
- 
- 	}else {
-  $(currentButton).html("");
-  			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
- 
- 	}
- 	 });
-}
- 		 
-
-
-  });
-  
-    	 
-    
-    	 };
-    	 
-    </script>
     <style>
     .btn{
     width:90%;

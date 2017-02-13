@@ -99,6 +99,17 @@ try{
 	    return  modelANdVeiw;
 	  
 	}
+
+	  
+	  //testing my javaScript and angular :-"
+	  @RequestMapping("/test")
+	  public ModelAndView test(HttpSession session) {
+		  ModelAndView modelANdVeiw=new ModelAndView("test");
+		 
+	   
+	    return  modelANdVeiw;
+	  
+	}
 	 
 
 }
