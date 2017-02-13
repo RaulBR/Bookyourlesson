@@ -1,8 +1,4 @@
-
-    
-   
-    
-    	jQuery(document).ready(function(){
+jQuery(document).ready(function(){
     	//var test = "{$hourList}";
     	// console.log(test);
     		var date = new Date();
@@ -63,10 +59,10 @@ $.getJSON("/schedule/saveDated", $(currentForm).serialize() ,
  		 
 
 
-  });
+});
   
-    	 
+	 
     
-    	 };
+};
     	 
     
