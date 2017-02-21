@@ -240,7 +240,7 @@
 		      	<div class="modal-body">
 		      	
 		      	<center> 
-		      	<p>Schedue a student:</p>
+		      	<p>Change the schedule status:</p>
 		     	   <input type="hidden" >
 											<select class="form-control sel-schedule-option" name="addStatus">
 							         			<option value="free" >Free</option>
