@@ -12,12 +12,34 @@ import ro.bydl.dao.StudentDAO;
 import ro.bydl.domain.Student;
 import ro.bydl.exceptions.ValidationException;
 
+/**
+ * Service class for students
+ * 
+ * @author Raul
+ *
+ */
 @Service
 public class StudentService extends PersonHelper {
 
 	@Autowired
 	private StudentDAO dao;
 
+	/**
+	 * this method adds a student to the database (via validation) *
+	 * <p>
+	 * Validates:
+	 * </p>
+	 * <ul>
+	 * <li>if fields are empty</li>
+	 * <li>if cnp is of correct length</li>
+	 * <li>if email is used</li>
+	 * <li>if user is used</li>
+	 * <li>if passwords match</li>
+	 * </ul>
+	 * 
+	 * @param student
+	 * @throws ValidationException
+	 */
 	public void addStudent(Student student) throws ValidationException {
 
 		refinePerson(student);
@@ -26,6 +48,7 @@ public class StudentService extends PersonHelper {
 
 			setRegistrationDate(student);
 			validateUser(student);
+			validateStudent(student);
 			student.setStudentId(dao.insert(student));
 			student.setPermision("student");
 			addUser(student);
@@ -40,7 +63,6 @@ public class StudentService extends PersonHelper {
 
 	}
 
-	@SuppressWarnings("unused")
 	private void validateStudent(Student student) throws ValidationException {
 		List<String> errors = new LinkedList<String>();
 
@@ -112,26 +134,51 @@ public class StudentService extends PersonHelper {
 		return student;
 	}
 
+	/**
+	 * this method returns all students form the db
+	 * 
+	 * @return Collection<Student>
+	 */
 	public Collection<Student> getAll() {
 
 		return dao.getAll();
 
 	}
 
+	/**
+	 * this method returners all students from the DB based on teacher id
+	 * 
+	 * @param id
+	 * @return Collection<Student>
+	 */
 	public Collection<Student> getByTeacherId(long id) {
 
 		return dao.getByTeacher(id);
 
 	}
 
+	/**
+	 * This method returners student based on student id
+	 * 
+	 * @param id
+	 * @return Student
+	 */
 	public Student findById(long id) {
+		
 		return dao.findById(id);
 
 	}
 
+	/**
+	 * this method deletes a student based on id
+	 * 
+	 * @param student
+	 */
 	public void delete(Student student) {
 		dao.delete(student);
 
 	}
+
+	
 
 }
