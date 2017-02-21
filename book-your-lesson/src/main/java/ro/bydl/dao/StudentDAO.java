@@ -13,7 +13,7 @@ import ro.bydl.domain.Student;
 public interface StudentDAO extends BaseDao <Student>  {
 
 	Collection<Student> getByTeacher(long id);
-
+	
 	Student getByCnp(String cnp);
 
 	Student getByEmail(String email);

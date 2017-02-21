@@ -35,7 +35,8 @@ public class IMStudentDAO implements StudentDAO {
 	}
 
 	@Override
-	public void update(Student model) {
+	public Student update(Student model) {
+		return model;
 		// TODO Auto-generated method stub
 		
 	}

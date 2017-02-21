@@ -97,10 +97,12 @@ public class ScheduleService {
 	 * method updates schedule
 	 * 
 	 * @param schedule
+	 * @return 
 	 */
-	public void update(Schedule schedule) {
+	public Schedule update(Schedule schedule) {
 
-		dao.update(schedule);
+		
+		return dao.update(schedule);
 
 	}
 

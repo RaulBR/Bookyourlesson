@@ -10,6 +10,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -187,4 +188,13 @@ public class StudentRegisterControler {
 
 		return modelAndView;
 	}
+	
+	
+@RequestMapping(value = "/searchByID", method = RequestMethod.GET)
+public @ResponseBody Student searching(HttpSession sesion, Long id) {
+	
+	return (Student)studentService.findById((id));
+
+}
+
 }

@@ -1,3 +1,4 @@
+
 [#ftl]
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
     <![endif]-->
     <base href="" />
     <link rel="icon" type="image/png" href="/images/negru.png">
-    <script type="text/javascript" src="js/schedule.js"></script>
+    <script type="text/javascript" src="/js/schedule.js"></script>
     
   </head>
   
@@ -105,17 +106,17 @@
 		[#switch statut]
 	  			
 	  		[#case 'pending']
-				<div id="sand" >
+				<div>
 				<p>
-					<input id="setButton" class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly />
+					<input class="btn btn-info" role="button" class="btns" name="btn" value="Pending"  onClick="submitButton(this)" readonly />
 				</p>
 				</div>			
 				[#break]
 				
 	  		[#case 'free']
-				<div id="sand" >
+				<div>
 				<p>
-					<input  "id="setButton" class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/>
+					<input class="btn btn-default" role="button"class="btns" name="btn" value="Book Lesson" onClick="submitButton(this)" readonly/>
 				</p>
 				</div>
 				[#break]
@@ -165,24 +166,24 @@
 	</nav>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Booking info</h4>
-      </div>
-      	<div class="modal-body">
-      	<center>  <p>You can't book a lesson in the past :)</p>
-     	   <p>Contact your teacher for more info</p></center>
-     	 </div>
-     	 <div class="modal-footer">
-     	<center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
-        
-      </div>
-    </div>
-  </div>
-</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Booking info</h4>
+		      </div>
+		      	<div class="modal-body">
+		      	<center>  <p>You can't book a lesson in the past :)</p>
+		     	   <p>Contact your teacher for more info</p></center>
+		     	 </div>
+		     	 <div class="modal-footer">
+		     	<center><button type="button" class="btn btn-info" data-dismiss="modal">Ok</button></center>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 [#if progress??]
 <p>Progress: </p>

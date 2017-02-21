@@ -94,12 +94,13 @@ public class JdbcTeamplateTeacherDAO implements TeacherDAO {
 	}
 
 	@Override
-	public void update(Teacher m) {
+	public Teacher update(Teacher m) {
 		jdbcTeamplate.update(
 				"UPDATE public.teachers  SET name=?, sir_name=?, category=?, email=?, med_date=?, cnp=?, "
 						+ " phone=?, birth_day=?, hire_date=? WHERE id=?;",
 				m.getName(), m.getSirName(), m.getCategory(), m.getEmail(), m.getMedDate(), m.getCnp(),
 				m.getPhoneNumber(), m.getBirthDay(), m.getHireDate());
+		return m;
 
 	}
 
