@@ -42,9 +42,9 @@ public class TeacherRegisterControler {
 
 	@RequestMapping("")
 	public ModelAndView teacher(HttpSession session) throws Exception {
-		
+
 		ModelAndView result = new ModelAndView("teacherForm");
-		
+
 		return result;
 	}
 
@@ -59,24 +59,22 @@ public class TeacherRegisterControler {
 	 * @return
 	 * @throws ParseException
 	 */
-	
 
 	@RequestMapping(value = "/userSave", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute("user")  Teacher teacher, BindingResult bindingResult,
-			HttpSession session)  {
+	public ModelAndView save(@Valid @ModelAttribute("user") Teacher teacher, BindingResult bindingResult,
+			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("");
 
 		boolean hasErros = false;
 		if (!bindingResult.hasErrors()) {
 			try {
-				
+
 				teacherService.addTeacher(teacher);
-				
-				
+
 				modelAndView.setViewName("");
-				
+
 			} catch (ValidationException ex) {
-				
+
 				for (String err : ex.getCauses()) {
 					bindingResult.addError(new ObjectError("teacher", err));
 				}
@@ -86,9 +84,9 @@ public class TeacherRegisterControler {
 			hasErros = true;
 		}
 		if (hasErros) {
-			
+
 			modelAndView = new ModelAndView("teacherForm");
-			
+
 			modelAndView.addObject("teacher", teacher);
 			modelAndView.addObject("errors", bindingResult.getAllErrors());
 		}
@@ -106,6 +104,7 @@ public class TeacherRegisterControler {
 		result.addObject("teachers", teacherService.getAll());
 		return result;
 	}
+
 	@RequestMapping("/delete")
 	public ModelAndView delete(@Valid @ModelAttribute("save") Teacher student, BindingResult bindingResult,
 			HttpSession session) {
@@ -122,25 +121,22 @@ public class TeacherRegisterControler {
 	public ModelAndView edit(@Valid @ModelAttribute("edit") Teacher teacher, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("/teacher");
-		
+
 		modelAndView.addObject("teacher", teacherService.findById(teacher.getId()));
-		
-		
 
 		return modelAndView;
 	}
-	
-	
+
 	@RequestMapping("/search")
-	public @ResponseBody Collection<Teacher> search(HttpSession sesion,@RequestParam("CHARS") 	String value) {
-		
-		
+	public @ResponseBody Collection<Teacher> search(HttpSession sesion, @RequestParam("CHARS") String value) {
+
 		return teacherService.findContaining(value);
 
 	}
+
 	@RequestMapping("/searchByID")
 	public @ResponseBody Teacher searching(HttpSession sesion, Long id) {
-	
+
 		return teacherService.findById((id));
 
 	}
