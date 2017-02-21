@@ -2,24 +2,26 @@
 [#import "/spring.ftl" as spring /]
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+   
+    <title>bydl</title>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-	<link href="/js/sch.js" rel="sch">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+   
+    
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <base href="/apx/" />
+    <base href="" />
+    <link rel="icon" type="image/png" href="/images/negru.png">
+    <script type="text/javascript" src="/js/scheduleT.js"></script>
     
   </head>
   [#escape x as x?html]
@@ -29,12 +31,12 @@
   <nav class="navbar navbar-dark bg-primary">
 	 <div class="nav navbar-nav">
    		 <div class="container" lass="logout">
- 		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white">Home</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
-  		  <a class="navbar-brand" class="logout" color="white" href="/register/student/list"> <font color="white"> Students</font></a>
-  		 <a class="navbar-brand" class="logout" color="white" href="/progress"> <font color="white"> Progress</font></a>
-  		  <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white"> Schedulet</font></a>
+   		 <a class="navbar-brand" class="logout" color="white" href="/schedule"> <font color="white">Home</font></a>
+   		 <a class="navbar-brand" class="logout" color="white" href="/student/list?teacherId=${teacherOBJ.id}"> <font color="white"> Students</font></a>
+ 		 <a class="navbar-brand" class="logout" color="white" href="/vehicle/list"> <font color="white"> Vehicles</font></a>
+  		 <a class="navbar-brand" class="logout" color="white" href="/teacher/list"> <font color="white"> Instructors</font></a>
  		 <a class="navbar-brand" class="logout" color="white" href="/logout"> <font color="white"> LogOut</font></a>
+ 	
   		</div>
   	</div>
 	</nav>
@@ -53,8 +55,9 @@
   
      <tr >
     <th >Hour
-    <p> </p>
+    <p>  </p>
     </th>
+    
     [#assign a=0]
  [#list weekDays as  day]
  [#assign dayn=dayName[a]]
@@ -68,16 +71,18 @@
   [#list hourList as hour]
 	[#assign endHour = hour + 2]
   	  <tr>
-	  	<td ><strong>${hour} - ${endHour}</strong></td>
-	  	
+	  	<td class="btn"  ><p><center><strong >${hour} - ${endHour}</strong></center></p> </td>
+	  	[#assign b=0]
 	  	[#list weekDays as day]
-	  	
+	  	[#assign dayn=dayName[b]]
+	  	[#assign b++]
 	  	[#assign curentSchedule= 0]
 	  	[#assign statut = 'free']
 	  	
 	  	[#assign name='']
 	  	[#assign sirName='']
 	  		[#if schedules??]
+	  		
 	  			[#list schedules as schedule]
 	  				[#if schedule.startHour == hour]
 	  				[#if schedule.date?string('dd.MM.yyyy')== day]
@@ -98,7 +103,7 @@
 	  				[#else]
 	  				[#assign statut = 'pending']
 	  				[/#if]
-	  				[#assign curentSchedule= schedule.id]
+	  				[#assign curentSchedule= schedule.id];
 	  				[#assign student= schedule.studentId]
 	  				
 	  				[#break]
@@ -110,86 +115,161 @@
 	  			
 		  			
 				  		<td > 
-				  		[#if name??]
-				  		
-				  			<p>${name} ${sirName}</p> 
-				  			[/#if]
-				  			<form action="/schedule/edit" method="POST">
-								<div align="center"">
+				  			<form method="POST">
+								<div align="center">
+								[#if curentSchedule>0]	<input type="hidden" name="id" value="${curentSchedule?c}">[/#if]
  									<input type="hidden" name="week" value="${week}">
  									<input type="hidden" name="startHour" value="${hour}">
 									<input type="hidden" name="endHour" value="${endHour}">
-									<input type="hidden" name="date" value="${day}">								
-									<input type="hidden" name="id" value="${curentSchedule}">
+									<input type="hidden" name="date" value="${day}">									
 									<input type="hidden" name="teacherId" value="${teacherOBJ.id}">
+									<input type="hidden" name="dayName" value="${dayn}">
 									
-									[#if statut == 'free']
-										<p><input class="btn btn-default" role="button" value="free" title="Edit schedule" onclick="showAction(this)" readonly></p>
-										<div class="wrap-schedule-option" style="display: none">
-										<input type="hidden" name="status" value="booked">
-											<select class="form-control sel-schedule-option" id="studentId"  name="studentId">
-												[#if students??]
-											
-													[#list students as student]
-													
-														<option value="${student.id}" >${student.name} ${student.sirName} </option>
-											
-													[/#list]
-											
-													[/#if]
-											</select>
-											<br/>
-											<button type="button" class="btn btn-default" onclick="statusCancel(this)">Cancel</button>
-											<button class="btn btn-primary" onclick="statusSave(this); return false">Save</button>
+									
+										<div id="namePlaceHolder${dayn}${hour}">
+										<p >${name} ${sirName}</p>  
 										</div>
+										
+										[#if statut == 'free']
+										
+										
+										<div id="button${dayn}${hour}">
+										<p><input class="btn btn-default" name = "status" class="currentButton" role="button" value="free" title="Edit schedule" onclick="submitButton(this)" readonly></p>
+										</div>
+										
 										
 									[#else]
 										
 										<input type="hidden" name="studentId" value="${existingStudentId}">
 										[#switch statut]
 											[#case 'pending']
-													<p><input class="btn btn-info" role="button" value="pending" title="Show appointment actions" onclick="showAction(this)" readonly></p>
+													
+														
+													<div id="button${dayn}${hour}">
+														<p><input class="btn btn-info" name="status" role="button" value="pending" title="Show appointment actions" onclick="submitButton(this)" readonly></p>
+													</div>
 												[#break]
 												
 												[#case 'free']
-													<p><input class="btn btn-default" role="button" value="free" title="Show appointment actions" onclick="showAction(this)" readonly></p>
+													
+													
+													<div id="button${dayn}${hour}">
+														<p><input class="btn btn-default" name="status" role="button" value="free" title="Show appointment actions" onclick="submitButton(this)" readonly></p>
+													</div>
 												[#break]
 												
 												[#case 'absent']	
-													<p><p><input class="btn btn-danger" role="button" value="absent" title="Show appointment actions" onclick="showAction(this)" readonly></p></p>
+													
+													
+													<div id="button${dayn}${hour}">
+														<p><input class="btn btn-danger" name="status" role="button" value="absent" title="Show appointment actions" onclick="submitButton(this)" readonly></p>
+													</div>
 												[#break]
 												
 												[#case 'notFree']
-													<p><input class="btn btn-default" role="button" value="notFree" title="Show appointment actions" onclick="showAction(this)" readonly></p>
+													
+														
+													<div id="button${dayn}${hour}">
+														<p><input class="btn btn-default" name="status" role="button" value="notFree" title="Show appointment actions" onclick="submitButton(this)" readonly></p>
+													</div>
 												[#break]
 												
 												[#case 'done']	
-													<p><input class="btn btn-success" role="button" value="done" title="Show appointment actions" onclick="showAction(this)" readonly></p>
+													
+														
+													<div id="button${dayn}${hour}">
+														<p><input class="btn btn-success" role="button" value="done" title="Show appointment actions" onclick="submitButton(this)" readonly></p>
+													</div>
 												[#break]
 												
 												[#case 'booked']
-													<p><input class="btn btn-primary" role="button" value="booked" title="Show appointment actions" onclick="showAction(this)" readonly></p>
+													
+													
+													<div id="button${dayn}${hour}">
+														<p><input class="btn btn-primary" name="status" role="button" value="booked" title="Show appointment actions" onclick="submitButton(this)" readonly></p>
+													</div>
 												[#break]
 										[/#switch]
-										<div class="wrap-schedule-option" style="display: none">
-											<select class="form-control sel-schedule-option" name="status">
+										
+									[/#if]
+	<div class="modal fade" id="myModalStudents" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
+		        <h4 >Booking</h4>
+		      </div>
+		      	<div class="modal-body">
+		      	[#if students??]
+		      	<center> 
+		      	<p>Schedue a student:</p>
+		     	   
+											<select class="form-control sel-schedule-option" id="studentId"  name="studentId">
+											
+											
+													[#list students as student]
+													
+														<option value="${student.id}" class="op${student.id}"  >${student.name} ${student.sirName} </option>
+											
+													[/#list]
+											
+													
+											</select>
+											
+											<br/>
+											<button type="button" class="btn btn-default" >Cancel</button>
+											<button class="btn btn-primary" onclick="statusSave(this); return false">Save</button>
+											
+				</center>							
+				[/#if]
+		     	 </div>
+		     	 <div class="modal-footer">
+		     
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>	
+		<div class="modal fade" id="myModalStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="OK"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Booking</h4>
+		      </div>
+		      	<div class="modal-body">
+		      	
+		      	<center> 
+		      	<p>Schedue a student:</p>
+		     	   <input type="hidden" >
+											<select class="form-control sel-schedule-option" name="addStatus">
 							         			<option value="free" >Free</option>
 							        			<option value="notFree">Not free</option>
-							        			<option value="booked"  >Accept</option>
-							        			<option value="absent" >Absent</option>
-							        			<option value="pending" >Pending</option>
+							        			<option value="booked">Accept</option>
+							        			<option value="absent">Absent</option>
+							        			<option value="pending">Pending</option>
 							        			<option value="done">Done</option>
 											</select>
 											<br/>
 											<button type="button" class="btn btn-default" onclick="statusCancel(this)">Cancel</button>
 											<button class="btn btn-primary" onclick="statusSave(this); return false">Save</button>
-										</div>
-									[/#if]
+				</center>							
+			
+		     	 </div>
+		     	 <div class="modal-footer">
+		     
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
 						</form>
 						</td>
 		  	  		
 	  	  	 
 		[/#list]
+	
+	[#if b==6][#assign b=0][/#if]
 	  </tr>
   [/#list]
   
@@ -203,62 +283,23 @@
     <li><a href="/schedule/nextWeek?week=${week?c}">Next week</a></li>
   </ul>
 </nav>
-				         			
+	
+	
+					         			
 				      			
 							
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/js/bootstrap.js"></script>
-    <script type="text/javascript">
-    	function showAction(btnStatus)
-    	{
-    		var currentForm = $(btnStatus).parents('form');
-    		var editAction = $(currentForm).find('div.wrap-schedule-option');
-    		var selStatus = $(currentForm).find('select.sel-schedule-option');
-    		
-    		if ($(editAction).is(':visible')) {
-    			$(editAction).hide();
-    			$(btnStatus).attr('title', 'Show appointment actions');
-    		} else {
-    			$(editAction).show();
-    			$(selStatus).val($(btnStatus).val());
-    			$(btnStatus).attr('title', 'Hide appointment actions');
-    		}
-    	}
-    	function statusSave(btnSave)
-    	{
-    		var currentForm = $(btnSave).parents('form');
-    		var btnStatus = $(currentForm).find('input.btn');
-    		var selStatus = $(currentForm).find('select.sel-schedule-option');
-    		
-    		if ($(btnStatus).val() == $(selStatus).val()) {
-    			alert('No status changes were made to the appointment.');
-    			return false;
-    		}
-    		
-    		if ($(btnStatus).val() == 'free') {
-    			// if current status is "Free" any change should go to inserting a schedule
-    			$(currentForm).attr('action', '/schedule/saveDate');
-    		} else {
-	    		if ($(selStatus).val() == 'free') {
-	    			// if we are freeing a schedule, it means we are deleting it
-	    			if (confirm('Are you sure you want to delete the current appointment?')) {
-	    				$(currentForm).attr('action', '/schedule/removeDate');
-	    				// $(currentForm).submit();
-	    			}
-	    		} else {
-	    			// any other status change is an edit
-    				$(currentForm).attr('action', '/schedule/edit');
-    			}
-    		}
-			$(currentForm).submit();
-    	}
-    	function statusCancel(btnCancel)
-    	{
-    		$(btnCancel).parents('div.wrap-schedule-option').hide();
-    	}
-    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+     
+
+    
+    
+    <style>
+    .btn{
+    width:90%;
+    }
+    </style>
   </body>
 </html>
 [/#escape]
