@@ -33,6 +33,7 @@ import ro.bydl.service.TeacherService;
  */
 @Controller
 @RequestMapping("/schedule")
+
 @SessionAttributes({ "week" })
 
 public class ScheduleControler {
@@ -52,47 +53,48 @@ public class ScheduleControler {
 	 * @throws Exception
 	 */
 	@RequestMapping("")
-	public ModelAndView schedule(HttpSession session)  {
-		if(session.getAttribute("user")!=null){
-		User user = (User) session.getAttribute("user");
-		String permison = user.getPermision();
+	public ModelAndView schedule(HttpSession session) {
+		if (session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			String permison = user.getPermision();
 
-		int week = Integer.parseInt(session.getAttribute("weeks").toString());
-		ModelAndView result = new ModelAndView();
+			int week = Integer.parseInt(session.getAttribute("weeks").toString());
+			ModelAndView result = new ModelAndView();
 
-		if (permison.equals("teacher")) {
-			Teacher teacher = teacherService.findById(user.getTeacherId());
+			if (permison.equals("teacher")) {
+				Teacher teacher = teacherService.findById(user.getTeacherId());
 
-			result = new ModelAndView("scheduleTeacher");
+				result = new ModelAndView("scheduleTeacher");
+				result.addObject("week", week);
+				result.addObject("teacherOBJ", teacher);
+				result.addObject("students", studentService.getByTeacherId(teacher.getId()));
+				result.addObject("schedules", scheduleService.searchByTeacherId(teacher.getId()));
+			}
+
+			if (permison.equals("student")) {
+
+				Student currentStudent = studentService.findById(user.getStudentId());
+
+				result = new ModelAndView("scheduleStudent");
+				result.addObject("studentOBJ", currentStudent);
+
+				result.addObject("schedules",
+
+						scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
+
+				result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
+
+				result.addObject("progress", scheduleService.pending(currentStudent.getId()));
+				result.addObject("absent", scheduleService.absent(currentStudent.getId()));
+				result.addObject("done", scheduleService.done(currentStudent.getId()));
+			}
+			if (permison.equals("admin")) {
+				result = new ModelAndView("admin");
+
+			}
 			result.addObject("week", week);
-			result.addObject("teacherOBJ", teacher);
-			result.addObject("students", studentService.getByTeacherId(teacher.getId()));
-			result.addObject("schedules", scheduleService.searchByTeacherId(teacher.getId()));
-		}
-
-		if (permison.equals("student")) {
-
-			Student currentStudent = studentService.findById(user.getStudentId());
-
-			result = new ModelAndView("scheduleStudent");
-			result.addObject("studentOBJ", currentStudent);
-
-			result.addObject("schedules",
-
-					scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
-		
-			result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
-
-			result.addObject("progress", scheduleService.pending(currentStudent.getId()));
-			result.addObject("absent", scheduleService.absent(currentStudent.getId()));
-			result.addObject("done", scheduleService.done(currentStudent.getId()));
-		}
-		if (permison.equals("admin")) {
-			result = new ModelAndView("admin");
-
-		}result.addObject("week", week);
-		result.addObject("weekDays", scheduleService.getDays(week));
-		return result;
+			result.addObject("weekDays", scheduleService.getDays(week));
+			return result;
 		}
 
 		return new ModelAndView("login");
@@ -215,11 +217,17 @@ public class ScheduleControler {
 
 	@RequestMapping(value = "saveDated", method = RequestMethod.GET)
 	public @ResponseBody long search(HttpSession session, Schedule value) {
+
 		User user = (User) session.getAttribute("user");
 		String permison = user.getPermision();
-		if (permison.equals("teahcer")) {
-			return scheduleService.save(value);
+
+		if (permison.equals("teacher")) {
+			long d=scheduleService.save(value);
+			System.out.println(d);
+			return d;
+			
 		} else if (permison.equals("student")) {
+
 			if (scheduleService.dateHasPased(value)) {
 				return -1;
 			} else {
@@ -230,11 +238,22 @@ public class ScheduleControler {
 		return 0;
 
 	}
-	@RequestMapping(value="remove", method= RequestMethod.GET)
+
+	@RequestMapping(value = "remove", method = RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
-		long v=scheduleService.delete(value);
-	
+		long v = scheduleService.delete(value);
+
 		return v;
+
+	}
+
+	@RequestMapping(value = "edit-schedule", method = RequestMethod.GET)
+	public @ResponseBody Schedule editOnTheFly(@Valid @ModelAttribute("cal") Schedule schedule,
+			BindingResult bindingResult, HttpSession sessio) {
+
+		Schedule s = scheduleService.update(schedule);
+			
+		return scheduleService.update(s);
 
 	}
 
