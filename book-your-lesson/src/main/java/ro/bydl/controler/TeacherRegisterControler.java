@@ -130,6 +130,7 @@ public class TeacherRegisterControler {
 		return modelAndView;
 	}
 	
+	
 	@RequestMapping("/search")
 	public @ResponseBody Collection<Teacher> search(HttpSession sesion,@RequestParam("CHARS") 	String value) {
 		
@@ -139,8 +140,9 @@ public class TeacherRegisterControler {
 	}
 	@RequestMapping("/searchByID")
 	public @ResponseBody Teacher searching(HttpSession sesion, Long id) {
-		
+	
 		return teacherService.findById((id));
 
 	}
+
 }
