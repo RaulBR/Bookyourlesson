@@ -74,13 +74,14 @@ public class JdbcTemplateScheduleDAO implements ScheduleDAO {
 	}
 
 	@Override
-	public void update(Schedule schedule) {
+	public Schedule update(Schedule schedule) {
 
 		 jdbcTemplate.update(
 				"UPDATE public.schedule " + "  SET week=?, start_hour=?, end_hour=?, date=?,  student_id=?, "
 						+ " teacher_id=?, status=? " + "WHERE id=?;",
 				schedule.getWeek(), schedule.getStartHour(), schedule.getEndHour(), schedule.getDate(),
 				schedule.getStudentId(), schedule.getTeacherId(), schedule.getStatus(), schedule.getId());
+		return schedule;
 	}
 
 	@Override

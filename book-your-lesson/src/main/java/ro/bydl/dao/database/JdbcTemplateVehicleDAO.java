@@ -66,13 +66,14 @@ public class JdbcTemplateVehicleDAO implements VehicleDAO {
 	}
 
 	@Override
-	public void update(Vehicle m) {
+	public Vehicle update(Vehicle m) {
 
 		 jdbcTeamplate.update(
 				"UPDATE public.vehicle " + "SET brand=?, model=?, fuel=?, chassis=?, engine=?, license_plate=?, "
 						+ " vignettes=?, insurance=?, itp=?,year=?, teacher_id=?" + " WHERE id=?;",m.getBrand(),m.getCarType(),m.getFuel(),m.getChassis(),
 						m.getEngine(),m.getLicensePlate(),m.getVignettes(),m.getInsurance(),m.getITP(),m.getYear(),m.getTeacherId(),
 				m.getId());
+		return m;
 	}
 	@Override
 	public Vehicle findByChassis(String chassis) {

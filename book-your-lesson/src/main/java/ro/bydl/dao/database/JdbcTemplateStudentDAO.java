@@ -55,13 +55,14 @@ public class JdbcTemplateStudentDAO implements StudentDAO {
 	}
 
 	@Override
-	public void update(Student student) {
+	public Student update(Student student) {
 		
 		jdbcTemplate.update("UPDATE public.students  SET name=?, sir_name=?, cnp=?, register_date=?, category=?, "+
        "teacher_id=?, med_paper=?, phone=?, email=?, birth_day=? WHERE id=?;",
      student.getName(), student.getSirName(), student.getCnp(), student.getRegistrationDate(),
 		student.getCategory(), student.getTeacherId(), student.isMedPaper(), student.getPhoneNumber(),
 		student.getEmail(),student.getBirthDay(),  student.getId() );
+		return student;
 	}
 
 	@Override
