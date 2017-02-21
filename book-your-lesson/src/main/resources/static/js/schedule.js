@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+	jQuery(document).ready(function(){
     	//var test = "{$hourList}";
     	// console.log(test);
     		var date = new Date();
@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
     			month = date.getMonth(),
     			year = date.getFullYear();
     			
-    		var currDate = (day < 10 ? '0' : '') + day + '.' + (month < 10 ? '0' : '') + month + '.' + year;
+    	//	var currDate = (day < 10 ? '0' : '') + day + '.' + (month < 10 ? '0' : '') + month + '.' + year;
     		//console.log(currDate);
     	});
     	
@@ -53,16 +53,9 @@ $.getJSON("/schedule/saveDated", $(currentForm).serialize() ,
   $(currentButton).html("");
   			$(currentButton).html('<p><input id="setButton" class="btn btn-info" role="button"  name="btn" value="Pending" class="btns"  onClick="submitButton(this)" readonly/></p>');
  
- 	}
- 	 });
-}
- 		 
-
-
-});
-  
-	 
-    
+ 					}
+				});
+			}
+ 		 });
 };
-    	 
-    
+
