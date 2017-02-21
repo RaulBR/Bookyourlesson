@@ -10,6 +10,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -23,6 +24,7 @@ import ro.bydl.service.VehicleService;
 
 @Controller
 @RequestMapping("student")
+
 public class StudentRegisterControler {
 	@Autowired
 	TeacherService teacherService;
@@ -35,10 +37,8 @@ public class StudentRegisterControler {
 	 * Returners a Model and view object for the "student" mapping.
 	 * 
 	 * @param session
-	 * @param teacherId
-	 * @param vhicleId
-	 * 
 	 * @return
+	
 	 */
 
 	@RequestMapping("")
@@ -91,6 +91,7 @@ public class StudentRegisterControler {
 			hasErros = true;
 		}
 		if (hasErros) {
+
 			modelAndView = new ModelAndView("studentForm");
 			modelAndView.addObject("teachers", teacherService.getAll());
 			modelAndView.addObject("student", student);
@@ -101,18 +102,58 @@ public class StudentRegisterControler {
 	}
 
 	@RequestMapping("/list")
-	public ModelAndView studentList(HttpSession session, Student s) {
-		String permison = ((User) session.getAttribute("user")).getPermision();
+	public ModelAndView studentList(HttpSession session, Long teacherId) {
+	
+		
 		ModelAndView result = new ModelAndView("studentList");
-		if (s.getTeacherId() > 0) {
-			result.addObject("students", studentService.getByTeacherId(s.getTeacherId()));
+		if (session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			String permison = user.getPermision();
+			
+			
+				result.addObject("permision", user.getPermision());
+				
+				switch (permison) {
+				case "teacher":
+					if(teacherId==null){
+					result.addObject("students", studentService.getByTeacherId(user.getTeacherId()));
+					result.addObject("permision", permison);
+					}else{
+						result.addObject("students",studentService.getByTeacherId(teacherId));
+						result.addObject("permision", permison);
+					}
+					
+					break;
+				case "admin":
+					if(teacherId==null){
+						result.addObject("students", studentService.getAll());
+						result.addObject("permision", permison);
+					}else {
+					result.addObject("students", studentService.getByTeacherId(teacherId));
+					result.addObject("permision", permison);
+				}
+					break;
+				
+					
+				default:
+					if (teacherId !=null) {
+						result.addObject("students", studentService.getByTeacherId(teacherId));
+					}else {
+						result.addObject("students", studentService.getAll());
+					}
+					break;
 
-		} else {
+				
 
+			
+			}
+
+		}  else {
 			result.addObject("students", studentService.getAll());
-
 		}
-		result.addObject("permision", permison);
+		
+			
+		
 		return result;
 	}
 
@@ -147,4 +188,13 @@ public class StudentRegisterControler {
 
 		return modelAndView;
 	}
+	
+	
+@RequestMapping(value = "/searchByID", method = RequestMethod.GET)
+public @ResponseBody Student searching(HttpSession sesion, Long id) {
+	
+	return (Student)studentService.findById((id));
+
+}
+
 }
