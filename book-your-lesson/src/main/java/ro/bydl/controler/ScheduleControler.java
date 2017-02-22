@@ -83,7 +83,6 @@ public class ScheduleControler {
 						scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
 
 				result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
-
 				result.addObject("progress", scheduleService.pending(currentStudent.getId()));
 				result.addObject("absent", scheduleService.absent(currentStudent.getId()));
 				result.addObject("done", scheduleService.done(currentStudent.getId()));
@@ -156,6 +155,8 @@ public class ScheduleControler {
 		return result;
 	}
 
+	
+
 	/**
 	 * Retrieves a Schedule from the client and saves it to the DB
 	 * 
@@ -164,57 +165,6 @@ public class ScheduleControler {
 	 * @param sessio
 	 * @return
 	 */
-	@RequestMapping(value = "saveDate", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute("schedules") Schedule schedule, BindingResult bindingResult,
-			HttpSession sessio) {
-		ModelAndView modelAndView = new ModelAndView("");
-
-		scheduleService.save(schedule);
-
-		modelAndView.setView(new RedirectView(""));
-
-		return modelAndView;
-	}
-
-	/**
-	 * Deletes schedule form DB.
-	 * 
-	 * @param schedule
-	 * @param bindingResult
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "removeDate", method = RequestMethod.POST)
-	public ModelAndView dellete(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
-			HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		scheduleService.delete(schedule);
-		modelAndView.setView(new RedirectView(""));
-
-		return modelAndView;
-
-	}
-
-	/**
-	 * Edits a retrieved Schedule
-	 * 
-	 * @param schedule
-	 * @param bindingResult
-	 * @param sessio
-	 * @return
-	 */
-	@RequestMapping(value = "edit", method = RequestMethod.POST)
-	public ModelAndView edit(@Valid @ModelAttribute("cal") Schedule schedule, BindingResult bindingResult,
-			HttpSession sessio) {
-		ModelAndView modelAndView = new ModelAndView();
-
-		scheduleService.update(schedule);
-		modelAndView.setView(new RedirectView(""));
-
-		return modelAndView;
-
-	}
-
 	@RequestMapping(value = "saveDated", method = RequestMethod.GET)
 	public @ResponseBody long search(HttpSession session, Schedule value) {
 
@@ -238,7 +188,14 @@ public class ScheduleControler {
 		return 0;
 
 	}
-
+	/**
+	 * Deletes schedule form DB.
+	 * 
+	 * @param schedule
+	 * @param bindingResult
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "remove", method = RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
 		long v = scheduleService.delete(value);
@@ -246,7 +203,14 @@ public class ScheduleControler {
 		return v;
 
 	}
-
+	/**
+	 * Edits a retrieved Schedule
+	 * 
+	 * @param schedule
+	 * @param bindingResult
+	 * @param sessio
+	 * @return
+	 */
 	@RequestMapping(value = "edit-schedule", method = RequestMethod.GET)
 	public @ResponseBody Schedule editOnTheFly(@Valid @ModelAttribute("cal") Schedule schedule,
 			BindingResult bindingResult, HttpSession sessio) {
