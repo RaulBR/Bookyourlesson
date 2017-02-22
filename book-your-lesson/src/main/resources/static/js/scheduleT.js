@@ -35,7 +35,7 @@ function submitButton(Input){
 		 var hour    = $(currentForm).find('input[name="startHour"]').val();
 		 var currentButton='#button'+dayName+hour;
 		 if(state=="student"){
-			 var formData=$(obj).serialize();
+			 
 			 var studId=$(stuId).find('select[name="studentId"]').val();
 			 
 			
@@ -44,6 +44,7 @@ function submitButton(Input){
 		 $(currentForm).find('input[name="status"]').val("booked");
 		 
 		 $(currentForm).find('input[name="studentId"]').val(studId);
+		var formData=$(currentForm).serialize();
 		console.log(formData);
 
 	 	
@@ -74,10 +75,7 @@ function submitButton(Input){
 		 }
 		 else if (state="status"){
 			 $(obj).find('input[name="status"]').val($(stuId).find('select[name="addStatus"]').val());
-			 // aici am modificat
-			var studId=$(stuId).find('select[name="studentId"]').val(); 
-			$(currentForm).find('input[name="studentId"]').val(studId);	 
-			// aci am terminat modificarea
+			
 			 
 			 var formData=$(obj).serialize();
 			
