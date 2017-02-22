@@ -74,6 +74,11 @@ function submitButton(Input){
 		 }
 		 else if (state="status"){
 			 $(obj).find('input[name="status"]').val($(stuId).find('select[name="addStatus"]').val());
+			 // aici am modificat
+			var studId=$(stuId).find('select[name="studentId"]').val(); 
+			$(currentForm).find('input[name="studentId"]').val(studId);	 
+			// aci am terminat modificarea
+			 
 			 var formData=$(obj).serialize();
 			
 			 
