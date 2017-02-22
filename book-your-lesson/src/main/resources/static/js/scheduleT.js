@@ -25,6 +25,7 @@ function statusSave(objInput) {
 	var id = "";
 	$(function() {
 
+		
 		var currentForm = obj;
 		var stuId = $(objInput).parents('div')[0];
 		var dayName = $(currentForm).find('input[name="dayName"]').val();
