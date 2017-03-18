@@ -34,7 +34,6 @@ import ro.bydl.service.TeacherService;
 @Controller
 @RequestMapping("/schedule")
 
-@SessionAttributes({ "week" })
 
 public class ScheduleControler {
 
@@ -173,7 +172,7 @@ public class ScheduleControler {
 
 		if (permison.equals("teacher")) {
 			long d=scheduleService.save(value);
-			System.out.println(d);
+			
 			return d;
 			
 		} else if (permison.equals("student")) {
@@ -198,6 +197,7 @@ public class ScheduleControler {
 	 */
 	@RequestMapping(value = "remove", method = RequestMethod.GET)
 	public @ResponseBody long remove(HttpSession sesion, Schedule value) {
+		System.out.println(value.getId());
 		long v = scheduleService.delete(value);
 
 		return v;

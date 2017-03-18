@@ -37,8 +37,8 @@ function statusSave(objInput) {
 
 			$(currentForm).find('input[name="status"]').val("booked");
 			$(currentForm).find('select[name="studentId"]').val(studId);
-			var formData = $(currentForm).serialize()
-
+			var formData = $(currentForm).serialize();
+			console.log(formData);
 			$
 					.getJSON(
 							"/schedule/saveDated",
@@ -68,11 +68,13 @@ function statusSave(objInput) {
 		} else if (state = "status") {
 			var statusForm = $(stuId).find('select[name="addStatus"]').val();
 			$(obj).find('input[name="status"]').val(statusForm);
-			var formData = $(obj).serialize();
+			
 			var currentButton = '#button' + dayName + hour;
-
+			
 			if ($(stuId).find('select[name="addStatus"]').val() == "free") {
-
+				$(obj).remove('input[name="studentId"]');
+				var formData = $(obj).serialize();
+				
 				$
 						.getJSON(
 								"/schedule/remove",
@@ -89,15 +91,16 @@ function statusSave(objInput) {
 										eraceName('#namePlaceHolder' + dayName
 												+ hour);
 
-									}
+										console.log(formData);}
 								});
 			} else {
+				var formData = $(obj).serialize();
 				$
 						.getJSON(
 								"/schedule/edit-schedule",
 								formData,
 								function(data) {
-
+									console.log(formData);
 									if (data.status == "notFree") {
 										$(currentButton).html("");
 										$(currentButton)
@@ -128,7 +131,7 @@ function statusSave(objInput) {
 								});
 
 			}
-			;
+			
 
 			$('#myModalStatus').modal('hide');
 		}
@@ -146,7 +149,7 @@ function getName(id, dayName, hour) {
 	}, function(data) {
 
 		var name = '#namePlaceHolder' + dayName + hour;
-		console.log(name);
+		
 		$(name).html('');
 		$(name).append('<p>' + data.name + " " + data.sirName + '</p>');
 	});

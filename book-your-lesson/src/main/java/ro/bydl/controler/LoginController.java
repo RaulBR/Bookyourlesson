@@ -51,8 +51,7 @@ public class LoginController {
 	public ModelAndView mainPage(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView("login");
-		System.out.println(mav.toString());
-		
+
 		return mav;
 	}
 
@@ -68,6 +67,7 @@ public class LoginController {
 	public ModelAndView add(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			HttpSession session) {
 		ModelAndView modelandView = new ModelAndView("login");
+		session.removeAttribute("weeks");
 		session.setAttribute("weeks", Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 	
 try{
@@ -94,8 +94,10 @@ try{
 	  @RequestMapping("/logout")
 	  public ModelAndView logout(HttpSession session) {
 		  ModelAndView modelANdVeiw=new ModelAndView();
+		  session.invalidate();
 		  modelANdVeiw.setView(new RedirectView(""));
-	    session.invalidate();
+	   
+		
 	    return  modelANdVeiw;
 	  
 	}
