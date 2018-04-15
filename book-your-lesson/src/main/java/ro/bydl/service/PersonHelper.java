@@ -11,7 +11,7 @@ import ro.bydl.domain.Person;
  * @author Raul
  *
  */
-public class PersonHelper extends RegisternService  {
+public class PersonHelper extends RegisterService  {
 /**
  * method checks if cnp is of correct format 
  * @param person

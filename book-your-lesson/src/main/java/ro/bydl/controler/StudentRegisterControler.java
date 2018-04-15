@@ -38,22 +38,20 @@ public class StudentRegisterControler {
 	 * 
 	 * @param session
 	 * @return
-	
+	 * 
 	 */
 
 	@RequestMapping("")
-	public ModelAndView student(HttpSession session,Long vehicleId, Long id) {
+	public ModelAndView student(HttpSession session, Long vehicleId, Long id) {
 		ModelAndView result = new ModelAndView("studentForm");
-		
-		
-		if(vehicleId!=null){
-			
-			result.addObject("teacherFromList",teacherService.findById(vehicleService.findById(vehicleId).getTeacherId()));
-		} else if(id!=null){
-			result.addObject("teacherFromList",teacherService.findById(id));
-			} else{
-				result.addObject("teachers", teacherService.getAll());
-			}
+		if (vehicleId != null) {
+			result.addObject("teacherFromList",
+					teacherService.findById(vehicleService.findById(vehicleId).getTeacherId()));
+		} else if (id != null) {
+			result.addObject("teacherFromList", teacherService.findById(id));
+		} else {
+			result.addObject("teachers", teacherService.getAll());
+		}
 		return result;
 	}
 
@@ -75,13 +73,9 @@ public class StudentRegisterControler {
 		boolean hasErros = false;
 		if (!bindingResult.hasErrors()) {
 			try {
-
 				studentService.addStudent(student);
-
 				modelAndView.setView(new RedirectView(""));
-
 			} catch (ValidationException ex) {
-
 				for (String err : ex.getCauses()) {
 					bindingResult.addError(new ObjectError("student", err));
 				}
@@ -103,57 +97,46 @@ public class StudentRegisterControler {
 
 	@RequestMapping("/list")
 	public ModelAndView studentList(HttpSession session, Long teacherId) {
-	
-		
 		ModelAndView result = new ModelAndView("studentList");
 		if (session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			String permison = user.getPermision();
-			
-			
-				result.addObject("permision", user.getPermision());
-				
-				switch (permison) {
-				case "teacher":
-					if(teacherId==null){
+
+			result.addObject("permision", user.getPermision());
+
+			switch (permison) {
+			case "teacher":
+				if (teacherId == null) {
 					result.addObject("students", studentService.getByTeacherId(user.getTeacherId()));
 					result.addObject("permision", permison);
-					}else{
-						result.addObject("students",studentService.getByTeacherId(teacherId));
-						result.addObject("permision", permison);
-					}
-					
-					break;
-				case "admin":
-					if(teacherId==null){
-						result.addObject("students", studentService.getAll());
-						result.addObject("permision", permison);
-					}else {
+				} else {
 					result.addObject("students", studentService.getByTeacherId(teacherId));
 					result.addObject("permision", permison);
 				}
-					break;
-				
-					
-				default:
-					if (teacherId !=null) {
-						result.addObject("students", studentService.getByTeacherId(teacherId));
-					}else {
-						result.addObject("students", studentService.getAll());
-					}
-					break;
+				break;
+			case "admin":
+				if (teacherId == null) {
+					result.addObject("students", studentService.getAll());
+					result.addObject("permision", permison);
+				} else {
+					result.addObject("students", studentService.getByTeacherId(teacherId));
+					result.addObject("permision", permison);
+				}
+				break;
 
-				
-
-			
+			default:
+				if (teacherId != null) {
+					result.addObject("students", studentService.getByTeacherId(teacherId));
+				} else {
+					result.addObject("students", studentService.getAll());
+				}
+				break;
 			}
 
-		}  else {
+		} else {
 			result.addObject("students", studentService.getAll());
 		}
-		
-			
-		
+
 		return result;
 	}
 
@@ -188,13 +171,12 @@ public class StudentRegisterControler {
 
 		return modelAndView;
 	}
-	
-	
-@RequestMapping(value = "/searchByID", method = RequestMethod.GET)
-public @ResponseBody Student searching(HttpSession sesion, Long id) {
-	
-	return (Student)studentService.findById((id));
 
-}
+	@RequestMapping(value = "/searchByID", method = RequestMethod.GET)
+	public @ResponseBody Student searching(HttpSession sesion, Long id) {
+
+		return (Student) studentService.findById((id));
+
+	}
 
 }

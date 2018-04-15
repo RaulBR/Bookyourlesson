@@ -34,9 +34,7 @@ import ro.bydl.service.TeacherService;
 @Controller
 @RequestMapping("/schedule")
 
-
 public class ScheduleControler {
-
 	@Autowired
 	private ScheduleService scheduleService;
 	@Autowired
@@ -46,7 +44,6 @@ public class ScheduleControler {
 
 	/**
 	 * returns a MV based on permission.
-	 * 
 	 * @param session
 	 * @return
 	 * @throws Exception
@@ -62,7 +59,6 @@ public class ScheduleControler {
 
 			if (permison.equals("teacher")) {
 				Teacher teacher = teacherService.findById(user.getTeacherId());
-
 				result = new ModelAndView("scheduleTeacher");
 				result.addObject("week", week);
 				result.addObject("teacherOBJ", teacher);
@@ -71,16 +67,11 @@ public class ScheduleControler {
 			}
 
 			if (permison.equals("student")) {
-
 				Student currentStudent = studentService.findById(user.getStudentId());
-
 				result = new ModelAndView("scheduleStudent");
 				result.addObject("studentOBJ", currentStudent);
-
 				result.addObject("schedules",
-
-						scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
-
+				scheduleService.searchByStudentId(currentStudent.getId(), currentStudent.getTeacherId()));
 				result.addObject("instructor", teacherService.findById(currentStudent.getTeacherId()));
 				result.addObject("progress", scheduleService.pending(currentStudent.getId()));
 				result.addObject("absent", scheduleService.absent(currentStudent.getId()));
@@ -154,8 +145,6 @@ public class ScheduleControler {
 		return result;
 	}
 
-	
-
 	/**
 	 * Retrieves a Schedule from the client and saves it to the DB
 	 * 
@@ -171,10 +160,10 @@ public class ScheduleControler {
 		String permison = user.getPermision();
 
 		if (permison.equals("teacher")) {
-			long d=scheduleService.save(value);
-			
+			long d = scheduleService.save(value);
+
 			return d;
-			
+
 		} else if (permison.equals("student")) {
 
 			if (scheduleService.dateHasPased(value)) {
@@ -187,6 +176,7 @@ public class ScheduleControler {
 		return 0;
 
 	}
+
 	/**
 	 * Deletes schedule form DB.
 	 * 
@@ -203,6 +193,7 @@ public class ScheduleControler {
 		return v;
 
 	}
+
 	/**
 	 * Edits a retrieved Schedule
 	 * 
@@ -216,7 +207,7 @@ public class ScheduleControler {
 			BindingResult bindingResult, HttpSession sessio) {
 
 		Schedule s = scheduleService.update(schedule);
-			
+
 		return scheduleService.update(s);
 
 	}
